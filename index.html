@@ -36,8 +36,7 @@
       backdrop-filter: blur(8px);
       z-index: 100;
     }
-    .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; }
-    .logo span { color: var(--accent); }
+    .logo img { height: 32px; width: auto; display: block; }
     .lang-toggle {
       display: flex;
       gap: 0;
@@ -245,7 +244,7 @@
 <body class="en">
 
 <nav>
-  <div class="logo">TESLA<span>BOT</span></div>
+  <div class="logo"><img src="logo.png" alt="WattsonBot" /></div>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('en')">EN</button>
     <button class="lang-btn" onclick="setLang('ru')">RU</button>
