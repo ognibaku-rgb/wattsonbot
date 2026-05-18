@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tesla Bot — Telegram Vehicle Monitor</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #e31937;
+      --accent2: #ff6b35;
+      --text: #f0f0f0;
+      --muted: #888;
+      --card: #161616;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; }
+    .logo span { color: var(--accent); }
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(227,25,55,0.12);
+      border: 1px solid rgba(227,25,55,0.3);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.88; }
+    .cta-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* FEATURES */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .plan-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+    }
+    .plan-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(227,25,55,0.08) 0%, var(--card) 60%);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -1px;
+      right: 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0 0 8px 8px;
+      text-transform: uppercase;
+    }
+    .plan-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .plan-price { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .plan-features li { font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .plan-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .plan-cta {
+      display: block;
+      text-align: center;
+      margin-top: 1.75rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .plan-card.featured .plan-cta { background: var(--accent); color: #fff; }
+    .plan-card:not(.featured) .plan-cta { border: 1px solid var(--border); color: var(--text); }
+    .plan-cta:hover { opacity: 0.85; }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      counter-reset: step;
+    }
+    .step { text-align: center; }
+    .step-num {
+      width: 48px;
+      height: 48px;
+      background: rgba(227,25,55,0.12);
+      border: 1px solid rgba(227,25,55,0.3);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.85rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* i18n */
+    [data-lang] { display: none; }
+    body.en [data-lang="en"],
+    body.ru [data-lang="ru"] { display: contents; }
+    /* for block elements inside data-lang wrappers */
+    body.en [data-lang="en"] { display: block; }
+    body.ru [data-lang="ru"] { display: block; }
+  </style>
+</head>
+<body class="en">
+
+<nav>
+  <div class="logo">TESLA<span>BOT</span></div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div data-lang="en">
+    <div class="hero-badge">Tesla Monitoring via Telegram</div>
+    <h1>Your Tesla, <span>always in your pocket</span></h1>
+    <p>Real-time alerts for charging, battery, tire pressure and drive events — delivered directly to your Telegram.</p>
+    <a href="https://t.me/WattsonBot" class="cta-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.67l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.993.889z"/></svg>
+      Start in Telegram
+    </a>
+  </div>
+  <div data-lang="ru">
+    <div class="hero-badge">Мониторинг Tesla через Telegram</div>
+    <h1>Ваша Tesla, <span>всегда под рукой</span></h1>
+    <p>Мгновенные уведомления о зарядке, уровне батареи, давлении в шинах и поездках — прямо в Telegram.</p>
+    <a href="https://t.me/WattsonBot" class="cta-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.67l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.993.889z"/></svg>
+      Запустить в Telegram
+    </a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ===== FEATURES ===== -->
+<section class="section">
+  <div data-lang="en">
+    <p class="section-label">Features</p>
+    <h2>Everything you need to monitor your Tesla</h2>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Возможности</p>
+    <h2>Всё необходимое для мониторинга Tesla</h2>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 data-lang="en">Charging Alerts</h3>
+      <h3 data-lang="ru">Уведомления о зарядке</h3>
+      <p data-lang="en">Get notified when charging starts, stops, or reaches your target level.</p>
+      <p data-lang="ru">Узнайте, когда зарядка началась, завершилась или достигла нужного уровня.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔋</div>
+      <h3 data-lang="en">Battery Monitor</h3>
+      <h3 data-lang="ru">Мониторинг батареи</h3>
+      <p data-lang="en">Low battery warnings before you're stranded. Configurable threshold.</p>
+      <p data-lang="ru">Предупреждение о низком заряде до того, как вы застрянете. Настраиваемый порог.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛞</div>
+      <h3 data-lang="en">TPMS Alerts</h3>
+      <h3 data-lang="ru">Давление в шинах</h3>
+      <p data-lang="en">Instant tire pressure alerts so you never drive on a flat.</p>
+      <p data-lang="ru">Мгновенные оповещения о давлении в шинах — никаких неожиданностей.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <h3 data-lang="en">Drive Events</h3>
+      <h3 data-lang="ru">События поездок</h3>
+      <p data-lang="en">Drive start/end summaries with location, distance and energy used.</p>
+      <p data-lang="ru">Отчёт о поездке: локация, расстояние и расход энергии.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3 data-lang="en">Stats & History</h3>
+      <h3 data-lang="ru">Статистика</h3>
+      <p data-lang="en">Query battery, range, temperature and charging history on demand.</p>
+      <p data-lang="ru">Запросите уровень заряда, запас хода, температуру и историю зарядок по запросу.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3 data-lang="en">Configurable Alerts</h3>
+      <h3 data-lang="ru">Гибкая настройка</h3>
+      <p data-lang="en">Enable or disable each alert type directly from Telegram commands.</p>
+      <p data-lang="ru">Включайте и выключайте каждый тип уведомлений прямо в Telegram.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="section">
+  <div data-lang="en">
+    <p class="section-label">How It Works</p>
+    <h2>Up and running in minutes</h2>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Как это работает</p>
+    <h2>Готово за несколько минут</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3 data-lang="en">Open the bot</h3>
+      <h3 data-lang="ru">Откройте бота</h3>
+      <p data-lang="en">Find us on Telegram and press Start.</p>
+      <p data-lang="ru">Найдите нас в Telegram и нажмите Старт.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3 data-lang="en">Choose a plan</h3>
+      <h3 data-lang="ru">Выберите план</h3>
+      <p data-lang="en">Solo ($10/mo) for one car, Fleet ($35/mo) for up to 5 vehicles.</p>
+      <p data-lang="ru">Solo ($10/мес) для одного авто, Fleet ($35/мес) для 5 автомобилей.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3 data-lang="en">Subscribe</h3>
+      <h3 data-lang="ru">Оформите подписку</h3>
+      <p data-lang="en">Complete payment in a few clicks. Instant activation.</p>
+      <p data-lang="ru">Оплатите в несколько кликов. Мгновенная активация.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3 data-lang="en">Connect your Tesla</h3>
+      <h3 data-lang="ru">Подключите Tesla</h3>
+      <p data-lang="en">Send your Tesla refresh token — we handle the rest.</p>
+      <p data-lang="ru">Пришлите Tesla refresh-токен — остальное сделаем мы.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ===== PRICING ===== -->
+<section class="section">
+  <div data-lang="en">
+    <p class="section-label">Pricing</p>
+    <h2>Simple, transparent plans</h2>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Тарифы</p>
+    <h2>Простые и прозрачные планы</h2>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="plan-card">
+      <div class="plan-name">Solo</div>
+      <div class="plan-desc" data-lang="en">One Tesla vehicle</div>
+      <div class="plan-desc" data-lang="ru">Один автомобиль Tesla</div>
+      <div class="plan-price">$10<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
+      <ul class="plan-features">
+        <li data-lang="en">1 vehicle</li>
+        <li data-lang="ru">1 автомобиль</li>
+        <li data-lang="en">All alert types</li>
+        <li data-lang="ru">Все типы уведомлений</li>
+        <li data-lang="en">Stats & history</li>
+        <li data-lang="ru">Статистика и история</li>
+        <li data-lang="en">Telegram commands</li>
+        <li data-lang="ru">Команды в Telegram</li>
+      </ul>
+      <a href="https://t.me/WattsonBot" class="plan-cta" data-lang="en">Get started</a>
+      <a href="https://t.me/WattsonBot" class="plan-cta" data-lang="ru">Начать</a>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-badge">Popular</div>
+      <div class="plan-name">Fleet</div>
+      <div class="plan-desc" data-lang="en">Up to 5 Tesla vehicles</div>
+      <div class="plan-desc" data-lang="ru">До 5 автомобилей Tesla</div>
+      <div class="plan-price">$35<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
+      <ul class="plan-features">
+        <li data-lang="en">Up to 5 vehicles</li>
+        <li data-lang="ru">До 5 автомобилей</li>
+        <li data-lang="en">All alert types</li>
+        <li data-lang="ru">Все типы уведомлений</li>
+        <li data-lang="en">Stats & history</li>
+        <li data-lang="ru">Статистика и история</li>
+        <li data-lang="en">Telegram commands</li>
+        <li data-lang="ru">Команды в Telegram</li>
+        <li data-lang="en">Priority support</li>
+        <li data-lang="ru">Приоритетная поддержка</li>
+      </ul>
+      <a href="https://t.me/WattsonBot" class="plan-cta" data-lang="en">Get started</a>
+      <a href="https://t.me/WattsonBot" class="plan-cta" data-lang="ru">Начать</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p data-lang="en">© 2025 TeslaBot. Not affiliated with Tesla, Inc.</p>
+  <p data-lang="ru">© 2025 TeslaBot. Не аффилировано с Tesla, Inc.</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    });
+  }
+</script>
+</body>
+</html>
