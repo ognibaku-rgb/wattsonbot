@@ -7,7 +7,6 @@
   <style>
     :root {
       --bg: #0d0d0d;
-      --surface: #1a1a1a;
       --border: #2a2a2a;
       --accent: #e31937;
       --text: #f0f0f0;
@@ -25,14 +24,29 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: space-between;
     }
     nav a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
-    nav a:hover { text-decoration: underline; }
+    .lang-switch { display: flex; gap: 1rem; }
+    .lang-switch a { font-size: 0.9rem; color: var(--muted); }
+    .lang-switch a.active { color: var(--accent); }
     .container {
       max-width: 760px;
       margin: 3rem auto;
       padding: 0 1.5rem 4rem;
+    }
+    .section { margin-bottom: 3rem; }
+    .lang-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
     }
     h1 { font-size: 2rem; margin-bottom: 0.5rem; }
     .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
@@ -41,49 +55,103 @@
     ul { color: #ccc; padding-left: 1.5rem; margin-bottom: 1rem; }
     ul li { margin-bottom: 0.4rem; }
     a { color: var(--accent); }
+    hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   </style>
 </head>
 <body>
   <nav>
     <a href="/">← WattsonBot</a>
+    <div class="lang-switch">
+      <a href="#en" class="active">EN</a>
+      <a href="#ru">RU</a>
+    </div>
   </nav>
   <div class="container">
-    <h1>Terms of Service</h1>
-    <p class="updated">Last updated: May 24, 2026</p>
 
-    <h2>1. Service Description</h2>
-    <p>WattsonBot ("the Service") is a subscription-based software service that provides Tesla vehicle monitoring and notifications via Telegram. By subscribing, you receive access to a managed Telegram bot connected to your Tesla account through your personal TeslaMate instance.</p>
+    <!-- ENGLISH -->
+    <div class="section" id="en">
+      <div class="lang-label">English</div>
+      <h1>Terms of Service</h1>
+      <p class="updated">Last updated: May 24, 2026</p>
 
-    <h2>2. Eligibility</h2>
-    <p>You must be at least 18 years old and have a valid Tesla account to use the Service. By using the Service, you confirm that the information you provide is accurate and that you have the right to connect your Tesla account.</p>
+      <h2>1. Service Description</h2>
+      <p>WattsonBot ("the Service") is a subscription-based software service that provides Tesla vehicle monitoring and notifications via Telegram. By subscribing, you receive access to a managed Telegram bot connected to your Tesla account through your personal TeslaMate instance.</p>
 
-    <h2>3. Subscriptions and Billing</h2>
-    <p>The Service is offered on a monthly subscription basis. Payments are processed by Paddle (paddle.com). Your subscription renews automatically each billing period unless cancelled. Prices are shown in USD and do not include applicable taxes.</p>
-    <ul>
-      <li><strong>Solo</strong> — $5/month, one vehicle</li>
-      <li><strong>Fleet</strong> — $20/month, multiple vehicles</li>
-    </ul>
+      <h2>2. Eligibility</h2>
+      <p>You must be at least 18 years old and have a valid Tesla account to use the Service. By using the Service, you confirm that the information you provide is accurate and that you have the right to connect your Tesla account.</p>
 
-    <h2>4. Cancellation and Refunds</h2>
-    <p>You may cancel your subscription at any time via the billing portal link provided in your Telegram bot. Access continues until the end of the current billing period. Refunds are not issued for partial periods. If you experience a technical issue, contact support within 7 days for resolution or a refund at our discretion.</p>
+      <h2>3. Subscriptions and Billing</h2>
+      <p>The Service is offered on a monthly subscription basis. Payments are processed by Paddle (paddle.com). Your subscription renews automatically each billing period unless cancelled. Prices are shown in USD and do not include applicable taxes.</p>
+      <ul>
+        <li><strong>Solo</strong> — $5/month, one vehicle</li>
+        <li><strong>Fleet</strong> — $20/month, multiple vehicles</li>
+      </ul>
 
-    <h2>5. Acceptable Use</h2>
-    <p>You agree not to misuse the Service, attempt unauthorized access, or violate any applicable laws. The Service is for personal use only. Reselling or sublicensing access is prohibited.</p>
+      <h2>4. Cancellation and Refunds</h2>
+      <p>You may cancel your subscription at any time via the billing portal link provided in your Telegram bot. Access continues until the end of the current billing period. Refunds are not issued for partial periods. If you experience a technical issue, contact support within 7 days for resolution or a refund at our discretion.</p>
 
-    <h2>6. Tesla Account Data</h2>
-    <p>You provide your Tesla refresh token to enable vehicle data access. This token is stored encrypted and is used solely to fetch your vehicle's telemetry. We do not share your data with third parties. You may revoke access at any time by removing the token from your Tesla account security settings.</p>
+      <h2>5. Acceptable Use</h2>
+      <p>You agree not to misuse the Service, attempt unauthorized access, or violate any applicable laws. The Service is for personal use only. Reselling or sublicensing access is prohibited.</p>
 
-    <h2>7. Service Availability</h2>
-    <p>We aim for high availability but do not guarantee uninterrupted service. Scheduled maintenance, third-party outages (Telegram, Tesla API), or force majeure events may cause temporary disruptions. No compensation is provided for downtime under 24 hours.</p>
+      <h2>6. Tesla Account Data</h2>
+      <p>You provide your Tesla refresh token to enable vehicle data access. This token is stored encrypted and is used solely to fetch your vehicle's telemetry. We do not share your data with third parties. You may revoke access at any time by removing the token from your Tesla account security settings.</p>
 
-    <h2>8. Limitation of Liability</h2>
-    <p>The Service is provided "as is." To the maximum extent permitted by law, WattsonBot is not liable for any indirect, incidental, or consequential damages arising from use of or inability to use the Service.</p>
+      <h2>7. Service Availability</h2>
+      <p>We aim for high availability but do not guarantee uninterrupted service. Scheduled maintenance, third-party outages (Telegram, Tesla API), or force majeure events may cause temporary disruptions. No compensation is provided for downtime under 24 hours.</p>
 
-    <h2>9. Changes to Terms</h2>
-    <p>We may update these Terms from time to time. Significant changes will be announced via the Telegram bot. Continued use of the Service after changes constitutes acceptance of the new Terms.</p>
+      <h2>8. Limitation of Liability</h2>
+      <p>The Service is provided "as is." To the maximum extent permitted by law, WattsonBot is not liable for any indirect, incidental, or consequential damages arising from use of or inability to use the Service.</p>
 
-    <h2>10. Contact</h2>
-    <p>Questions? Contact us via Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> or email <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
+      <h2>9. Changes to Terms</h2>
+      <p>We may update these Terms from time to time. Significant changes will be announced via the Telegram bot. Continued use of the Service after changes constitutes acceptance of the new Terms.</p>
+
+      <h2>10. Contact</h2>
+      <p>Questions? Contact us via Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> or email <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
+    </div>
+
+    <hr />
+
+    <!-- RUSSIAN -->
+    <div class="section" id="ru">
+      <div class="lang-label">Русский</div>
+      <h1>Условия использования</h1>
+      <p class="updated">Последнее обновление: 24 мая 2026 г.</p>
+
+      <h2>1. Описание сервиса</h2>
+      <p>WattsonBot («Сервис») — это подписочный программный сервис, предоставляющий мониторинг электромобиля Tesla и уведомления через Telegram. Оформляя подписку, вы получаете доступ к управляемому Telegram-боту, подключённому к вашей учётной записи Tesla через персональный экземпляр TeslaMate.</p>
+
+      <h2>2. Условия доступа</h2>
+      <p>Для использования Сервиса вам должно быть не менее 18 лет, а также необходима действующая учётная запись Tesla. Используя Сервис, вы подтверждаете, что предоставленные данные достоверны и вы имеете право подключить свою учётную запись Tesla.</p>
+
+      <h2>3. Подписка и оплата</h2>
+      <p>Сервис предоставляется на условиях ежемесячной подписки. Платежи обрабатываются через Paddle (paddle.com). Подписка автоматически продлевается в каждом расчётном периоде до её отмены. Цены указаны в USD без учёта применимых налогов.</p>
+      <ul>
+        <li><strong>Solo</strong> — $5/месяц, один автомобиль</li>
+        <li><strong>Fleet</strong> — $20/месяц, несколько автомобилей</li>
+      </ul>
+
+      <h2>4. Отмена и возврат средств</h2>
+      <p>Вы можете отменить подписку в любое время через ссылку на биллинг-портал в вашем Telegram-боте. Доступ сохраняется до конца текущего расчётного периода. Возврат средств за неполный период не производится. В случае технической неполадки свяжитесь с поддержкой в течение 7 дней — мы рассмотрим ваш запрос.</p>
+
+      <h2>5. Допустимое использование</h2>
+      <p>Вы соглашаетесь не злоупотреблять Сервисом, не предпринимать попыток несанкционированного доступа и не нарушать применимое законодательство. Сервис предназначен только для личного использования. Перепродажа или сублицензирование доступа запрещены.</p>
+
+      <h2>6. Данные учётной записи Tesla</h2>
+      <p>Для доступа к данным автомобиля вы предоставляете Tesla refresh token. Токен хранится в зашифрованном виде и используется исключительно для получения телеметрии. Мы не передаём ваши данные третьим лицам. Вы можете отозвать доступ в любое время в настройках безопасности учётной записи Tesla.</p>
+
+      <h2>7. Доступность сервиса</h2>
+      <p>Мы стремимся к высокой доступности Сервиса, однако не гарантируем его бесперебойную работу. Плановые технические работы, сбои у третьих сторон (Telegram, Tesla API) или форс-мажорные обстоятельства могут вызывать временные перебои. Компенсация за простой менее 24 часов не предусмотрена.</p>
+
+      <h2>8. Ограничение ответственности</h2>
+      <p>Сервис предоставляется «как есть». В максимально допустимой законодательством мере WattsonBot не несёт ответственности за любые косвенные, случайные или последующие убытки, возникшие в результате использования или невозможности использования Сервиса.</p>
+
+      <h2>9. Изменение условий</h2>
+      <p>Мы можем периодически обновлять настоящие Условия. О существенных изменениях мы уведомим через Telegram-бот. Продолжение использования Сервиса после изменений означает ваше согласие с новыми Условиями.</p>
+
+      <h2>10. Контакты</h2>
+      <p>Вопросы? Пишите в Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
+    </div>
+
   </div>
 </body>
 </html>
