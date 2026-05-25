@@ -228,6 +228,21 @@
       font-size: 0.82rem;
       color: var(--muted);
     }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    body.en .footer-links[data-lang="en"],
+    body.ru .footer-links[data-lang="ru"] { display: flex; }
 
     /* DIVIDER */
     .divider { border: none; border-top: 1px solid var(--border); }
@@ -438,6 +453,16 @@
 
 <!-- ===== FOOTER ===== -->
 <footer>
+  <div class="footer-links" data-lang="en">
+    <a href="terms.html">Terms of Use</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="refund.html">Refund Policy</a>
+  </div>
+  <div class="footer-links" data-lang="ru">
+    <a href="terms.html">Условия использования</a>
+    <a href="privacy.html">Политика конфиденциальности</a>
+    <a href="refund.html">Политика возврата</a>
+  </div>
   <p data-lang="en">© 2025 WattsonBot. Not affiliated with Tesla, Inc.</p>
   <p data-lang="ru">© 2025 WattsonBot. Не аффилировано с Tesla, Inc.</p>
 </footer>
