@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WattsonBot — User Manual</title>
+  <style>
+    :root {
+      --bg: #0d0d0d; --surface: #1a1a1a; --border: #2a2a2a;
+      --accent: #e31937; --text: #f0f0f0; --muted: #888; --card: #161616;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(8px); z-index: 100; }
+    .logo img { height: 32px; width: auto; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .home-link { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .home-link:hover { color: var(--text); }
+    .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .lang-btn { background: none; border: none; color: var(--muted); padding: 0.35rem 0.75rem; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+    .anchor-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1.5rem; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .anchor-nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; white-space: nowrap; }
+    .anchor-nav a:hover { color: var(--accent); }
+    .page-hero { text-align: center; padding: 3.5rem 2rem 2.5rem; max-width: 700px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: rgba(227,25,55,0.12); border: 1px solid rgba(227,25,55,0.3); color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.3rem 0.9rem; border-radius: 20px; margin-bottom: 1.25rem; text-transform: uppercase; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--muted); }
+    .doc-section { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; border-bottom: 1px solid var(--border); }
+    .doc-section:last-of-type { border-bottom: none; }
+    .section-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .doc-section h2 { font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 700; margin-bottom: 1.5rem; }
+    .doc-section h3 { font-size: 1rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: var(--text); }
+    .doc-section p { color: var(--muted); margin-bottom: 0.75rem; }
+    .doc-section ul { list-style: none; padding: 0; margin-bottom: 0.75rem; }
+    .doc-section ul li { color: var(--muted); padding: 0.2rem 0 0.2rem 1rem; position: relative; font-size: 0.9rem; }
+    .doc-section ul li::before { content: '•'; color: var(--accent); position: absolute; left: 0; }
+    .doc-section code { background: var(--surface); border: 1px solid var(--border); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+    .steps { display: flex; flex-direction: column; gap: 1rem; }
+    .step-card { display: flex; gap: 1rem; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; }
+    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--accent); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; }
+    .step-body h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .step-body p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+    .step-body a { color: var(--accent); }
+    .cmd-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .cmd-table th { text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+    .cmd-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(42,42,42,0.5); font-size: 0.9rem; vertical-align: top; }
+    .cmd-table tr:last-child td { border-bottom: none; }
+    .cmd-table td:first-child { white-space: nowrap; font-weight: 600; }
+    .cmd-table td:last-child { color: var(--muted); }
+    .alert-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+    .alert-row { display: flex; gap: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; align-items: flex-start; }
+    .alert-icon { font-size: 1.2rem; flex-shrink: 0; width: 28px; }
+    .alert-body h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .alert-body p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+    .plan-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+    .plan-card.highlight { border-color: var(--accent); }
+    .plan-name { font-weight: 700; margin-bottom: 0.5rem; }
+    .plan-price { font-size: 1.1rem; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+    .plan-features { list-style: none; padding: 0; font-size: 0.82rem; color: var(--muted); }
+    .plan-features li { padding: 0.15rem 0; }
+    .plan-features li::before { display: none; }
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; }
+    .faq-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .faq-item p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+    .faq-item a { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; font-size: 0.82rem; color: var(--muted); }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    [data-lang] { display: none; }
+    body.en [data-lang="en"] { display: block; }
+    body.ru [data-lang="ru"] { display: block; }
+    .anchor-nav [data-lang] { display: none; }
+    body.en .anchor-nav [data-lang="en"] { display: inline; }
+    body.ru .anchor-nav [data-lang="ru"] { display: inline; }
+    nav [data-lang] { display: none; }
+    body.en nav [data-lang="en"] { display: inline; }
+    body.ru nav [data-lang="ru"] { display: inline; }
+  </style>
+</head>
+<body class="en">
+
+<nav>
+  <div class="logo"><img src="logo.png" alt="WattsonBot" /></div>
+  <div class="nav-right">
+    <a href="index.html" class="home-link" data-lang="en">← Home</a>
+    <a href="index.html" class="home-link" data-lang="ru">← Главная</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    </div>
+  </div>
+</nav>
+
+<nav class="anchor-nav">
+  <a href="#start" data-lang="en">Getting Started</a><a href="#start" data-lang="ru">Начало работы</a>
+  <a href="#commands" data-lang="en">Commands</a><a href="#commands" data-lang="ru">Команды</a>
+  <a href="#alerts" data-lang="en">Alerts</a><a href="#alerts" data-lang="ru">Уведомления</a>
+  <a href="#settings" data-lang="en">Settings</a><a href="#settings" data-lang="ru">Настройки</a>
+  <a href="#billing" data-lang="en">Billing</a><a href="#billing" data-lang="ru">Биллинг</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<div class="page-hero">
+  <div data-lang="en">
+    <div class="hero-badge">User Manual</div>
+    <h1>WattsonBot <span>User Guide</span></h1>
+    <p>Everything you need to get started and get the most out of your Tesla monitoring bot.</p>
+  </div>
+  <div data-lang="ru">
+    <div class="hero-badge">Руководство пользователя</div>
+    <h1>WattsonBot <span>Руководство</span></h1>
+    <p>Всё необходимое для начала работы и максимального использования вашего бота мониторинга Tesla.</p>
+  </div>
+</div>
+
+<section class="doc-section" id="start">
+  <div data-lang="en">
+    <p class="section-label">Step by step</p>
+    <h2>Getting Started</h2>
+    <div class="steps">
+      <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Open the bot</h4><p>Search for <strong>@WattsonEVBot</strong> in Telegram or open <a href="https://t.me/WattsonEVBot">t.me/WattsonEVBot</a>. Tap <strong>Start</strong>.</p></div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Choose a plan</h4><p>Select <strong>Solo</strong> ($5/mo) for full access, or <strong>Free</strong> to try alerts only.</p></div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Complete payment</h4><p>You'll receive a Stripe checkout link. After payment your bot stack is provisioned automatically — takes about 1 minute.</p></div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Connect your Tesla</h4><p>Send your Tesla refresh token when prompted. Get one with <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>. This credential lets the bot read car data only — it cannot control the car.</p></div></div>
+      <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>You're live</h4><p>The bot sends a first status message. Alerts begin automatically. Use the keyboard or commands to query your car anytime.</p></div></div>
+    </div>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Пошагово</p>
+    <h2>Начало работы</h2>
+    <div class="steps">
+      <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Откройте бота</h4><p>Найдите <strong>@WattsonEVBot</strong> в Telegram или откройте <a href="https://t.me/WattsonEVBot">t.me/WattsonEVBot</a>. Нажмите <strong>Старт</strong>.</p></div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Выберите план</h4><p>Выберите <strong>Solo</strong> ($5/мес) для полного доступа или <strong>Free</strong> для уведомлений.</p></div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Завершите оплату</h4><p>Вы получите ссылку Stripe. После оплаты стек бота создаётся автоматически — около 1 минуты.</p></div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Подключите Tesla</h4><p>Отправьте Tesla refresh token. Получите с помощью <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>. Токен только читает данные — управление машиной невозможно.</p></div></div>
+      <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>Готово</h4><p>Бот отправит первое статусное сообщение. Уведомления начнутся автоматически.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="commands">
+  <div data-lang="en">
+    <p class="section-label">Reference</p>
+    <h2>Commands</h2>
+    <p>All commands are available via the persistent keyboard or by typing them with a <code>/</code> prefix.</p>
+    <table class="cmd-table">
+      <thead><tr><th>Command</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td>🔋 /battery</td><td>Charge %, usable range, charging state, inside/outside temperature</td></tr>
+        <tr><td>🛞 /tpms</td><td>Tyre pressure per wheel with alert indicator when below threshold</td></tr>
+        <tr><td>📍 /location</td><td>Current position with reverse-geocoded address and geofence name</td></tr>
+        <tr><td>🚗 /trip</td><td>Last completed drive: distance, duration, efficiency, cost</td></tr>
+        <tr><td>⚡ /charging</td><td>Active charging session: power, kWh added, cost, time to full</td></tr>
+        <tr><td>🕐 /history</td><td>Recent trips with filter buttons (today / week / month / all)</td></tr>
+        <tr><td>📊 /stats</td><td>Driving statistics for today, this week, and this month</td></tr>
+        <tr><td>📅 /month</td><td>Full monthly report: total km, kWh, charging sessions, cost</td></tr>
+        <tr><td>🌡 /climate</td><td>Interior and exterior temperatures, climate on/off state</td></tr>
+        <tr><td>🗃️ /alldata</td><td>Complete snapshot of all available data in one message</td></tr>
+        <tr><td>📈 /charts</td><td>Three charts: battery level (7d), daily mileage (7d), efficiency vs EPA (8w)</td></tr>
+        <tr><td>🔔 /alerts</td><td>Toggle individual notification types on or off</td></tr>
+        <tr><td>⚙️ /settings</td><td>Configure language, currency, tariff, battery threshold, tyre pressure</td></tr>
+        <tr><td>ℹ️ /status</td><td>Bot and MQTT connectivity status</td></tr>
+        <tr><td>🔄 /reconnect</td><td>Force MQTT reconnect if live data has stopped updating</td></tr>
+        <tr><td>💳 /billing</td><td>Current plan, expiry date, and link to manage subscription</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Справочник</p>
+    <h2>Команды</h2>
+    <p>Все команды доступны через клавиатуру или вводом с префиксом <code>/</code>.</p>
+    <table class="cmd-table">
+      <thead><tr><th>Команда</th><th>Что показывает</th></tr></thead>
+      <tbody>
+        <tr><td>🔋 /battery</td><td>Заряд %, запас хода, состояние зарядки, температуры</td></tr>
+        <tr><td>🛞 /tpms</td><td>Давление в каждой шине с индикатором тревоги</td></tr>
+        <tr><td>📍 /location</td><td>Текущее положение с адресом и геозоной</td></tr>
+        <tr><td>🚗 /trip</td><td>Последняя поездка: км, время, эффективность, стоимость</td></tr>
+        <tr><td>⚡ /charging</td><td>Текущая зарядка: мощность, добавлено кВт·ч, стоимость, время</td></tr>
+        <tr><td>🕐 /history</td><td>История поездок с фильтрами (сегодня / неделя / месяц / все)</td></tr>
+        <tr><td>📊 /stats</td><td>Статистика вождения за сегодня, неделю и месяц</td></tr>
+        <tr><td>📅 /month</td><td>Полный месячный отчёт: км, кВт·ч, сессии зарядки, стоимость</td></tr>
+        <tr><td>🌡 /climate</td><td>Внутренняя и внешняя температуры, состояние климата</td></tr>
+        <tr><td>🗃️ /alldata</td><td>Полный снимок всех данных в одном сообщении</td></tr>
+        <tr><td>📈 /charts</td><td>Три графика: заряд (7 дней), пробег (7 дней), расход vs EPA (8 нед)</td></tr>
+        <tr><td>🔔 /alerts</td><td>Включение/отключение отдельных типов уведомлений</td></tr>
+        <tr><td>⚙️ /settings</td><td>Язык, валюта, тариф, порог заряда, давление шин</td></tr>
+        <tr><td>ℹ️ /status</td><td>Состояние бота и MQTT-соединения</td></tr>
+        <tr><td>🔄 /reconnect</td><td>Принудительный реконнект MQTT</td></tr>
+        <tr><td>💳 /billing</td><td>Текущий план, срок, ссылка на управление подпиской</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="doc-section" id="alerts">
+  <div data-lang="en">
+    <p class="section-label">Push notifications</p>
+    <h2>Automatic Alerts</h2>
+    <p>These are sent automatically — no action needed. Toggle each individually in 🔔 Alerts.</p>
+    <div class="alert-grid">
+      <div class="alert-row"><div class="alert-icon">🚗</div><div class="alert-body"><h4>Drive started</h4><p>Sent when the car begins moving (displacement &gt;300 m or speed &gt;30 km/h).</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🏁</div><div class="alert-body"><h4>Drive ended</h4><p>Sent when parked and locked. Includes distance, duration, efficiency, and cost.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">⚡</div><div class="alert-body"><h4>Charging started</h4><p>Sent ~35 seconds after plug is connected and charging begins (delay filters false triggers).</p></div></div>
+      <div class="alert-row"><div class="alert-icon">✅</div><div class="alert-body"><h4>Charge complete</h4><p>Sent when charging finishes or reaches the configured limit. Includes kWh added and cost.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">⚠️</div><div class="alert-body"><h4>Charge interrupted</h4><p>Sent when charging stops before the limit without the cable being manually unplugged.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🔋</div><div class="alert-body"><h4>Low battery</h4><p>Sent when battery drops below your configured threshold (default 20%). Cooldown: 1 hour.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🛞</div><div class="alert-body"><h4>TPMS alert</h4><p>Sent when any tyre pressure drops below your configured minimum. Cooldown: 30 minutes.</p></div></div>
+    </div>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Push-уведомления</p>
+    <h2>Автоматические уведомления</h2>
+    <p>Отправляются автоматически. Каждое можно отключить в 🔔 Уведомления.</p>
+    <div class="alert-grid">
+      <div class="alert-row"><div class="alert-icon">🚗</div><div class="alert-body"><h4>Поездка началась</h4><p>Когда машина начинает движение (смещение &gt;300 м или скорость &gt;30 км/ч).</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🏁</div><div class="alert-body"><h4>Поездка завершена</h4><p>После парковки и блокировки. Включает км, время, расход, стоимость.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">⚡</div><div class="alert-body"><h4>Зарядка началась</h4><p>Через ~35 сек после подключения кабеля (задержка исключает ложные срабатывания).</p></div></div>
+      <div class="alert-row"><div class="alert-icon">✅</div><div class="alert-body"><h4>Зарядка завершена</h4><p>При достижении лимита или полного заряда. Включает кВт·ч и стоимость.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">⚠️</div><div class="alert-body"><h4>Зарядка прервана</h4><p>Зарядка остановлена до лимита без ручного отключения кабеля.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🔋</div><div class="alert-body"><h4>Низкий заряд</h4><p>Ниже настроенного порога (по умолчанию 20%). Кулдаун: 1 час.</p></div></div>
+      <div class="alert-row"><div class="alert-icon">🛞</div><div class="alert-body"><h4>TPMS тревога</h4><p>Давление в шине ниже минимума. Кулдаун: 30 минут.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="settings">
+  <div data-lang="en">
+    <p class="section-label">Configuration</p>
+    <h2>Settings</h2>
+    <p>Open ⚙️ Settings from the keyboard to configure these options.</p>
+    <h3>🌐 Language</h3>
+    <p>Switch between Russian 🇷🇺 and English 🇬🇧. All bot messages update immediately.</p>
+    <h3>💱 Currency</h3>
+    <p>Charging cost calculations use your selected currency: AZN, USD, EUR, RUB, GEL, GBP, TRY, or KZT.</p>
+    <h3>⚡ Electricity Tariff</h3>
+    <ul>
+      <li><strong>Flat</strong> — single price per kWh. Tap the price button to adjust.</li>
+      <li><strong>Day/Night (TOU)</strong> — different prices for daytime and night hours. Set day price, night price, day start hour, and night start hour separately.</li>
+    </ul>
+    <h3>🔌 AC / DC Charging Prices</h3>
+    <p>Optional separate prices for home (AC) and fast (DC) charging. When set, these override the main tariff for those session types.</p>
+    <h3>🔋 Low Battery Threshold</h3>
+    <p>The charge level (5–50%) below which you receive a low battery alert. Default: 20%.</p>
+    <h3>🛞 Min Tyre Pressure</h3>
+    <p>TPMS alert fires when any tyre drops below this value (1.5–4.0 bar). Default: 2.55 bar.</p>
+    <h3>Entering prices</h3>
+    <p>Use the ▲/▼ buttons (±0.01 or ±0.05) in the price picker, or type a value directly: <code>price 0.13</code></p>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Конфигурация</p>
+    <h2>Настройки</h2>
+    <p>Откройте ⚙️ Настройки с клавиатуры для изменения параметров.</p>
+    <h3>🌐 Язык</h3>
+    <p>Переключение между Русским 🇷🇺 и Английским 🇬🇧. Все сообщения обновляются сразу.</p>
+    <h3>💱 Валюта</h3>
+    <p>Расчёты стоимости зарядки используют выбранную валюту: AZN, USD, EUR, RUB, GEL, GBP, TRY, KZT.</p>
+    <h3>⚡ Тариф на электричество</h3>
+    <ul>
+      <li><strong>Единый</strong> — одна цена за кВт·ч. Нажмите кнопку с ценой для изменения.</li>
+      <li><strong>День/Ночь (TOU)</strong> — разные цены для дневного и ночного времени. Задайте дневную/ночную цену и часы начала периодов.</li>
+    </ul>
+    <h3>🔌 AC / DC цены зарядки</h3>
+    <p>Отдельные цены для домашней (AC) и быстрой (DC) зарядки. Когда заданы, используются вместо основного тарифа.</p>
+    <h3>🔋 Порог низкого заряда</h3>
+    <p>Уровень заряда (5–50%), при достижении которого приходит уведомление. По умолчанию: 20%.</p>
+    <h3>🛞 Мин. давление шин</h3>
+    <p>TPMS-уведомление при давлении ниже этого значения (1.5–4.0 бар). По умолчанию: 2.55 бар.</p>
+    <h3>Ввод цен</h3>
+    <p>Кнопки ▲/▼ (±0.01 или ±0.05) в меню цены, или текстом: <code>price 0.13</code></p>
+  </div>
+</section>
+
+<section class="doc-section" id="billing">
+  <div data-lang="en">
+    <p class="section-label">Subscription</p>
+    <h2>Billing</h2>
+    <div class="plans">
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0</div>
+        <ul class="plan-features">
+          <li>✅ Automatic alerts</li>
+          <li>❌ Commands (battery, trip…)</li>
+          <li>❌ Stats and charts</li>
+        </ul>
+      </div>
+      <div class="plan-card highlight">
+        <div class="plan-name">Solo ⭐</div>
+        <div class="plan-price">$5/mo</div>
+        <ul class="plan-features">
+          <li>✅ All alerts</li>
+          <li>✅ All 16 commands</li>
+          <li>✅ Stats, charts, history</li>
+          <li>✅ Single vehicle</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Trial</div>
+        <div class="plan-price">Free (limited time)</div>
+        <ul class="plan-features">
+          <li>✅ Solo features</li>
+          <li>⏳ Time-limited</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Managing your subscription</h3>
+    <ul>
+      <li>Use 💳 /billing to see your current plan and expiry date</li>
+      <li>Upgrade or cancel via the Stripe customer portal link in the billing message</li>
+      <li>Cancellation takes effect at the end of the current billing period</li>
+    </ul>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Подписка</p>
+    <h2>Биллинг</h2>
+    <div class="plans">
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0</div>
+        <ul class="plan-features">
+          <li>✅ Автоматические уведомления</li>
+          <li>❌ Команды (батарея, поездка…)</li>
+          <li>❌ Статистика и графики</li>
+        </ul>
+      </div>
+      <div class="plan-card highlight">
+        <div class="plan-name">Solo ⭐</div>
+        <div class="plan-price">$5/мес</div>
+        <ul class="plan-features">
+          <li>✅ Все уведомления</li>
+          <li>✅ Все 16 команд</li>
+          <li>✅ Статистика, графики, история</li>
+          <li>✅ Один автомобиль</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Trial</div>
+        <div class="plan-price">Бесплатно (ограничено)</div>
+        <ul class="plan-features">
+          <li>✅ Solo-функции</li>
+          <li>⏳ Ограничено по времени</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Управление подпиской</h3>
+    <ul>
+      <li>Используйте 💳 /billing для просмотра плана и срока</li>
+      <li>Смена или отмена через ссылку Stripe в сообщении биллинга</li>
+      <li>Отмена вступает в силу в конце текущего периода</li>
+    </ul>
+  </div>
+</section>
+
+<section class="doc-section" id="faq">
+  <div data-lang="en">
+    <p class="section-label">Help</p>
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-item"><h4>Why isn't the bot responding to commands?</h4><p>Check ℹ️ Status to see if MQTT is connected. If not, tap 🔄 Reconnect. If it persists, contact support.</p></div>
+      <div class="faq-item"><h4>What is a Tesla refresh token?</h4><p>A long-lived credential that lets the bot read your car's data without your password. It cannot control the car. Get one with <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>.</p></div>
+      <div class="faq-item"><h4>How do I change my plan?</h4><p>Use 💳 /billing to get a Stripe portal link where you can upgrade, downgrade, or cancel.</p></div>
+      <div class="faq-item"><h4>Why did I get a false drive alert?</h4><p>Short moves under 300 m are filtered out. If false alerts continue, contact support.</p></div>
+      <div class="faq-item"><h4>My data seems stale</h4><p>Tap 🔄 Reconnect. If the car is asleep, data only updates when it wakes (e.g., opening the Tesla app or starting a drive).</p></div>
+      <div class="faq-item"><h4>Can I monitor multiple cars?</h4><p>Fleet plan is in development. Currently one bot instance per Tesla account.</p></div>
+    </div>
+  </div>
+  <div data-lang="ru">
+    <p class="section-label">Помощь</p>
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-item"><h4>Почему бот не отвечает на команды?</h4><p>Проверьте ℹ️ Статус — подключён ли MQTT. Если нет, нажмите 🔄 Реконнект. Если не помогает — обратитесь в поддержку.</p></div>
+      <div class="faq-item"><h4>Что такое Tesla refresh token?</h4><p>Долгосрочный ключ доступа к данным без пароля. Не позволяет управлять машиной. Получите с помощью <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>.</p></div>
+      <div class="faq-item"><h4>Как изменить план?</h4><p>Используйте 💳 /billing — ссылка на портал Stripe для смены или отмены подписки.</p></div>
+      <div class="faq-item"><h4>Почему пришло ложное уведомление о поездке?</h4><p>Перемещения менее 300 м отфильтровываются. Если ложные уведомления продолжаются — обратитесь в поддержку.</p></div>
+      <div class="faq-item"><h4>Данные не обновляются</h4><p>Нажмите 🔄 Реконнект. Если машина спит, данные обновятся только при пробуждении.</p></div>
+      <div class="faq-item"><h4>Можно ли следить за несколькими машинами?</h4><p>Fleet-план в разработке. Сейчас — один бот на один Tesla-аккаунт.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links" data-lang="en">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="refund.html">Refund Policy</a>
+  </div>
+  <div class="footer-links" data-lang="ru">
+    <a href="index.html">Главная</a>
+    <a href="privacy.html">Политика конфиденциальности</a>
+    <a href="terms.html">Условия использования</a>
+    <a href="refund.html">Политика возврата</a>
+  </div>
+  <p>© 2025 WattsonBot. All rights reserved.</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+    try { localStorage.setItem('lang', lang); } catch {}
+  }
+  try { const s = localStorage.getItem('lang'); if (s === 'ru') setLang('ru'); } catch {}
+</script>
+</body>
+</html>
