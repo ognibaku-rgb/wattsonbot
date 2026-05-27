@@ -478,7 +478,9 @@
     document.querySelectorAll('.lang-btn').forEach(b => {
       b.classList.toggle('active', b.textContent === lang.toUpperCase());
     });
+    try { localStorage.setItem('lang', lang); } catch {}
   }
+  try { const s = localStorage.getItem('lang'); if (s === 'ru') setLang('ru'); } catch {}
 </script>
 </body>
 </html>
