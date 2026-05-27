@@ -127,7 +127,7 @@
     <div class="steps">
       <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Open the bot</h4><p>Search for <strong>@WattsonEVBot</strong> in Telegram or open <a href="https://t.me/WattsonEVBot">t.me/WattsonEVBot</a>. Tap <strong>Start</strong>.</p></div></div>
       <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Choose a plan</h4><p>Select <strong>Solo</strong> ($5/mo) for full access, or <strong>Free</strong> to try alerts only.</p></div></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Complete payment</h4><p>You'll receive a Stripe checkout link. After payment your bot stack is provisioned automatically — takes about 1 minute.</p></div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Complete payment</h4><p>You'll receive a secure checkout link. After payment your bot stack is provisioned automatically — takes about 1 minute.</p></div></div>
       <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Connect your Tesla</h4><p>Send your Tesla refresh token when prompted. Get one with <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>. This credential lets the bot read car data only — it cannot control the car.</p></div></div>
       <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>You're live</h4><p>The bot sends a first status message. Alerts begin automatically. Use the keyboard or commands to query your car anytime.</p></div></div>
     </div>
@@ -138,7 +138,7 @@
     <div class="steps">
       <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Откройте бота</h4><p>Найдите <strong>@WattsonEVBot</strong> в Telegram или откройте <a href="https://t.me/WattsonEVBot">t.me/WattsonEVBot</a>. Нажмите <strong>Старт</strong>.</p></div></div>
       <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Выберите план</h4><p>Выберите <strong>Solo</strong> ($5/мес) для полного доступа или <strong>Free</strong> для уведомлений.</p></div></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Завершите оплату</h4><p>Вы получите ссылку Stripe. После оплаты стек бота создаётся автоматически — около 1 минуты.</p></div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Завершите оплату</h4><p>Вы получите защищённую ссылку для оплаты. После оплаты стек бота создаётся автоматически — около 1 минуты.</p></div></div>
       <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Подключите Tesla</h4><p>Отправьте Tesla refresh token. Получите с помощью <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>. Токен только читает данные — управление машиной невозможно.</p></div></div>
       <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>Готово</h4><p>Бот отправит первое статусное сообщение. Уведомления начнутся автоматически.</p></div></div>
     </div>
@@ -322,7 +322,7 @@
     <h3>Managing your subscription</h3>
     <ul>
       <li>Use 💳 /billing to see your current plan and expiry date</li>
-      <li>Upgrade or cancel via the Stripe customer portal link in the billing message</li>
+      <li>Upgrade or cancel via the billing portal link in the billing message</li>
       <li>Cancellation takes effect at the end of the current billing period</li>
     </ul>
   </div>
@@ -369,7 +369,7 @@
     <h3>Управление подпиской</h3>
     <ul>
       <li>Используйте 💳 /billing для просмотра плана и срока</li>
-      <li>Смена или отмена через ссылку Stripe в сообщении биллинга</li>
+      <li>Смена или отмена через ссылку на биллинг-портал в сообщении</li>
       <li>Отмена вступает в силу в конце текущего периода</li>
     </ul>
   </div>
@@ -382,7 +382,7 @@
     <div class="faq-list">
       <div class="faq-item"><h4>Why isn't the bot responding to commands?</h4><p>Check ℹ️ Status to see if MQTT is connected. If not, tap 🔄 Reconnect. If it persists, contact support.</p></div>
       <div class="faq-item"><h4>What is a Tesla refresh token?</h4><p>A long-lived credential that lets the bot read your car's data without your password. It cannot control the car. Get one with <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>.</p></div>
-      <div class="faq-item"><h4>How do I change my plan?</h4><p>Use 💳 /billing to get a Stripe portal link where you can upgrade, downgrade, or cancel.</p></div>
+      <div class="faq-item"><h4>How do I change my plan?</h4><p>Use 💳 /billing to get a billing portal link where you can upgrade, downgrade, or cancel.</p></div>
       <div class="faq-item"><h4>Why did I get a false drive alert?</h4><p>Short moves under 300 m are filtered out. If false alerts continue, contact support.</p></div>
       <div class="faq-item"><h4>My data seems stale</h4><p>Tap 🔄 Reconnect. If the car is asleep, data only updates when it wakes (e.g., opening the Tesla app or starting a drive).</p></div>
       <div class="faq-item"><h4>Can I monitor multiple cars?</h4><p>Fleet plan is in development. Currently one bot instance per Tesla account.</p></div>
@@ -394,7 +394,7 @@
     <div class="faq-list">
       <div class="faq-item"><h4>Почему бот не отвечает на команды?</h4><p>Проверьте ℹ️ Статус — подключён ли MQTT. Если нет, нажмите 🔄 Реконнект. Если не помогает — обратитесь в поддержку.</p></div>
       <div class="faq-item"><h4>Что такое Tesla refresh token?</h4><p>Долгосрочный ключ доступа к данным без пароля. Не позволяет управлять машиной. Получите с помощью <a href="https://github.com/adriankumpf/tesla_auth">tesla_auth</a>.</p></div>
-      <div class="faq-item"><h4>Как изменить план?</h4><p>Используйте 💳 /billing — ссылка на портал Stripe для смены или отмены подписки.</p></div>
+      <div class="faq-item"><h4>Как изменить план?</h4><p>Используйте 💳 /billing — ссылка на биллинг-портал для смены или отмены подписки.</p></div>
       <div class="faq-item"><h4>Почему пришло ложное уведомление о поездке?</h4><p>Перемещения менее 300 м отфильтровываются. Если ложные уведомления продолжаются — обратитесь в поддержку.</p></div>
       <div class="faq-item"><h4>Данные не обновляются</h4><p>Нажмите 🔄 Реконнект. Если машина спит, данные обновятся только при пробуждении.</p></div>
       <div class="faq-item"><h4>Можно ли следить за несколькими машинами?</h4><p>Fleet-план в разработке. Сейчас — один бот на один Tesla-аккаунт.</p></div>
