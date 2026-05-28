@@ -194,6 +194,23 @@
     .plan-card.featured .plan-cta { background: var(--accent); color: #fff; }
     .plan-card:not(.featured) .plan-cta { border: 1px solid var(--border); color: var(--text); }
     .plan-cta:hover { opacity: 0.85; }
+    .plan-payment {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .pay-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
 
     /* HOW IT WORKS */
     .steps {
@@ -382,8 +399,8 @@
       <div class="step-num">3</div>
       <h3 data-lang="en">Subscribe</h3>
       <h3 data-lang="ru">Оформите подписку</h3>
-      <p data-lang="en">Complete payment in a few clicks. Instant activation.</p>
-      <p data-lang="ru">Оплатите в несколько кликов. Мгновенная активация.</p>
+      <p data-lang="en">Pay with ⭐ Telegram Stars or 💎 USDT. Instant activation.</p>
+      <p data-lang="ru">Оплатите ⭐ Telegram Stars или 💎 USDT. Мгновенная активация.</p>
     </div>
     <div class="step">
       <div class="step-num">4</div>
@@ -414,6 +431,10 @@
       <div class="plan-desc" data-lang="en">One Tesla vehicle</div>
       <div class="plan-desc" data-lang="ru">Один автомобиль Tesla</div>
       <div class="plan-price">$5<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
+      <div class="plan-payment">
+        <span class="pay-badge">⭐ 500 Telegram Stars</span>
+        <span class="pay-badge">💎 5 USDT</span>
+      </div>
       <ul class="plan-features">
         <li data-lang="en">1 vehicle</li>
         <li data-lang="ru">1 автомобиль</li>
@@ -434,6 +455,10 @@
       <div class="plan-desc" data-lang="en">Up to 5 Tesla vehicles</div>
       <div class="plan-desc" data-lang="ru">До 5 автомобилей Tesla</div>
       <div class="plan-price">$20<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
+      <div class="plan-payment">
+        <span class="pay-badge">⭐ 2000 Telegram Stars</span>
+        <span class="pay-badge">💎 20 USDT</span>
+      </div>
       <ul class="plan-features">
         <li data-lang="en">Up to 5 vehicles</li>
         <li data-lang="ru">До 5 автомобилей</li>
