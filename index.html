@@ -144,12 +144,13 @@
 
     /* PRICING */
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      display: flex;
+      justify-content: center;
       gap: 1.5rem;
       max-width: 640px;
       margin: 0 auto;
     }
+    .plan-card { width: 100%; max-width: 320px; }
     .plan-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -394,8 +395,8 @@
       <div class="step-num">2</div>
       <h3 data-lang="en">Choose a plan</h3>
       <h3 data-lang="ru">Выберите план</h3>
-      <p data-lang="en">Start free for 48h, then Solo ($5/mo) or Fleet ($20/mo).</p>
-      <p data-lang="ru">48 часов бесплатно, затем Solo ($5/мес) или Fleet ($20/мес).</p>
+      <p data-lang="en">Start free for 48h, then subscribe for $5/mo.</p>
+      <p data-lang="ru">48 часов бесплатно, затем подписка за $5/мес.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
@@ -457,31 +458,6 @@
       <a href="https://t.me/WattsonEVBot" class="plan-cta" data-lang="ru">Начать</a>
     </div>
 
-    <div class="plan-card featured">
-      <div class="plan-badge">Popular</div>
-      <div class="plan-name">Fleet</div>
-      <div class="plan-desc" data-lang="en">Up to 5 Tesla vehicles</div>
-      <div class="plan-desc" data-lang="ru">До 5 автомобилей Tesla</div>
-      <div class="plan-price">$20<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
-      <div class="plan-payment">
-        <span class="pay-badge">⭐ 2000 Telegram Stars</span>
-        <span class="pay-badge">💎 20 USDT</span>
-      </div>
-      <ul class="plan-features">
-        <li data-lang="en">Up to 5 vehicles</li>
-        <li data-lang="ru">До 5 автомобилей</li>
-        <li data-lang="en">All alert types</li>
-        <li data-lang="ru">Все типы уведомлений</li>
-        <li data-lang="en">Stats & history</li>
-        <li data-lang="ru">Статистика и история</li>
-        <li data-lang="en">Telegram commands</li>
-        <li data-lang="ru">Команды в Telegram</li>
-        <li data-lang="en">Priority support</li>
-        <li data-lang="ru">Приоритетная поддержка</li>
-      </ul>
-      <a href="https://t.me/WattsonEVBot" class="plan-cta" data-lang="en">Get started</a>
-      <a href="https://t.me/WattsonEVBot" class="plan-cta" data-lang="ru">Начать</a>
-    </div>
   </div>
 </section>
 
