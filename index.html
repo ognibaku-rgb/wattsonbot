@@ -1,495 +1,1327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WattsonEVBot — Tesla Notifications on Telegram</title>
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --surface: #1a1a1a;
-      --border: #2a2a2a;
-      --accent: #e31937;
-      --accent2: #ff6b35;
-      --text: #f0f0f0;
-      --muted: #888;
-      --card: #161616;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.6;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WattsonBot — Tesla in your Telegram</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --bg-dark: #1a2240;
+    --ink: #1d1d1f;
+    --ink-mute: #6e6e73;
+    --ink-faint: #86868b;
+    --line: #d2d2d7;
+    --accent: #e9a431;
+    --accent-hover: #f0b13f;
+    --radius: 18px;
+    --radius-lg: 28px;
+    --maxw: 1240px;
+  }
 
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(13,13,13,0.95);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-    }
-    .logo img { height: 32px; width: auto; display: block; }
-    .lang-toggle {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .lang-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      padding: 0.35rem 0.75rem;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-    .lang-btn.active { background: var(--accent); color: #fff; }
+  * { box-sizing: border-box; }
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 5rem 2rem 4rem;
-      max-width: 700px;
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern", "liga", "ss01";
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  /* ───────── NAV ───────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 22px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    overflow: hidden;
+    display: block;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  }
+  .nav-logo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    color: var(--ink);
+  }
+  .nav-links a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button {
+    background: none; border: none; cursor: pointer; font: inherit; color: inherit;
+    padding: 2px 6px; border-radius: 6px;
+  }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+
+  /* ───────── HERO ───────── */
+  .hero {
+    padding: 110px 22px 0;
+    text-align: center;
+    background: var(--bg);
+  }
+  .eyebrow {
+    font-size: 19px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  h1.display {
+    font-size: clamp(48px, 7.6vw, 96px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    margin: 0 auto 22px;
+    max-width: 12ch;
+  }
+  .lede {
+    font-size: clamp(19px, 1.6vw, 24px);
+    color: var(--ink-mute);
+    max-width: 640px;
+    margin: 0 auto 28px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .cta-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: inherit;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all .18s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 999px;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-link {
+    color: var(--accent);
+    font-size: 17px;
+  }
+  .btn-link:hover { text-decoration: underline; }
+  .btn-link::after { content: " ›"; }
+
+  /* ───────── HERO STAGE ───────── */
+  .hero-stage {
+    margin: 80px auto 0;
+    max-width: 1380px;
+    padding: 0 22px;
+    position: relative;
+  }
+  .stage-bg {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,255,255,0.06), transparent 60%),
+      linear-gradient(180deg, #141a32 0%, #1a2240 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* faint grid */
+  .stage-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+  }
+  .stage-tesla {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 460px;
+    max-width: 50%;
+    color: #fff;
+    z-index: 2;
+  }
+  .stage-tesla::before {
+    content: "";
+    position: absolute;
+    inset: -80px;
+    background: radial-gradient(circle at 50% 50%, rgba(233,164,49,0.28), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .car-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 26px 28px 22px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .car-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .car-card-name {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .car-card-sub {
+    font-size: 12px;
+    color: #98989d;
+    letter-spacing: 0.02em;
+    margin-top: 2px;
+  }
+  .car-card-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    background: rgba(233,164,49,0.12);
+    border: 1px solid rgba(233,164,49,0.25);
+    padding: 5px 9px;
+    border-radius: 999px;
+  }
+  .car-card-status::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .car-card-big {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .car-card-big sup {
+    font-size: 22px;
+    font-weight: 600;
+    top: -22px;
+    color: #98989d;
+    letter-spacing: -0.01em;
+  }
+  .car-card-big-sub {
+    font-size: 13px;
+    color: #98989d;
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .car-card-bar {
+    margin-top: 18px;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .car-card-bar > span {
+    display: block;
+    height: 100%;
+    width: 78%;
+    background: linear-gradient(90deg, var(--accent), #f6bf63);
+    border-radius: 999px;
+  }
+  .car-card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .car-card-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .car-card-row .k {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #98989d;
+  }
+  .car-card-row .v {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chip {
+    position: absolute;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.3;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .chip .k {
+    font-size: 10px;
+    color: #98989d;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+  .chip .v {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip.left  { top: 18%; left: 7%; }
+  .chip.right { bottom: 14%; right: 8%; }
+  .chip.bot   { bottom: 10%; left: 11%; }
+
+  .phone-card {
+    position: absolute;
+    top: 8%;
+    right: 6%;
+    width: 280px;
+    background: rgba(28,28,30,0.78);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 14px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+    color: #fff;
+  }
+  .phone-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .phone-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+    display: grid; place-items: center;
+    font-size: 14px;
+  }
+  .phone-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+  .phone-sub { font-size: 11px; color: #98989d; }
+  .phone-msg {
+    margin-top: 10px;
+    padding: 9px 12px;
+    background: rgba(72,72,74,0.6);
+    border-radius: 14px 14px 14px 4px;
+    font-size: 13px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+  .phone-msg + .phone-msg { margin-top: 6px; }
+  .msg-emoji { margin-right: 4px; }
+  .phone-time { font-size: 10px; color: #636366; margin-top: 6px; text-align: right; }
+
+  /* ───────── SECTIONS ───────── */
+  section {
+    padding: 130px 22px;
+  }
+  section.alt {
+    background: var(--bg-alt);
+  }
+  section.dark {
+    background: var(--bg-dark);
+    color: #f5f5f7;
+  }
+  section.dark .ink-mute { color: #a1a1a6; }
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  h2.headline {
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+    font-weight: 700;
+    margin: 0 0 24px;
+    max-width: 16ch;
+  }
+  h2.headline.center { margin-left: auto; margin-right: auto; text-align: center; max-width: 22ch; }
+  .section-sub {
+    font-size: clamp(18px, 1.4vw, 22px);
+    color: var(--ink-mute);
+    max-width: 560px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .section-sub.center { margin: 0 auto; text-align: center; }
+
+  /* ───────── BIG PRODUCT TILE ───────── */
+  .tile-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 22px;
+    margin-top: 60px;
+  }
+  .tile {
+    background: var(--bg-alt);
+    border-radius: var(--radius-lg);
+    padding: 44px;
+    min-height: 480px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tile.dark {
+    background: var(--bg-dark);
+    color: #f5f5f7;
+  }
+  .tile.dark .tile-meta { color: #a1a1a6; }
+  .tile-meta {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+  .tile-title {
+    font-size: clamp(28px, 2.4vw, 40px);
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+    font-weight: 600;
+    margin: 8px 0 12px;
+    max-width: 14ch;
+  }
+  .tile-body {
+    font-size: 17px;
+    color: var(--ink-mute);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    max-width: 36ch;
+  }
+  .tile.dark .tile-body { color: #a1a1a6; }
+  .tile-top { position: relative; z-index: 2; }
+  .tile-art { position: relative; z-index: 1; flex: 1; display: flex; align-items: end; justify-content: center; min-height: 200px; margin-top: 30px;}
+
+  .col-7 { grid-column: span 7; }
+  .col-5 { grid-column: span 5; }
+  .col-6 { grid-column: span 6; }
+  .col-4 { grid-column: span 4; }
+  .col-12 { grid-column: span 12; }
+
+  /* features grid (small) */
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 60px;
+  }
+  .feat {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    border: 1px solid var(--line);
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  section.alt .feat { background: #fff; border-color: transparent; }
+  .feat-num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+  }
+  .feat-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 6px 0 10px;
+  }
+  .feat-body {
+    font-size: 15px;
+    color: var(--ink-mute);
+    line-height: 1.45;
+  }
+
+  /* ───────── HOW IT WORKS ───────── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 80px;
+    counter-reset: step;
+  }
+  .step {
+    padding: 36px 0 0;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  section.dark .step { border-top-color: rgba(255,255,255,0.18); }
+  .step-num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-bottom: 32px;
+  }
+  section.dark .step-num { color: #a1a1a6; }
+  .step-title {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    line-height: 1.15;
+  }
+  .step-body {
+    font-size: 15px;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+  section.dark .step-body { color: #a1a1a6; }
+
+  /* ───────── PRICING ───────── */
+  .price-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+    gap: 22px;
+    margin-top: 60px;
+  }
+  .price {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 48px 44px;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  .price.featured {
+    background: var(--bg-dark);
+    color: #f5f5f7;
+    border-color: transparent;
+  }
+  .price-tag {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #e9a431;
+    font-weight: 600;
+  }
+  .price-name {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .price.featured .price-name { color: #a1a1a6; }
+  .price-amt {
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .price-amt sup {
+    font-size: 22px;
+    font-weight: 600;
+    top: -22px;
+    margin-right: 2px;
+  }
+  .price-amt span {
+    font-size: 17px;
+    color: var(--ink-mute);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .price.featured .price-amt span { color: #a1a1a6; }
+  .price-desc {
+    font-size: 17px;
+    color: var(--ink-mute);
+    margin-bottom: 28px;
+  }
+  .price.featured .price-desc { color: #a1a1a6; }
+  .price-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    border-top: 1px solid var(--line);
+  }
+  .price.featured .price-list { border-top-color: rgba(255,255,255,0.14); }
+  .price-list li {
+    padding: 14px 0;
+    font-size: 15px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .price.featured .price-list li { border-bottom-color: rgba(255,255,255,0.14); }
+  .price-list li::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background: var(--accent);
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 8.5l3.2 3L13 5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 8.5l3.2 3L13 5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+  }
+  .price.featured .price-list li::before { background: #e9a431; }
+
+  /* ───────── BIG MARQUEE STATEMENT ───────── */
+  .statement {
+    padding: 160px 22px;
+    text-align: center;
+    background: #fff;
+  }
+  .statement h2 {
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    max-width: 18ch;
+    margin: 0 auto 30px;
+  }
+  .statement h2 em {
+    font-style: normal;
+    color: var(--ink-mute);
+  }
+  .ticker {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 80px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    flex-wrap: wrap;
+  }
+  .ticker span { display: inline-flex; align-items: center; gap: 8px; }
+  .ticker span::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    background: #f5f5f7;
+    padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .foot-top h4 {
+    font-size: 12px;
+    color: var(--ink);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .foot-top a {
+    display: block;
+    color: var(--ink-mute);
+    text-decoration: none;
+    padding: 4px 0;
+  }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* ART placeholders */
+  .art-chart {
+    width: 100%;
+    height: 240px;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba(10,132,255,0.06) 100%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 40px);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .art-chart svg { width: 100%; height: 100%; display: block; }
+
+  .art-battery {
+    width: 220px;
+    height: 100px;
+    border-radius: 18px;
+    border: 4px solid var(--ink);
+    position: relative;
+    background:
+      linear-gradient(90deg, #30d158 0%, #30d158 78%, transparent 78%, transparent 100%);
+    background-clip: content-box;
+    padding: 4px;
+  }
+  .art-battery::after {
+    content: "";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px; height: 36px;
+    background: var(--ink);
+    border-radius: 0 4px 4px 0;
+  }
+  .art-battery-label {
+    position: absolute;
+    bottom: -36px;
+    left: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+  }
+
+  .art-bolt {
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    color: #fff;
+  }
+  .art-bolt svg {
+    width: 60%;
+    height: 60%;
+    filter: drop-shadow(0 0 40px rgba(10,132,255,0.4));
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .tile-grid, .feat-grid, .steps, .price-grid, .foot-top {
+      grid-template-columns: 1fr;
+    }
+    .col-7, .col-5, .col-6, .col-4 { grid-column: span 1; }
+    .nav-links { display: none; }
+    .nav-right .lang { display: none; }
+    section { padding: 80px 18px; }
+    .hero { padding: 64px 18px 0; }
+    h1.display { font-size: 44px; max-width: 100%; }
+    .lede { font-size: 18px; }
+    .hero-stage { margin-top: 50px; padding: 0 14px; }
+    .stage-bg { aspect-ratio: auto; min-height: 520px; padding: 24px 16px; }
+    .stage-tesla {
+      position: static;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
     }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(227,25,55,0.12);
-      border: 1px solid rgba(227,25,55,0.3);
-      color: var(--accent);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      padding: 0.3rem 0.9rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
+    .car-card { padding: 22px 22px 18px; border-radius: 18px; }
+    .car-card-big { font-size: 52px; }
+    .car-card-row { gap: 10px; }
+    .car-card-row .v { font-size: 14px; }
+    .chip { display: none; }
+    .phone-card {
+      position: static;
+      width: 100%;
+      max-width: 320px;
+      margin: 18px auto 0;
+      box-sizing: border-box;
     }
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
+    h2.headline { font-size: 36px; max-width: 100%; }
+    h2.headline.center { max-width: 100%; }
+    .section-sub { font-size: 17px; }
+    .tile {
+      padding: 28px;
+      min-height: 0;
+      border-radius: 22px;
     }
-    h1 span { color: var(--accent); }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      max-width: 540px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: opacity 0.2s;
-    }
-    .cta-btn:hover { opacity: 0.88; }
-    .cta-btn svg { width: 20px; height: 20px; fill: currentColor; }
-
-    /* FEATURES */
-    .section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-    .section-label {
-      text-align: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-    .section h2 {
-      text-align: center;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 700;
-      margin-bottom: 3rem;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
-    }
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-    .feature-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .feature-card p { font-size: 0.88rem; color: var(--muted); }
-
-    /* PRICING */
-    .pricing-grid {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .plan-card { width: 100%; max-width: 320px; }
-    .plan-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      position: relative;
-    }
-    .plan-card.featured {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, rgba(227,25,55,0.08) 0%, var(--card) 60%);
-    }
-    .plan-badge {
-      position: absolute;
-      top: -1px;
-      right: 1.5rem;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0 0 8px 8px;
-      text-transform: uppercase;
-    }
-    .plan-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
-    .plan-price { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; }
-    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
-    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .plan-features li { font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
-    .plan-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
-    .plan-cta {
-      display: block;
-      text-align: center;
-      margin-top: 1.75rem;
-      padding: 0.75rem;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .plan-card.featured .plan-cta { background: var(--accent); color: #fff; }
-    .plan-card:not(.featured) .plan-cta { border: 1px solid var(--border); color: var(--text); }
-    .plan-cta:hover { opacity: 0.85; }
-    .plan-payment {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-    }
-    .pay-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.25rem 0.6rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    /* HOW IT WORKS */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 2rem;
-      counter-reset: step;
-    }
-    .step { text-align: center; }
-    .step-num {
-      width: 48px;
-      height: 48px;
-      background: rgba(227,25,55,0.12);
-      border: 1px solid rgba(227,25,55,0.3);
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 1.1rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-    }
-    .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .step p { font-size: 0.85rem; color: var(--muted); }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
-    body.en .footer-links[data-lang="en"],
-    body.ru .footer-links[data-lang="ru"] { display: flex; }
-
-    /* DIVIDER */
-    .divider { border: none; border-top: 1px solid var(--border); }
-
-    /* i18n */
-    [data-lang] { display: none; }
-    body.en [data-lang="en"],
-    body.ru [data-lang="ru"] { display: contents; }
-    /* for block elements inside data-lang wrappers */
-    body.en [data-lang="en"] { display: block; }
-    body.ru [data-lang="ru"] { display: block; }
-  </style>
+    .tile-title { font-size: 26px; }
+    .tile-art { min-height: 140px; margin-top: 24px; }
+    .feat { padding: 28px 24px; min-height: 0; border-radius: 16px; }
+    .step { padding: 28px 0 0; }
+    .step-title { font-size: 22px; }
+    .price { padding: 32px 26px; border-radius: 22px; }
+    .price-amt { font-size: 44px; }
+    .price-amt sup { font-size: 18px; top: -16px; }
+    .statement { padding: 100px 18px; }
+    .statement h2 { font-size: 40px; }
+    .ticker { gap: 28px 22px; margin-top: 50px; font-size: 11px; }
+    footer { padding: 50px 18px 24px; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+    .art-chart { height: 180px; }
+    .art-battery { width: 180px; height: 80px; }
+  }
+  @media (max-width: 420px) {
+    h1.display { font-size: 38px; letter-spacing: -0.03em; }
+    h1.display br { display: none; }
+    h2.headline { font-size: 30px; }
+    h2.headline br { display: none; }
+    .statement h2 { font-size: 32px; }
+    .statement h2 br { display: none; }
+    .car-card-big { font-size: 44px; }
+    .car-card-name { font-size: 15px; }
+    .nav-brand { font-size: 14px; }
+    .stage-bg { padding: 20px 12px; min-height: 500px; }
+    .tile { padding: 24px; }
+    .feat { padding: 24px 20px; }
+    .price { padding: 26px 22px; }
+    .ticker { font-size: 10px; gap: 18px; }
+  }
+</style>
 </head>
-<body class="en">
+<body>
 
-<nav>
-  <div class="logo"><img src="logo.png" alt="WattsonBot" /></div>
-  <div style="display:flex;align-items:center;gap:1.25rem;">
-    <a href="docs.html" style="color:var(--muted);text-decoration:none;font-size:0.85rem;">Docs</a>
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-logo" aria-label="WattsonBot">
+        <img src="logo.jpg" alt="WattsonBot" />
+      </div>
+      WattsonBot
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="docs.html">Docs</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang">
+        <button class="on" id="lang-en">EN</button>
+        <span>·</span>
+        <button id="lang-ru">RU</button>
+      </div>
+      <a href="https://t.me/WattsonEVBot" class="btn btn-link" style="font-size:13px;">Open in Telegram</a>
     </div>
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div data-lang="en">
-    <div class="hero-badge">Tesla Monitoring via Telegram</div>
-    <h1>Your Tesla, <span>always in your pocket</span></h1>
-    <p>Real-time alerts for charging, battery, tire pressure and drive events — delivered directly to your Telegram.</p>
-    <a href="https://t.me/WattsonEVBot" class="cta-btn">
-      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.67l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.993.889z"/></svg>
-      Start in Telegram
-    </a>
-    <p style="margin-top:1rem;font-size:0.82rem;color:var(--muted);">✓ 48-hour free trial &nbsp;·&nbsp; No credit card required</p>
-  </div>
-  <div data-lang="ru">
-    <div class="hero-badge">Мониторинг Tesla через Telegram</div>
-    <h1>Ваша Tesla, <span>всегда под рукой</span></h1>
-    <p>Мгновенные уведомления о зарядке, уровне батареи, давлении в шинах и поездках — прямо в Telegram.</p>
-    <a href="https://t.me/WattsonEVBot" class="cta-btn">
-      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.67l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.993.889z"/></svg>
-      Запустить в Telegram
-    </a>
-    <p style="margin-top:1rem;font-size:0.82rem;color:var(--muted);">✓ 48 часов бесплатно &nbsp;·&nbsp; Без привязки карты</p>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- ===== FEATURES ===== -->
-<section class="section">
-  <div data-lang="en">
-    <p class="section-label">Features</p>
-    <h2>Everything you need to monitor your Tesla</h2>
-  </div>
-  <div data-lang="ru">
-    <p class="section-label">Возможности</p>
-    <h2>Всё необходимое для мониторинга Tesla</h2>
+<!-- HERO -->
+<header class="hero" data-screen-label="01 Hero">
+  <div class="eyebrow" data-i18n="hero.eyebrow">WattsonBot · for Tesla owners</div>
+  <h1 class="display" data-i18n="hero.title">Your Tesla.<br/>Always in your pocket.</h1>
+  <p class="lede" data-i18n="hero.lede">Real-time alerts for charging, battery, tire pressure and drive events. Delivered to Telegram, the moment they happen.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="hero.cta">Start in Telegram</a>
+    <a href="#how" class="btn btn-link" data-i18n="hero.learn">Learn how it works</a>
   </div>
 
-  <div class="features">
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3 data-lang="en">Charging Alerts</h3>
-      <h3 data-lang="ru">Уведомления о зарядке</h3>
-      <p data-lang="en">Get notified when charging starts, stops, or reaches your target level.</p>
-      <p data-lang="ru">Узнайте, когда зарядка началась, завершилась или достигла нужного уровня.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔋</div>
-      <h3 data-lang="en">Battery Monitor</h3>
-      <h3 data-lang="ru">Мониторинг батареи</h3>
-      <p data-lang="en">Low battery warnings before you're stranded. Configurable threshold.</p>
-      <p data-lang="ru">Предупреждение о низком заряде до того, как вы застрянете. Настраиваемый порог.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🛞</div>
-      <h3 data-lang="en">TPMS Alerts</h3>
-      <h3 data-lang="ru">Давление в шинах</h3>
-      <p data-lang="en">Instant tire pressure alerts so you never drive on a flat.</p>
-      <p data-lang="ru">Мгновенные оповещения о давлении в шинах — никаких неожиданностей.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🗺️</div>
-      <h3 data-lang="en">Drive Events</h3>
-      <h3 data-lang="ru">События поездок</h3>
-      <p data-lang="en">Drive start/end summaries with location, distance and energy used.</p>
-      <p data-lang="ru">Отчёт о поездке: локация, расстояние и расход энергии.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3 data-lang="en">Stats & History</h3>
-      <h3 data-lang="ru">Статистика</h3>
-      <p data-lang="en">Query battery, range, temperature and charging history on demand.</p>
-      <p data-lang="ru">Запросите уровень заряда, запас хода, температуру и историю зарядок по запросу.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔔</div>
-      <h3 data-lang="en">Configurable Alerts</h3>
-      <h3 data-lang="ru">Гибкая настройка</h3>
-      <p data-lang="en">Enable or disable each alert type directly from Telegram commands.</p>
-      <p data-lang="ru">Включайте и выключайте каждый тип уведомлений прямо в Telegram.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- ===== HOW IT WORKS ===== -->
-<section class="section">
-  <div data-lang="en">
-    <p class="section-label">How It Works</p>
-    <h2>Up and running in minutes</h2>
-  </div>
-  <div data-lang="ru">
-    <p class="section-label">Как это работает</p>
-    <h2>Готово за несколько минут</h2>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3 data-lang="en">Open the bot</h3>
-      <h3 data-lang="ru">Откройте бота</h3>
-      <p data-lang="en">Find us on Telegram and press Start.</p>
-      <p data-lang="ru">Найдите нас в Telegram и нажмите Старт.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3 data-lang="en">Choose a plan</h3>
-      <h3 data-lang="ru">Выберите план</h3>
-      <p data-lang="en">Start free for 48h, then subscribe for $5/mo.</p>
-      <p data-lang="ru">48 часов бесплатно, затем подписка за $5/мес.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3 data-lang="en">Subscribe</h3>
-      <h3 data-lang="ru">Оформите подписку</h3>
-      <p data-lang="en">Pay with ⭐ Telegram Stars or 💎 USDT. Instant activation.</p>
-      <p data-lang="ru">Оплатите ⭐ Telegram Stars или 💎 USDT. Мгновенная активация.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h3 data-lang="en">Connect your Tesla</h3>
-      <h3 data-lang="ru">Подключите Tesla</h3>
-      <p data-lang="en">Send your Tesla refresh token — we handle the rest.</p>
-      <p data-lang="ru">Пришлите Tesla refresh-токен — остальное сделаем мы.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- ===== PRICING ===== -->
-<section class="section">
-  <div data-lang="en">
-    <p class="section-label">Pricing</p>
-    <h2>Simple, transparent plans</h2>
-  </div>
-  <div data-lang="ru">
-    <p class="section-label">Тарифы</p>
-    <h2>Простые и прозрачные планы</h2>
-  </div>
-
-  <p style="text-align:center;margin-bottom:1.75rem;font-size:0.88rem;" data-lang="en">
-    🎁 All plans start with a <strong>48-hour free trial</strong> — no payment required upfront.
-  </p>
-  <p style="text-align:center;margin-bottom:1.75rem;font-size:0.88rem;" data-lang="ru">
-    🎁 Все планы начинаются с <strong>48-часового бесплатного пробного периода</strong> — оплата не нужна сразу.
-  </p>
-  <div class="pricing-grid">
-    <div class="plan-card">
-      <div class="plan-name">Solo</div>
-      <div class="plan-desc" data-lang="en">One Tesla vehicle</div>
-      <div class="plan-desc" data-lang="ru">Один автомобиль Tesla</div>
-      <div class="plan-price">$5<span data-lang="en">/mo</span><span data-lang="ru">/мес</span></div>
-      <div class="plan-payment">
-        <span class="pay-badge">⭐ 500 Telegram Stars</span>
-        <span class="pay-badge">💎 5 USDT</span>
+  <div class="hero-stage">
+    <div class="stage-bg">
+      <div class="stage-tesla">
+        <div class="car-card">
+          <div class="car-card-head">
+            <div>
+              <div class="car-card-name">Model 3 Performance</div>
+              <div class="car-card-sub">Home · Garage</div>
+            </div>
+            <div class="car-card-status">Charging</div>
+          </div>
+          <div class="car-card-big">78<sup>%</sup></div>
+          <div class="car-card-big-sub">243 mi est. · ETA full 47 min</div>
+          <div class="car-card-bar"><span></span></div>
+          <div class="car-card-row">
+            <div><span class="k">Rate</span><span class="v">9.6 kW</span></div>
+            <div><span class="k">Cabin</span><span class="v">21°C</span></div>
+            <div><span class="k">TPMS</span><span class="v">38 PSI</span></div>
+          </div>
+        </div>
       </div>
-      <ul class="plan-features">
-        <li data-lang="en">1 vehicle</li>
-        <li data-lang="ru">1 автомобиль</li>
-        <li data-lang="en">All alert types</li>
-        <li data-lang="ru">Все типы уведомлений</li>
-        <li data-lang="en">Stats & history</li>
-        <li data-lang="ru">Статистика и история</li>
-        <li data-lang="en">Telegram commands</li>
-        <li data-lang="ru">Команды в Telegram</li>
-      </ul>
-      <a href="https://t.me/WattsonEVBot" class="plan-cta" data-lang="en">Get started</a>
-      <a href="https://t.me/WattsonEVBot" class="plan-cta" data-lang="ru">Начать</a>
+
+      <div class="chip left">
+        <div class="k">Charge started</div>
+        <div class="v">22:14 · Home</div>
+      </div>
+      <div class="chip bot">
+        <div class="k">Last drive</div>
+        <div class="v">42 mi · 11.8 kWh</div>
+      </div>
+      <div class="phone-card">
+        <div class="phone-head">
+          <div class="phone-avatar">⚡</div>
+          <div>
+            <div class="phone-name">WattsonBot</div>
+            <div class="phone-sub">Tesla · Online</div>
+          </div>
+        </div>
+        <div class="phone-msg"><span class="msg-emoji">⚡</span>Charging started at home. Target 80%.</div>
+        <div class="phone-msg"><span class="msg-emoji">🔋</span>Battery now 64%. ETA full · 47 min.</div>
+        <div class="phone-msg"><span class="msg-emoji">🛞</span>Front-left tire 38 PSI · within range.</div>
+        <div class="phone-time">just now</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BIG TILES -->
+<section id="features" data-screen-label="02 Features">
+  <div class="wrap">
+    <div class="section-eyebrow" data-i18n="feat.eyebrow">Features</div>
+    <h2 class="headline" data-i18n="feat.title">Everything you need.<br/><span style="color:var(--ink-mute)">Nothing you don't.</span></h2>
+
+    <div class="tile-grid">
+      <!-- Big charging tile -->
+      <div class="tile dark col-7">
+        <div class="tile-top">
+          <div class="tile-meta">Charging</div>
+          <h3 class="tile-title" data-i18n="feat.charge.title">Know the moment current flows.</h3>
+          <p class="tile-body" data-i18n="feat.charge.body">Plug in, walk away. WattsonBot pings you when charging starts, stops, or hits your target — anywhere in the world.</p>
+        </div>
+        <div class="tile-art">
+          <div class="art-bolt">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L4.5 14h6L9 22l9.5-12h-6L13 2z" fill="#e9a431"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Battery tile -->
+      <div class="tile col-5">
+        <div class="tile-top">
+          <div class="tile-meta">Battery monitor</div>
+          <h3 class="tile-title" data-i18n="feat.batt.title">Never get stranded.</h3>
+          <p class="tile-body" data-i18n="feat.batt.body">Low-battery warnings before you're in trouble. Set your own threshold.</p>
+        </div>
+        <div class="tile-art" style="justify-content: start;">
+          <div class="art-battery">
+            <div class="art-battery-label">78%  ·  243 mi</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats tile -->
+      <div class="tile col-5">
+        <div class="tile-top">
+          <div class="tile-meta">Stats &amp; history</div>
+          <h3 class="tile-title" data-i18n="feat.stats.title">A log of every kWh.</h3>
+          <p class="tile-body" data-i18n="feat.stats.body">Query range, temperature, charging history. On demand, in plain chat.</p>
+        </div>
+        <div class="tile-art">
+          <div class="art-chart">
+            <svg viewBox="0 0 400 240" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e9a431" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#e9a431" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,180 L40,160 L80,170 L120,120 L160,140 L200,90 L240,110 L280,60 L320,80 L360,40 L400,55 L400,240 L0,240 Z" fill="url(#g1)"/>
+              <path d="M0,180 L40,160 L80,170 L120,120 L160,140 L200,90 L240,110 L280,60 L320,80 L360,40 L400,55" fill="none" stroke="#e9a431" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- TPMS / Drive / Alerts -->
+      <div class="tile col-7" style="background: var(--bg-dark); color: #f5f5f7;">
+        <div class="tile-top">
+          <div class="tile-meta" style="color:#a1a1a6;">Drive events</div>
+          <h3 class="tile-title" data-i18n="feat.drive.title">Every trip, summarised.</h3>
+          <p class="tile-body" style="color:#a1a1a6;" data-i18n="feat.drive.body">Start and end notifications with location, distance and energy used — a quiet ledger of your travel.</p>
+        </div>
+        <div class="tile-art">
+          <svg viewBox="0 0 600 200" style="width:100%; height: 180px;">
+            <path d="M40,160 Q200,40 300,100 T560,80" fill="none" stroke="#e9a431" stroke-width="2" stroke-dasharray="6 6" opacity="0.6"/>
+            <circle cx="40" cy="160" r="6" fill="#e9a431"/>
+            <circle cx="560" cy="80" r="6" fill="#e9a431"/>
+            <text x="56" y="180" fill="#86868b" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.1em">HOME</text>
+            <text x="500" y="68" fill="#86868b" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.1em">SUPERCHARGER</text>
+          </svg>
+        </div>
+      </div>
     </div>
 
+    <!-- secondary feature row -->
+    <div class="feat-grid">
+      <div class="feat">
+        <div>
+          <div class="feat-num">01 / TPMS</div>
+          <h3 class="feat-title" data-i18n="feat.tpms.title">Tire pressure alerts</h3>
+        </div>
+        <p class="feat-body" data-i18n="feat.tpms.body">Instant warnings when a tire drops out of range. Stop before you're driving on a flat.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">02 / CONTROL</div>
+          <h3 class="feat-title" data-i18n="feat.cfg.title">Configurable, per-channel</h3>
+        </div>
+        <p class="feat-body" data-i18n="feat.cfg.body">Toggle each alert type directly from Telegram commands. No app to install. No menu to dig through.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">03 / SECURE</div>
+          <h3 class="feat-title" data-i18n="feat.sec.title">Token-only access</h3>
+        </div>
+        <p class="feat-body" data-i18n="feat.sec.body">We use your Tesla refresh token, end-to-end. No password, no credentials, revocable at any time.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<hr class="divider" />
+<!-- STATEMENT -->
+<section class="statement">
+  <h2 data-i18n="stmt.title">Watch your car. <em>From anywhere.</em></h2>
+  <p class="section-sub center" data-i18n="stmt.sub">No new app. No new account. The chat you already use, doing one more useful thing.</p>
+  <div class="ticker">
+    <span>iOS</span>
+    <span>Android</span>
+    <span>Web</span>
+    <span>macOS</span>
+    <span>Telegram Desktop</span>
+  </div>
+</section>
 
-<!-- ===== FOOTER ===== -->
+<!-- HOW IT WORKS -->
+<section class="dark" id="how" data-screen-label="03 How it works">
+  <div class="wrap">
+    <div class="section-eyebrow" style="color:#a1a1a6;" data-i18n="how.eyebrow">Setup</div>
+    <h2 class="headline" data-i18n="how.title">Up and running.<br/><span style="color:#86868b;">In about two minutes.</span></h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">STEP 01</div>
+        <div class="step-title" data-i18n="how.s1.title">Open the bot</div>
+        <p class="step-body" data-i18n="how.s1.body">Find @WattsonEVBot on Telegram and press Start.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 02</div>
+        <div class="step-title" data-i18n="how.s2.title">Choose a plan</div>
+        <p class="step-body" data-i18n="how.s2.body">Solo for one car, Fleet for up to five. Switch any time.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 03</div>
+        <div class="step-title" data-i18n="how.s3.title">Subscribe</div>
+        <p class="step-body" data-i18n="how.s3.body">Pay in a few clicks. Instant activation, no waiting.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 04</div>
+        <div class="step-title" data-i18n="how.s4.title">Connect your Tesla</div>
+        <p class="step-body" data-i18n="how.s4.body">Send us your refresh token. We handle the rest, securely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="alt" id="pricing" data-screen-label="04 Pricing">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <div class="section-eyebrow" data-i18n="price.eyebrow">Pricing</div>
+      <h2 class="headline center" data-i18n="price.title">Simple. Honest.<br/>One plan.</h2>
+      <p class="section-sub center" data-i18n="price.sub">Everything included. No add-ons, no surprises. Cancel anytime.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price featured">
+        <div class="price-name">WattsonBot</div>
+        <div class="price-amt"><sup>$</sup>5<span style="color:#a1a1a6;"> / month</span></div>
+        <p class="price-desc" data-i18n="price.solo.desc">One Tesla, fully monitored. Everything you'll ever need.</p>
+        <ul class="price-list">
+          <li>Real-time charging alerts</li>
+          <li>Battery &amp; range warnings</li>
+          <li>Tire pressure (TPMS) alerts</li>
+          <li>Drive event summaries</li>
+          <li>Stats &amp; history on demand</li>
+          <li>Configurable Telegram commands</li>
+        </ul>
+        <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section data-screen-label="05 CTA" style="padding: 160px 22px; text-align:center;">
+  <h2 class="headline center" style="margin-bottom:30px;" data-i18n="cta.title">Plug in. Walk away.<br/>We'll keep an eye on it.</h2>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot" class="btn btn-primary">Start in Telegram</a>
+    <a href="docs.html" class="btn btn-link">Read the docs</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-links" data-lang="en">
-    <a href="terms.html">Terms of Use</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="refund.html">Refund Policy</a>
-    <a href="mailto:ognibaku@gmail.com">Contact</a>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="docs.html">Documentation</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms of Use</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund.html">Refund Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
+    </div>
   </div>
-  <div class="footer-links" data-lang="ru">
-    <a href="terms.html">Условия использования</a>
-    <a href="privacy.html">Политика конфиденциальности</a>
-    <a href="refund.html">Политика возврата</a>
-    <a href="mailto:ognibaku@gmail.com">Контакты</a>
-  </div>
-  <p data-lang="en">© 2026 WattsonBot. Not affiliated with Tesla, Inc.</p>
-  <p data-lang="ru">© 2026 WattsonBot. Не аффилировано с Tesla, Inc.</p>
 </footer>
 
+<script src="image-slot.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
 <script>
+  // ───────── Bilingual support ─────────
+  const I18N = {
+    en: {
+      "hero.eyebrow": "WattsonBot · for Tesla owners",
+      "hero.title": "Your Tesla.<br/>Always in your pocket.",
+      "hero.lede": "Real-time alerts for charging, battery, tire pressure and drive events. Delivered to Telegram, the moment they happen.",
+      "hero.cta": "Start in Telegram",
+      "hero.learn": "Learn how it works",
+      "feat.eyebrow": "Features",
+      "feat.title": 'Everything you need.<br/><span style="color:var(--ink-mute)">Nothing you don\'t.</span>',
+      "feat.charge.title": "Know the moment current flows.",
+      "feat.charge.body": "Plug in, walk away. WattsonBot pings you when charging starts, stops, or hits your target — anywhere in the world.",
+      "feat.batt.title": "Never get stranded.",
+      "feat.batt.body": "Low-battery warnings before you're in trouble. Set your own threshold.",
+      "feat.stats.title": "A log of every kWh.",
+      "feat.stats.body": "Query range, temperature, charging history. On demand, in plain chat.",
+      "feat.drive.title": "Every trip, summarised.",
+      "feat.drive.body": "Start and end notifications with location, distance and energy used — a quiet ledger of your travel.",
+      "feat.tpms.title": "Tire pressure alerts",
+      "feat.tpms.body": "Instant warnings when a tire drops out of range. Stop before you're driving on a flat.",
+      "feat.cfg.title": "Configurable, per-channel",
+      "feat.cfg.body": "Toggle each alert type directly from Telegram commands. No app to install. No menu to dig through.",
+      "feat.sec.title": "Token-only access",
+      "feat.sec.body": "We use your Tesla refresh token, end-to-end. No password, no credentials, revocable at any time.",
+      "stmt.title": "Watch your car. <em>From anywhere.</em>",
+      "stmt.sub": "No new app. No new account. The chat you already use, doing one more useful thing.",
+      "how.eyebrow": "Setup",
+      "how.title": 'Up and running.<br/><span style="color:#86868b;">In about two minutes.</span>',
+      "how.s1.title": "Open the bot",
+      "how.s1.body": "Find @WattsonEVBot on Telegram and press Start.",
+      "how.s2.title": "Choose a plan",
+      "how.s2.body": "Solo for one car, Fleet for up to five. Switch any time.",
+      "how.s3.title": "Subscribe",
+      "how.s3.body": "Pay in a few clicks. Instant activation, no waiting.",
+      "how.s4.title": "Connect your Tesla",
+      "how.s4.body": "Send us your refresh token. We handle the rest, securely.",
+      "price.eyebrow": "Pricing",
+      "price.title": "Simple. Honest.<br/>One plan.",
+      "price.sub": "Everything included. No add-ons, no surprises. Cancel anytime.",
+      "price.solo.desc": "One Tesla, fully monitored. Everything you'll ever need.",
+      "cta.title": "Plug in. Walk away.<br/>We'll keep an eye on it."
+    },
+    ru: {
+      "hero.eyebrow": "WattsonBot · для владельцев Tesla",
+      "hero.title": "Ваша Tesla.<br/>Всегда под рукой.",
+      "hero.lede": "Мгновенные уведомления о зарядке, батарее, давлении в шинах и поездках. Прямо в Telegram, в момент события.",
+      "hero.cta": "Открыть в Telegram",
+      "hero.learn": "Как это работает",
+      "feat.eyebrow": "Возможности",
+      "feat.title": 'Всё необходимое.<br/><span style="color:var(--ink-mute)">И ничего лишнего.</span>',
+      "feat.charge.title": "Знайте момент, когда пошёл ток.",
+      "feat.charge.body": "Подключили — и забыли. WattsonBot сообщит, когда зарядка началась, остановилась или достигла цели. Из любой точки мира.",
+      "feat.batt.title": "Никогда не застрянете.",
+      "feat.batt.body": "Предупреждение о низком заряде до того, как станет поздно. Настраивайте свой порог.",
+      "feat.stats.title": "Журнал каждого кВт·ч.",
+      "feat.stats.body": "Запас хода, температура, история зарядок — по запросу, в обычной переписке.",
+      "feat.drive.title": "Каждая поездка с отчётом.",
+      "feat.drive.body": "Старт и финиш с локацией, расстоянием и расходом энергии — тихий журнал ваших маршрутов.",
+      "feat.tpms.title": "Давление в шинах",
+      "feat.tpms.body": "Мгновенные оповещения, если давление выходит из нормы. Остановитесь до того, как поедете на спущенной.",
+      "feat.cfg.title": "Гибкая настройка",
+      "feat.cfg.body": "Включайте и отключайте каждый тип уведомлений прямо в Telegram. Без приложения. Без меню.",
+      "feat.sec.title": "Только по токену",
+      "feat.sec.body": "Используем Tesla refresh-токен, целиком. Никаких паролей, отзывается в любой момент.",
+      "stmt.title": "Следите за машиной. <em>Откуда угодно.</em>",
+      "stmt.sub": "Никаких новых приложений. Никаких новых аккаунтов. Знакомый чат — с ещё одной полезной функцией.",
+      "how.eyebrow": "Настройка",
+      "how.title": 'Готово к работе.<br/><span style="color:#86868b;">Примерно за две минуты.</span>',
+      "how.s1.title": "Откройте бота",
+      "how.s1.body": "Найдите @WattsonEVBot в Telegram и нажмите Старт.",
+      "how.s2.title": "Выберите план",
+      "how.s2.body": "Solo для одной машины, Fleet — до пяти. Можно менять.",
+      "how.s3.title": "Оформите подписку",
+      "how.s3.body": "Оплата за несколько кликов. Мгновенная активация.",
+      "how.s4.title": "Подключите Tesla",
+      "how.s4.body": "Пришлите refresh-токен. Дальше — наша забота.",
+      "price.eyebrow": "Тарифы",
+      "price.title": "Просто. Честно.<br/>Один план.",
+      "price.sub": "Всё включено. Никаких доплат, никаких сюрпризов. Отмена в любой момент.",
+      "price.solo.desc": "Одна Tesla под полным контролем. Всё, что когда-либо понадобится.",
+      "cta.title": "Подключите. Уходите.<br/>А мы присмотрим."
+    }
+  };
+
   function setLang(lang) {
-    document.body.className = lang;
-    document.querySelectorAll('.lang-btn').forEach(b => {
-      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (I18N[lang] && I18N[lang][key]) el.innerHTML = I18N[lang][key];
     });
-    try { localStorage.setItem('lang', lang); } catch {}
+    document.getElementById('lang-en').classList.toggle('on', lang === 'en');
+    document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
+    document.documentElement.lang = lang;
   }
-  try { const s = localStorage.getItem('lang'); if (s === 'ru') setLang('ru'); } catch {}
+  document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
+  document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
 </script>
+
+<!-- TWEAKS -->
+<div id="tweaks-root"></div>
+<script type="text/babel">
+  const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accent": "#e9a431",
+    "darkSections": true,
+    "showPhoneCard": true,
+    "lang": "en"
+  }/*EDITMODE-END*/;
+
+  const ACCENT_OPTIONS = ["#e9a431", "#0066cc", "#e23a3a", "#30d158"];
+
+  function TweaksApp() {
+    const [t, setTweak] = useTweaks(TWEAKS_DEFAULTS);
+
+    React.useEffect(() => {
+      document.documentElement.style.setProperty('--accent', t.accent);
+      document.documentElement.style.setProperty('--accent-hover', t.accent);
+    }, [t.accent]);
+
+    React.useEffect(() => {
+      document.querySelector('.phone-card').style.display = t.showPhoneCard ? '' : 'none';
+    }, [t.showPhoneCard]);
+
+    React.useEffect(() => {
+      if (window.setLang) window.setLang(t.lang);
+      try { setLang(t.lang); } catch(e){}
+    }, [t.lang]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Brand">
+          <TweakColor label="Accent" value={t.accent} options={ACCENT_OPTIONS} onChange={v => setTweak('accent', v)} />
+        </TweakSection>
+        <TweakSection title="Hero">
+          <TweakToggle label="Telegram preview card" value={t.showPhoneCard} onChange={v => setTweak('showPhoneCard', v)} />
+        </TweakSection>
+        <TweakSection title="Language">
+          <TweakRadio value={t.lang} options={[{value:'en', label:'EN'},{value:'ru', label:'RU'}]} onChange={v => setTweak('lang', v)} />
+        </TweakSection>
+      </TweaksPanel>
+    );
+  }
+  const mountTweaks = () => {
+    if (typeof TweaksPanel === 'undefined') { setTimeout(mountTweaks, 50); return; }
+    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+  };
+  mountTweaks();
+</script>
+
 </body>
 </html>
