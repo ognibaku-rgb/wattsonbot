@@ -598,6 +598,20 @@
             <p>Sent when any tyre pressure drops below your configured minimum. Cooldown: 30 minutes.</p>
           </div>
         </div>
+        <div class="alert-card">
+          <div class="alert-icon">🛡️</div>
+          <div class="alert-body">
+            <h4>Sentry Mode</h4>
+            <p>Sent when Sentry Mode is enabled or disabled on the car. Useful to confirm it activated at your destination.</p>
+          </div>
+        </div>
+        <div class="alert-card">
+          <div class="alert-icon">🔓</div>
+          <div class="alert-body">
+            <h4>Left unlocked</h4>
+            <p>Sent when the car has been unlocked for 5 minutes while not driving. Repeats every 15 minutes until locked again.</p>
+          </div>
+        </div>
       </div>
     </div>
     <div data-lang="ru">
@@ -654,6 +668,20 @@
             <p>Давление в шине ниже минимума. Кулдаун: 30 минут.</p>
           </div>
         </div>
+        <div class="alert-card">
+          <div class="alert-icon">🛡️</div>
+          <div class="alert-body">
+            <h4>Sentry Mode</h4>
+            <p>При включении или отключении режима охраны. Удобно для подтверждения активации на парковке.</p>
+          </div>
+        </div>
+        <div class="alert-card">
+          <div class="alert-icon">🔓</div>
+          <div class="alert-body">
+            <h4>Машина не заперта</h4>
+            <p>Отправляется через 5 минут после разблокировки, если машина не едет. Повторяется каждые 15 минут до блокировки.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -691,8 +719,23 @@
           <p>TPMS alert fires when any tyre drops below this value (1.5–4.0 bar). Default: 2.55 bar.</p>
         </div>
         <div class="setting-item">
-          <h4>Entering prices</h4>
-          <p>Use the ▲/▼ buttons (±0.01 or ±0.05) in the price picker, or type a value directly: <code>price 0.13</code></p>
+          <h4>🌍 Timezone</h4>
+          <p>Set your local timezone so that daily/weekly/monthly reports and Day/Night tariff hours match your clock. Open ⚙️ /settings and tap the timezone button to pick from a list.</p>
+        </div>
+        <div class="setting-item">
+          <h4>Entering values via text</h4>
+          <p>Use the ▲/▼ buttons in the settings menu, or type commands directly:</p>
+          <p>
+            <code>price 0.13</code> — flat tariff<br/>
+            <code>price day 0.18</code> — day tariff<br/>
+            <code>price night 0.08</code> — night tariff<br/>
+            <code>price ac 0.15</code> — AC charging price<br/>
+            <code>price dc 0.35</code> — DC fast charging price<br/>
+            <code>threshold 15</code> — low battery threshold (%)<br/>
+            <code>tires 2.5</code> — min tyre pressure (bar)<br/>
+            <code>dayhour 7</code> — day zone start (hour)<br/>
+            <code>nighthour 23</code> — night zone start (hour)
+          </p>
         </div>
       </div>
     </div>
@@ -727,8 +770,23 @@
           <p>TPMS-уведомление при давлении ниже этого значения (1.5–4.0 бар). По умолчанию: 2.55 бар.</p>
         </div>
         <div class="setting-item">
-          <h4>Ввод цен</h4>
-          <p>Кнопки ▲/▼ (±0.01 или ±0.05) в меню цены, или текстом: <code>price 0.13</code></p>
+          <h4>🌍 Часовой пояс</h4>
+          <p>Часовой пояс для суточной/недельной/месячной статистики и часов тарифа День/Ночь. Откройте ⚙️ /settings и нажмите кнопку часового пояса для выбора из списка.</p>
+        </div>
+        <div class="setting-item">
+          <h4>Ввод значений текстом</h4>
+          <p>Кнопки ▲/▼ в меню настроек, или команды текстом:</p>
+          <p>
+            <code>price 0.13</code> — единый тариф<br/>
+            <code>price day 0.18</code> — дневной тариф<br/>
+            <code>price night 0.08</code> — ночной тариф<br/>
+            <code>price ac 0.15</code> — цена AC зарядки<br/>
+            <code>price dc 0.35</code> — цена DC быстрой зарядки<br/>
+            <code>threshold 15</code> — порог низкого заряда (%)<br/>
+            <code>tires 2.5</code> — минимальное давление (бар)<br/>
+            <code>dayhour 7</code> — начало дневного тарифа (час)<br/>
+            <code>nighthour 23</code> — начало ночного тарифа (час)
+          </p>
         </div>
       </div>
     </div>
