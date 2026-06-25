@@ -1,119 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Refund Policy — WattsonBot</title>
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --border: #2a2a2a;
-      --accent: #e31937;
-      --text: #f0f0f0;
-      --muted: #888;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.7;
-    }
-    nav {
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
-    .lang-switch { display: flex; gap: 1rem; }
-    .lang-switch a { font-size: 0.9rem; color: var(--muted); }
-    .lang-switch a.active { color: var(--accent); }
-    .container {
-      max-width: 760px;
-      margin: 3rem auto;
-      padding: 0 1.5rem 4rem;
-    }
-    .section { margin-bottom: 3rem; }
-    .lang-label {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.1rem 0.5rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
-    h2 { font-size: 1.15rem; margin: 2rem 0 0.5rem; color: var(--accent); }
-    p { margin-bottom: 1rem; color: #ccc; }
-    ul { color: #ccc; padding-left: 1.5rem; margin-bottom: 1rem; }
-    ul li { margin-bottom: 0.4rem; }
-    a { color: var(--accent); }
-    hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Refund Policy — WattsonBot</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --bg-dark: #1a2240;
+    --ink: #1d1d1f; --ink-mute: #6e6e73; --ink-faint: #86868b;
+    --line: #d2d2d7; --accent: #e9a431; --accent-hover: #f0b13f;
+    --radius: 18px; --maxw: 1240px; --doc-maxw: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em; line-height: 1.6;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo { width: 28px; height: 28px; border-radius: 7px; overflow: hidden; display: block; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 2px 6px; border-radius: 6px; }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home { color: var(--ink-mute); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .nav-home:hover { color: var(--ink); }
+  .page-hero {
+    padding: 72px 22px 52px; text-align: center; background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 52px); line-height: 1.1;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 10px;
+  }
+  .page-hero .updated {
+    font-size: 13px; color: var(--ink-faint);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.02em;
+  }
+  .doc-body { max-width: var(--doc-maxw); margin: 0 auto; padding: 0 22px; }
+  .doc-lang { padding: 60px 0 80px; }
+  .doc-lang + .doc-lang { border-top: 1px solid var(--line); }
+  .doc-body h2 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+    color: var(--ink); margin: 40px 0 10px; line-height: 1.3;
+  }
+  .doc-body h2:first-of-type { margin-top: 0; }
+  .doc-body p { font-size: 16px; color: var(--ink-mute); line-height: 1.65; margin: 0 0 16px; }
+  .doc-body ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+  .doc-body ul li { font-size: 16px; color: var(--ink-mute); line-height: 1.6; padding: 5px 0 5px 20px; position: relative; }
+  .doc-body ul li::before { content: "–"; position: absolute; left: 0; color: var(--accent); }
+  .doc-body a { color: var(--accent); text-decoration: none; }
+  .doc-body a:hover { text-decoration: underline; }
+
+  /* Highlight card for key policy point */
+  .policy-highlight {
+    background: var(--bg-alt); border-radius: var(--radius);
+    padding: 24px 28px; margin: 24px 0;
+    border-left: 3px solid var(--accent);
+  }
+  .policy-highlight p { margin: 0; font-size: 16px; color: var(--ink); }
+  .policy-highlight strong { color: var(--ink); }
+
+  footer {
+    background: #f5f5f7; padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a { display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0; }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
+  [data-lang] { display: none; }
+  .en [data-lang="en"] { display: revert; }
+  .ru [data-lang="ru"] { display: revert; }
+  @media (max-width: 700px) {
+    .page-hero { padding: 52px 18px 36px; }
+    .doc-body { padding: 0 18px; }
+    .doc-lang { padding: 44px 0 56px; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
 </head>
-<body>
-  <nav>
-    <a href="/">← WattsonBot</a>
-    <div class="lang-switch">
-      <a href="#en" class="active">EN</a>
-      <a href="#ru">RU</a>
+<body class="en">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo"><img src="logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-home" data-lang="en">← Home</a>
+      <a href="index.html" class="nav-home" data-lang="ru">← Главная</a>
+      <div class="lang">
+        <button class="on" id="lang-en">EN</button>
+        <span>·</span>
+        <button id="lang-ru">RU</button>
+      </div>
     </div>
-  </nav>
-  <div class="container">
-
-    <!-- ENGLISH -->
-    <div class="section" id="en">
-      <div class="lang-label">English</div>
-      <h1>Refund Policy</h1>
-      <p class="updated">Last updated: May 29, 2026</p>
-
-      <h2>Subscription Expiry</h2>
-      <p>WattsonBot subscriptions do not renew automatically. Your access is valid for 30 days from the payment date. After that, access stops and no further charges are made. To continue, simply renew via the /billing command in the bot.</p>
-
-      <h2>Refunds</h2>
-      <p>We offer a full refund within <strong>7 days</strong> of your first payment if you are not satisfied with the service. To request a refund, contact us via Telegram at <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> or email <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> within 7 days of the charge.</p>
-      <p>Refunds for subsequent billing periods are not provided except in cases of:</p>
-      <ul>
-        <li>A verified technical failure on our side lasting more than 48 hours</li>
-        <li>Duplicate charges</li>
-      </ul>
-      <p>Refunds are processed manually by our support team. For Telegram Stars payments, refunds are subject to Telegram's refund policy. For USDT payments, the amount is returned to your original wallet within 5–10 business days.</p>
-
-      <h2>Contact</h2>
-      <p>For any billing questions: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> or <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> on Telegram.</p>
-    </div>
-
-    <hr />
-
-    <!-- RUSSIAN -->
-    <div class="section" id="ru">
-      <div class="lang-label">Русский</div>
-      <h1>Политика возврата средств</h1>
-      <p class="updated">Последнее обновление: 29 мая 2026 г.</p>
-
-      <h2>Истечение подписки</h2>
-      <p>Подписка WattsonBot не продлевается автоматически. Доступ действует 30 дней с момента оплаты. По истечении срока доступ прекращается, никаких списаний не происходит. Для продления используйте команду /billing в боте.</p>
-
-      <h2>Возврат средств</h2>
-      <p>Мы предлагаем полный возврат средств в течение <strong>7 дней</strong> с момента первого платежа, если сервис вам не подошёл. Для запроса возврата напишите в Telegram <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> в течение 7 дней с момента оплаты.</p>
-      <p>Возврат за последующие расчётные периоды не предусмотрен, за исключением следующих случаев:</p>
-      <ul>
-        <li>Подтверждённый технический сбой на нашей стороне продолжительностью более 48 часов</li>
-        <li>Дублирующее списание средств</li>
-      </ul>
-      <p>Возврат обрабатывается вручную нашей службой поддержки. Для платежей Telegram Stars возврат осуществляется в соответствии с политикой Telegram. Для платежей USDT сумма возвращается на исходный кошелёк в течение 5–10 рабочих дней.</p>
-
-      <h2>Контакты</h2>
-      <p>По вопросам биллинга: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> или <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> в Telegram.</p>
-    </div>
-
   </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow" data-lang="en">Legal</div>
+  <div class="eyebrow" data-lang="ru">Юридическая информация</div>
+  <h1 data-lang="en">Refund Policy</h1>
+  <h1 data-lang="ru">Политика возврата средств</h1>
+  <div class="updated" data-lang="en">Last updated: May 29, 2026</div>
+  <div class="updated" data-lang="ru">Последнее обновление: 29 мая 2026 г.</div>
+</div>
+
+<div class="doc-body">
+
+  <div class="doc-lang" data-lang="en">
+    <h2>Subscription Expiry</h2>
+    <p>WattsonBot subscriptions do not renew automatically. Your access is valid for 30 days from the payment date. After that, access stops and no further charges are made. To continue, simply renew via the /billing command in the bot.</p>
+
+    <h2>Refunds</h2>
+    <div class="policy-highlight">
+      <p>We offer a <strong>full refund within 7 days</strong> of your first payment if you are not satisfied with the service.</p>
+    </div>
+    <p>To request a refund, contact us via Telegram at <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> or email <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> within 7 days of the charge.</p>
+    <p>Refunds for subsequent billing periods are not provided except in cases of:</p>
+    <ul>
+      <li>A verified technical failure on our side lasting more than 48 hours</li>
+      <li>Duplicate charges</li>
+    </ul>
+    <p>Refunds are processed manually by our support team. For Telegram Stars payments, refunds are subject to Telegram's refund policy. For USDT payments, the amount is returned to your original wallet within 5–10 business days.</p>
+
+    <h2>Contact</h2>
+    <p>For any billing questions: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> or <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> on Telegram.</p>
+  </div>
+
+  <div class="doc-lang" data-lang="ru">
+    <h2>Истечение подписки</h2>
+    <p>Подписка WattsonBot не продлевается автоматически. Доступ действует 30 дней с момента оплаты. По истечении срока доступ прекращается, никаких списаний не происходит. Для продления используйте команду /billing в боте.</p>
+
+    <h2>Возврат средств</h2>
+    <div class="policy-highlight">
+      <p>Мы предлагаем <strong>полный возврат средств в течение 7 дней</strong> с момента первого платежа, если сервис вам не подошёл.</p>
+    </div>
+    <p>Для запроса возврата напишите в Telegram <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> в течение 7 дней с момента оплаты.</p>
+    <p>Возврат за последующие расчётные периоды не предусмотрен, за исключением следующих случаев:</p>
+    <ul>
+      <li>Подтверждённый технический сбой на нашей стороне продолжительностью более 48 часов</li>
+      <li>Дублирующее списание средств</li>
+    </ul>
+    <p>Возврат обрабатывается вручную нашей службой поддержки. Для платежей Telegram Stars возврат осуществляется в соответствии с политикой Telegram. Для платежей USDT сумма возвращается на исходный кошелёк в течение 5–10 рабочих дней.</p>
+
+    <h2>Контакты</h2>
+    <p>По вопросам биллинга: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> или <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> в Telegram.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="docs.html">Documentation</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms of Use</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund.html">Refund Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = lang;
+    document.getElementById('lang-en').classList.toggle('on', lang === 'en');
+    document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('wattson-lang', lang); } catch {}
+  }
+  document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
+  document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
+  try { const s = localStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
+</script>
 </body>
 </html>

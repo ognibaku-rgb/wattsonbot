@@ -1,193 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — WattsonBot</title>
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --border: #2a2a2a;
-      --accent: #e31937;
-      --text: #f0f0f0;
-      --muted: #888;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.7;
-    }
-    nav {
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
-    .lang-switch { display: flex; gap: 1rem; }
-    .lang-switch a { font-size: 0.9rem; color: var(--muted); }
-    .lang-switch a.active { color: var(--accent); }
-    .container {
-      max-width: 760px;
-      margin: 3rem auto;
-      padding: 0 1.5rem 4rem;
-    }
-    .section { margin-bottom: 3rem; }
-    .lang-label {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.1rem 0.5rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
-    h2 { font-size: 1.15rem; margin: 2rem 0 0.5rem; color: var(--accent); }
-    p { margin-bottom: 1rem; color: #ccc; }
-    ul { color: #ccc; padding-left: 1.5rem; margin-bottom: 1rem; }
-    ul li { margin-bottom: 0.4rem; }
-    a { color: var(--accent); }
-    hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — WattsonBot</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --bg-dark: #1a2240;
+    --ink: #1d1d1f; --ink-mute: #6e6e73; --ink-faint: #86868b;
+    --line: #d2d2d7; --accent: #e9a431; --accent-hover: #f0b13f;
+    --radius: 18px; --maxw: 1240px; --doc-maxw: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em; line-height: 1.6;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo { width: 28px; height: 28px; border-radius: 7px; overflow: hidden; display: block; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 2px 6px; border-radius: 6px; }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home { color: var(--ink-mute); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .nav-home:hover { color: var(--ink); }
+  .page-hero {
+    padding: 72px 22px 52px; text-align: center; background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 52px); line-height: 1.1;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 10px;
+  }
+  .page-hero .updated {
+    font-size: 13px; color: var(--ink-faint);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.02em;
+  }
+  .doc-body { max-width: var(--doc-maxw); margin: 0 auto; padding: 0 22px; }
+  .doc-lang { padding: 60px 0 80px; }
+  .doc-lang + .doc-lang { border-top: 1px solid var(--line); }
+  .doc-body h2 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+    color: var(--ink); margin: 40px 0 10px; line-height: 1.3;
+  }
+  .doc-body h2:first-of-type { margin-top: 0; }
+  .doc-body p { font-size: 16px; color: var(--ink-mute); line-height: 1.65; margin: 0 0 16px; }
+  .doc-body ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+  .doc-body ul li { font-size: 16px; color: var(--ink-mute); line-height: 1.6; padding: 5px 0 5px 20px; position: relative; }
+  .doc-body ul li::before { content: "–"; position: absolute; left: 0; color: var(--accent); }
+  .doc-body a { color: var(--accent); text-decoration: none; }
+  .doc-body a:hover { text-decoration: underline; }
+  code {
+    background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; color: var(--ink);
+  }
+  footer {
+    background: #f5f5f7; padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a { display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0; }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
+  [data-lang] { display: none; }
+  .en [data-lang="en"] { display: revert; }
+  .ru [data-lang="ru"] { display: revert; }
+  @media (max-width: 700px) {
+    .page-hero { padding: 52px 18px 36px; }
+    .doc-body { padding: 0 18px; }
+    .doc-lang { padding: 44px 0 56px; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
 </head>
-<body>
-  <nav>
-    <a href="/">← WattsonBot</a>
-    <div class="lang-switch">
-      <a href="#en" class="active">EN</a>
-      <a href="#ru">RU</a>
+<body class="en">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo"><img src="logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-home" data-lang="en">← Home</a>
+      <a href="index.html" class="nav-home" data-lang="ru">← Главная</a>
+      <div class="lang">
+        <button class="on" id="lang-en">EN</button>
+        <span>·</span>
+        <button id="lang-ru">RU</button>
+      </div>
     </div>
-  </nav>
-  <div class="container">
-
-    <!-- ENGLISH -->
-    <div class="section" id="en">
-      <div class="lang-label">English</div>
-      <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: May 28, 2026</p>
-
-      <h2>1. Who We Are</h2>
-      <p>WattsonBot ("we", "us") is a software service that provides Tesla vehicle monitoring via Telegram. Contact: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> or <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>.</p>
-
-      <h2>2. What Data We Collect</h2>
-      <ul>
-        <li><strong>Telegram ID</strong> — used to identify your account and deliver notifications</li>
-        <li><strong>Tesla refresh token</strong> — stored encrypted (AES-256-GCM), used solely to fetch your vehicle telemetry</li>
-        <li><strong>Vehicle telemetry</strong> — battery level, location, charging state, TPMS — fetched from your personal TeslaMate instance and never stored permanently on our servers</li>
-        <li><strong>Subscription data</strong> — plan tier, billing status, and payment method (Telegram Stars or USDT)</li>
-      </ul>
-
-      <h2>3. How We Use Your Data</h2>
-      <ul>
-        <li>Deliver real-time vehicle alerts and notifications to your Telegram account</li>
-        <li>Manage your subscription and access level</li>
-        <li>Provide customer support</li>
-      </ul>
-      <p>We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
-
-      <h2>4. Data Storage, Security and Retention</h2>
-      <p>Your Tesla token is stored encrypted at rest (AES-256-GCM). All connections use TLS. Access to the database is restricted to internal services only.</p>
-      <p><strong>Data retention periods:</strong></p>
-      <ul>
-        <li><strong>Active subscription</strong> — data retained for the duration of the subscription</li>
-        <li><strong>Expired free trial (no payment)</strong> — data permanently deleted 7 days after trial ends</li>
-        <li><strong>Expired paid subscription</strong> — data permanently deleted 30 days after expiry, giving you time to resubscribe</li>
-        <li><strong>Manual deletion</strong> — immediate, via <code>/gdpr_delete</code> command</li>
-      </ul>
-      <p>When data is deleted, this includes your Docker stack, vehicle telemetry database, Tesla token, and account record.</p>
-
-      <h2>5. Third-Party Services</h2>
-      <ul>
-        <li><strong>Telegram</strong> — used as the delivery channel and for Telegram Stars payments. Subject to Telegram's <a href="https://telegram.org/privacy" target="_blank">Privacy Policy</a>.</li>
-        <li><strong>CryptoBot (@CryptoBot)</strong> — optional USDT payment processing. Subject to CryptoBot's privacy policy.</li>
-        <li><strong>Tesla / TeslaMate</strong> — vehicle data source. Your TeslaMate instance runs in your dedicated Docker container.</li>
-      </ul>
-
-      <h2>6. Your Rights (GDPR)</h2>
-      <p>If you are located in the EU/EEA, you have the right to access, correct, delete, or export your personal data, and to object to processing. To exercise these rights, send <code>/gdpr_delete</code> in the Telegram bot or contact us at <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>. We will respond within 30 days.</p>
-
-      <h2>7. Data Deletion</h2>
-      <p>You can delete all your data at any time using the <code>/gdpr_delete</code> command in the bot. This permanently removes your Telegram ID, encrypted tokens, and subscription record. Your Docker stack is also deprovisioned.</p>
-
-      <h2>8. Cookies</h2>
-      <p>This website does not use cookies or any tracking scripts.</p>
-
-      <h2>9. Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time. Changes will be announced via the Telegram bot. The date at the top of this page reflects the latest revision.</p>
-
-      <h2>10. Contact</h2>
-      <p>Privacy questions: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a></p>
-    </div>
-
-    <hr />
-
-    <!-- RUSSIAN -->
-    <div class="section" id="ru">
-      <div class="lang-label">Русский</div>
-      <h1>Политика конфиденциальности</h1>
-      <p class="updated">Последнее обновление: 28 мая 2026 г.</p>
-
-      <h2>1. Кто мы</h2>
-      <p>WattsonBot («мы») — программный сервис мониторинга электромобиля Tesla через Telegram. Контакты: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> или <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>.</p>
-
-      <h2>2. Какие данные мы собираем</h2>
-      <ul>
-        <li><strong>Telegram ID</strong> — для идентификации вашего аккаунта и доставки уведомлений</li>
-        <li><strong>Tesla refresh token</strong> — хранится в зашифрованном виде (AES-256-GCM), используется исключительно для получения телеметрии автомобиля</li>
-        <li><strong>Телеметрия автомобиля</strong> — уровень заряда, местоположение, состояние зарядки, давление в шинах — получается из вашего персонального экземпляра TeslaMate и не сохраняется на наших серверах постоянно</li>
-        <li><strong>Данные подписки</strong> — тарифный план, статус биллинга и способ оплаты (Telegram Stars или USDT)</li>
-      </ul>
-
-      <h2>3. Как мы используем ваши данные</h2>
-      <ul>
-        <li>Доставка уведомлений об автомобиле в реальном времени в ваш Telegram</li>
-        <li>Управление вашей подпиской и уровнем доступа</li>
-        <li>Техническая поддержка</li>
-      </ul>
-      <p>Мы не продаём, не сдаём в аренду и не передаём ваши персональные данные третьим лицам в маркетинговых целях.</p>
-
-      <h2>4. Хранение, безопасность и сроки хранения данных</h2>
-      <p>Tesla-токен хранится в зашифрованном виде (AES-256-GCM). Все соединения используют TLS. Доступ к базе данных ограничен только внутренними сервисами.</p>
-      <p><strong>Сроки хранения данных:</strong></p>
-      <ul>
-        <li><strong>Активная подписка</strong> — данные хранятся в течение всего срока подписки</li>
-        <li><strong>Истёкший бесплатный пробный период (без оплаты)</strong> — данные удаляются через 7 дней после окончания пробного периода</li>
-        <li><strong>Истёкшая платная подписка</strong> — данные удаляются через 30 дней после истечения срока, что даёт время на повторную подписку</li>
-        <li><strong>Ручное удаление</strong> — немедленно, по команде <code>/gdpr_delete</code></li>
-      </ul>
-      <p>При удалении данных стираются: Docker-стек, база данных телеметрии автомобиля, Tesla-токен и запись аккаунта.</p>
-
-      <h2>5. Сторонние сервисы</h2>
-      <ul>
-        <li><strong>Telegram</strong> — канал доставки уведомлений и оплата через Telegram Stars. Регулируется <a href="https://telegram.org/privacy" target="_blank">Политикой конфиденциальности Telegram</a>.</li>
-        <li><strong>CryptoBot (@CryptoBot)</strong> — опциональная обработка платежей в USDT.</li>
-        <li><strong>Tesla / TeslaMate</strong> — источник данных автомобиля. Ваш экземпляр TeslaMate работает в выделенном Docker-контейнере.</li>
-      </ul>
-
-      <h2>6. Ваши права (GDPR)</h2>
-      <p>Если вы находитесь в ЕС/ЕЭЗ, вы имеете право на доступ, исправление, удаление или экспорт своих персональных данных, а также на возражение против их обработки. Для этого отправьте команду <code>/gdpr_delete</code> в Telegram-боте или напишите на <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>. Мы ответим в течение 30 дней.</p>
-
-      <h2>7. Удаление данных</h2>
-      <p>Вы можете удалить все свои данные в любое время с помощью команды <code>/gdpr_delete</code> в боте. Это навсегда удаляет ваш Telegram ID, зашифрованные токены и запись о подписке. Docker-стек также деактивируется.</p>
-
-      <h2>8. Файлы cookie</h2>
-      <p>Этот сайт не использует файлы cookie и скрипты отслеживания.</p>
-
-      <h2>9. Изменение политики</h2>
-      <p>Мы можем периодически обновлять настоящую Политику. Об изменениях мы уведомим через Telegram-бот. Дата в начале страницы отражает последнюю редакцию.</p>
-
-      <h2>10. Контакты</h2>
-      <p>Вопросы о конфиденциальности: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a></p>
-    </div>
-
   </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow" data-lang="en">Legal</div>
+  <div class="eyebrow" data-lang="ru">Юридическая информация</div>
+  <h1 data-lang="en">Privacy Policy</h1>
+  <h1 data-lang="ru">Политика конфиденциальности</h1>
+  <div class="updated" data-lang="en">Last updated: May 28, 2026</div>
+  <div class="updated" data-lang="ru">Последнее обновление: 28 мая 2026 г.</div>
+</div>
+
+<div class="doc-body">
+
+  <div class="doc-lang" data-lang="en">
+    <h2>1. Who We Are</h2>
+    <p>WattsonBot ("we", "us") is a software service that provides Tesla vehicle monitoring via Telegram. Contact: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> or <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>.</p>
+
+    <h2>2. What Data We Collect</h2>
+    <ul>
+      <li><strong>Telegram ID</strong> — used to identify your account and deliver notifications</li>
+      <li><strong>Tesla refresh token</strong> — stored encrypted (AES-256-GCM), used solely to fetch your vehicle telemetry</li>
+      <li><strong>Vehicle telemetry</strong> — battery level, location, charging state, TPMS — fetched from your personal TeslaMate instance and never stored permanently on our servers</li>
+      <li><strong>Subscription data</strong> — plan tier, billing status, and payment method (Telegram Stars or USDT)</li>
+    </ul>
+
+    <h2>3. How We Use Your Data</h2>
+    <ul>
+      <li>Deliver real-time vehicle alerts and notifications to your Telegram account</li>
+      <li>Manage your subscription and access level</li>
+      <li>Provide customer support</li>
+    </ul>
+    <p>We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+
+    <h2>4. Data Storage, Security and Retention</h2>
+    <p>Your Tesla token is stored encrypted at rest (AES-256-GCM). All connections use TLS. Access to the database is restricted to internal services only.</p>
+    <p><strong>Retention periods:</strong></p>
+    <ul>
+      <li><strong>Active subscription</strong> — data retained for the duration of the subscription</li>
+      <li><strong>Expired free trial (no payment)</strong> — data permanently deleted 7 days after trial ends</li>
+      <li><strong>Expired paid subscription</strong> — data permanently deleted 30 days after expiry, giving you time to resubscribe</li>
+      <li><strong>Manual deletion</strong> — immediate, via <code>/gdpr_delete</code> command</li>
+    </ul>
+    <p>When data is deleted, this includes your Docker stack, vehicle telemetry database, Tesla token, and account record.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <ul>
+      <li><strong>Telegram</strong> — used as the delivery channel and for Telegram Stars payments. Subject to Telegram's <a href="https://telegram.org/privacy" target="_blank">Privacy Policy</a>.</li>
+      <li><strong>CryptoBot (@CryptoBot)</strong> — optional USDT payment processing.</li>
+      <li><strong>Tesla / TeslaMate</strong> — vehicle data source. Your TeslaMate instance runs in your dedicated Docker container.</li>
+    </ul>
+
+    <h2>6. Your Rights (GDPR)</h2>
+    <p>If you are located in the EU/EEA, you have the right to access, correct, delete, or export your personal data, and to object to processing. To exercise these rights, send <code>/gdpr_delete</code> in the Telegram bot or contact us at <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>. We will respond within 30 days.</p>
+
+    <h2>7. Data Deletion</h2>
+    <p>You can delete all your data at any time using the <code>/gdpr_delete</code> command in the bot. This permanently removes your Telegram ID, encrypted tokens, and subscription record. Your Docker stack is also deprovisioned.</p>
+
+    <h2>8. Cookies</h2>
+    <p>This website does not use cookies or any tracking scripts.</p>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be announced via the Telegram bot. The date at the top of this page reflects the latest revision.</p>
+
+    <h2>10. Contact</h2>
+    <p>Privacy questions: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a></p>
+  </div>
+
+  <div class="doc-lang" data-lang="ru">
+    <h2>1. Кто мы</h2>
+    <p>WattsonBot («мы») — программный сервис мониторинга электромобиля Tesla через Telegram. Контакты: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> или <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>.</p>
+
+    <h2>2. Какие данные мы собираем</h2>
+    <ul>
+      <li><strong>Telegram ID</strong> — для идентификации вашего аккаунта и доставки уведомлений</li>
+      <li><strong>Tesla refresh token</strong> — хранится в зашифрованном виде (AES-256-GCM), используется исключительно для получения телеметрии автомобиля</li>
+      <li><strong>Телеметрия автомобиля</strong> — уровень заряда, местоположение, состояние зарядки, давление в шинах — получается из вашего персонального экземпляра TeslaMate и не сохраняется на наших серверах постоянно</li>
+      <li><strong>Данные подписки</strong> — тарифный план, статус биллинга и способ оплаты (Telegram Stars или USDT)</li>
+    </ul>
+
+    <h2>3. Как мы используем ваши данные</h2>
+    <ul>
+      <li>Доставка уведомлений об автомобиле в реальном времени в ваш Telegram</li>
+      <li>Управление вашей подпиской и уровнем доступа</li>
+      <li>Техническая поддержка</li>
+    </ul>
+    <p>Мы не продаём, не сдаём в аренду и не передаём ваши персональные данные третьим лицам в маркетинговых целях.</p>
+
+    <h2>4. Хранение, безопасность и сроки хранения данных</h2>
+    <p>Tesla-токен хранится в зашифрованном виде (AES-256-GCM). Все соединения используют TLS. Доступ к базе данных ограничен только внутренними сервисами.</p>
+    <p><strong>Сроки хранения данных:</strong></p>
+    <ul>
+      <li><strong>Активная подписка</strong> — данные хранятся в течение всего срока подписки</li>
+      <li><strong>Истёкший бесплатный пробный период (без оплаты)</strong> — данные удаляются через 7 дней после окончания пробного периода</li>
+      <li><strong>Истёкшая платная подписка</strong> — данные удаляются через 30 дней после истечения срока</li>
+      <li><strong>Ручное удаление</strong> — немедленно, по команде <code>/gdpr_delete</code></li>
+    </ul>
+    <p>При удалении данных стираются: Docker-стек, база данных телеметрии автомобиля, Tesla-токен и запись аккаунта.</p>
+
+    <h2>5. Сторонние сервисы</h2>
+    <ul>
+      <li><strong>Telegram</strong> — канал доставки уведомлений и оплата через Telegram Stars. Регулируется <a href="https://telegram.org/privacy" target="_blank">Политикой конфиденциальности Telegram</a>.</li>
+      <li><strong>CryptoBot (@CryptoBot)</strong> — опциональная обработка платежей в USDT.</li>
+      <li><strong>Tesla / TeslaMate</strong> — источник данных автомобиля. Ваш экземпляр TeslaMate работает в выделенном Docker-контейнере.</li>
+    </ul>
+
+    <h2>6. Ваши права (GDPR)</h2>
+    <p>Если вы находитесь в ЕС/ЕЭЗ, вы имеете право на доступ, исправление, удаление или экспорт своих персональных данных, а также на возражение против их обработки. Для этого отправьте команду <code>/gdpr_delete</code> в Telegram-боте или напишите на <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>. Мы ответим в течение 30 дней.</p>
+
+    <h2>7. Удаление данных</h2>
+    <p>Вы можете удалить все свои данные в любое время с помощью команды <code>/gdpr_delete</code> в боте. Это навсегда удаляет ваш Telegram ID, зашифрованные токены и запись о подписке. Docker-стек также деактивируется.</p>
+
+    <h2>8. Файлы cookie</h2>
+    <p>Этот сайт не использует файлы cookie и скрипты отслеживания.</p>
+
+    <h2>9. Изменение политики</h2>
+    <p>Мы можем периодически обновлять настоящую Политику. Об изменениях мы уведомим через Telegram-бот. Дата в начале страницы отражает последнюю редакцию.</p>
+
+    <h2>10. Контакты</h2>
+    <p>Вопросы о конфиденциальности: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="docs.html">Documentation</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms of Use</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund.html">Refund Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = lang;
+    document.getElementById('lang-en').classList.toggle('on', lang === 'en');
+    document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('wattson-lang', lang); } catch {}
+  }
+  document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
+  document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
+  try { const s = localStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
+</script>
 </body>
 </html>
