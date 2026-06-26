@@ -318,11 +318,11 @@
     document.getElementById('lang-en').classList.toggle('on', lang === 'en');
     document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
     document.documentElement.lang = lang;
-    try { localStorage.setItem('wattson-lang', lang); } catch {}
+    try { sessionStorage.setItem('wattson-lang', lang); } catch {}
   }
   document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
   document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
-  try { const s = localStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
+  try { const s = sessionStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
 </script>
 </body>
 </html>
