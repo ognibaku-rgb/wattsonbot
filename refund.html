@@ -255,10 +255,21 @@
     document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
     document.documentElement.lang = lang;
     try { sessionStorage.setItem('wattson-lang', lang); } catch {}
+    document.querySelectorAll('a[href]').forEach(function(a) {
+      var h = a.getAttribute('href');
+      if (/^(index|docs|terms|privacy)\.html/.test(h)) {
+        var base = h.split('?')[0];
+        a.setAttribute('href', lang === 'ru' ? base + '?lang=ru' : base);
+      }
+    });
   }
   document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
   document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
-  try { const s = sessionStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
+  try {
+    var urlLang = new URLSearchParams(location.search).get('lang');
+    if (urlLang === 'ru' || urlLang === 'en') { setLang(urlLang); }
+    else { var s = sessionStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); }
+  } catch {}
 </script>
 </body>
 </html>
