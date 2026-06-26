@@ -964,7 +964,7 @@
       <!-- Big charging tile -->
       <div class="tile dark col-7">
         <div class="tile-top">
-          <div class="tile-meta">Charging</div>
+          <div class="tile-meta" data-i18n="feat.charge.meta">Charging</div>
           <h3 class="tile-title" data-i18n="feat.charge.title">Know the moment current flows.</h3>
           <p class="tile-body" data-i18n="feat.charge.body">Plug in, walk away. WattsonBot pings you when charging starts, stops, or hits your target — anywhere in the world.</p>
         </div>
@@ -980,7 +980,7 @@
       <!-- Battery tile -->
       <div class="tile col-5">
         <div class="tile-top">
-          <div class="tile-meta">Battery monitor</div>
+          <div class="tile-meta" data-i18n="feat.batt.meta">Battery monitor</div>
           <h3 class="tile-title" data-i18n="feat.batt.title">Never get stranded.</h3>
           <p class="tile-body" data-i18n="feat.batt.body">Low-battery warnings before you're in trouble. Set your own threshold.</p>
         </div>
@@ -994,7 +994,7 @@
       <!-- Stats tile -->
       <div class="tile col-5">
         <div class="tile-top">
-          <div class="tile-meta">Stats &amp; history</div>
+          <div class="tile-meta" data-i18n="feat.stats.meta">Stats &amp; history</div>
           <h3 class="tile-title" data-i18n="feat.stats.title">A log of every kWh.</h3>
           <p class="tile-body" data-i18n="feat.stats.body">Query range, temperature, charging history. On demand, in plain chat.</p>
         </div>
@@ -1017,7 +1017,7 @@
       <!-- TPMS / Drive / Alerts -->
       <div class="tile col-7" style="background: var(--bg-dark); color: #f5f5f7;">
         <div class="tile-top">
-          <div class="tile-meta" style="color:#a1a1a6;">Drive events</div>
+          <div class="tile-meta" style="color:#a1a1a6;" data-i18n="feat.drive.meta">Drive events</div>
           <h3 class="tile-title" data-i18n="feat.drive.title">Every trip, summarised.</h3>
           <p class="tile-body" style="color:#a1a1a6;" data-i18n="feat.drive.body">Start and end notifications with location, distance and energy used — a quiet ledger of your travel.</p>
         </div>
@@ -1119,14 +1119,14 @@
         <div class="price-amt"><sup>$</sup>5<span style="color:#a1a1a6;"> / month</span></div>
         <p class="price-desc" data-i18n="price.solo.desc">One Tesla, fully monitored. Everything you'll ever need.</p>
         <ul class="price-list">
-          <li>Real-time charging alerts</li>
-          <li>Battery &amp; range warnings</li>
-          <li>Tire pressure (TPMS) alerts</li>
-          <li>Drive event summaries</li>
-          <li>Stats &amp; history on demand</li>
-          <li>Configurable Telegram commands</li>
+          <li data-i18n="price.li1">Real-time charging alerts</li>
+          <li data-i18n="price.li2">Battery &amp; range warnings</li>
+          <li data-i18n="price.li3">Tire pressure (TPMS) alerts</li>
+          <li data-i18n="price.li4">Drive event summaries</li>
+          <li data-i18n="price.li5">Stats &amp; history on demand</li>
+          <li data-i18n="price.li6">Configurable Telegram commands</li>
         </ul>
-        <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;">Get started</a>
+        <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;" data-i18n="price.cta">Get started</a>
       </div>
     </div>
   </div>
@@ -1136,8 +1136,8 @@
 <section data-screen-label="05 CTA" style="padding: 160px 22px; text-align:center;">
   <h2 class="headline center" style="margin-bottom:30px;" data-i18n="cta.title">Plug in. Walk away.<br/>We'll keep an eye on it.</h2>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot" class="btn btn-primary">Start in Telegram</a>
-    <a href="docs.html" class="btn btn-link">Read the docs</a>
+    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="cta.btn">Start in Telegram</a>
+    <a href="docs.html" class="btn btn-link" data-i18n="cta.docs">Read the docs</a>
   </div>
 </section>
 
@@ -1147,29 +1147,29 @@
     <div class="foot-top">
       <div>
         <h4>WattsonBot</h4>
-        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
+        <p data-i18n="foot.about">Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
       </div>
       <div>
-        <h4>Product</h4>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="docs.html">Documentation</a>
+        <h4 data-i18n="foot.product">Product</h4>
+        <a href="#features" data-i18n="foot.features">Features</a>
+        <a href="#pricing" data-i18n="foot.pricing">Pricing</a>
+        <a href="docs.html" data-i18n="foot.docs">Documentation</a>
       </div>
       <div>
-        <h4>Legal</h4>
-        <a href="terms.html">Terms of Use</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund.html">Refund Policy</a>
+        <h4 data-i18n="foot.legal">Legal</h4>
+        <a href="terms.html" data-i18n="foot.terms">Terms of Use</a>
+        <a href="privacy.html" data-i18n="foot.privacy">Privacy Policy</a>
+        <a href="refund.html" data-i18n="foot.refund">Refund Policy</a>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h4 data-i18n="foot.contact">Contact</h4>
         <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
         <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <div>© 2026 WattsonBot. All rights reserved.</div>
-      <div>Made for Tesla owners, by a Tesla owner.</div>
+      <div data-i18n="foot.copy">© 2026 WattsonBot. All rights reserved.</div>
+      <div data-i18n="foot.tagline">Made for Tesla owners, by a Tesla owner.</div>
     </div>
   </div>
 </footer>
@@ -1223,7 +1223,32 @@
       "nav.how": "How it works",
       "nav.pricing": "Pricing",
       "nav.docs": "Docs",
-      "nav.cta": "Open in Telegram"
+      "nav.cta": "Open in Telegram",
+      "feat.charge.meta": "Charging",
+      "feat.batt.meta": "Battery monitor",
+      "feat.stats.meta": "Stats &amp; history",
+      "feat.drive.meta": "Drive events",
+      "price.li1": "Real-time charging alerts",
+      "price.li2": "Battery &amp; range warnings",
+      "price.li3": "Tire pressure (TPMS) alerts",
+      "price.li4": "Drive event summaries",
+      "price.li5": "Stats &amp; history on demand",
+      "price.li6": "Configurable Telegram commands",
+      "price.cta": "Get started",
+      "cta.btn": "Start in Telegram",
+      "cta.docs": "Read the docs",
+      "foot.about": "Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.",
+      "foot.product": "Product",
+      "foot.features": "Features",
+      "foot.pricing": "Pricing",
+      "foot.docs": "Documentation",
+      "foot.legal": "Legal",
+      "foot.terms": "Terms of Use",
+      "foot.privacy": "Privacy Policy",
+      "foot.refund": "Refund Policy",
+      "foot.contact": "Contact",
+      "foot.copy": "© 2026 WattsonBot. All rights reserved.",
+      "foot.tagline": "Made for Tesla owners, by a Tesla owner."
     },
     ru: {
       "hero.eyebrow": "WattsonBot · для владельцев Tesla",
@@ -1268,7 +1293,32 @@
       "nav.how": "Как это работает",
       "nav.pricing": "Тарифы",
       "nav.docs": "Документация",
-      "nav.cta": "Открыть в Telegram"
+      "nav.cta": "Открыть в Telegram",
+      "feat.charge.meta": "Зарядка",
+      "feat.batt.meta": "Монитор батареи",
+      "feat.stats.meta": "Статистика и история",
+      "feat.drive.meta": "События поездки",
+      "price.li1": "Уведомления о зарядке в реальном времени",
+      "price.li2": "Предупреждения об уровне заряда",
+      "price.li3": "Уведомления о давлении в шинах (TPMS)",
+      "price.li4": "Сводки по поездкам",
+      "price.li5": "Статистика и история по запросу",
+      "price.li6": "Команды Telegram с гибкой настройкой",
+      "price.cta": "Начать",
+      "cta.btn": "Открыть в Telegram",
+      "cta.docs": "Читать документацию",
+      "foot.about": "Мониторинг Tesla через Telegram. Независимый проект, создан владельцем. Не аффилирован с Tesla, Inc.",
+      "foot.product": "Продукт",
+      "foot.features": "Возможности",
+      "foot.pricing": "Тарифы",
+      "foot.docs": "Документация",
+      "foot.legal": "Юридическая информация",
+      "foot.terms": "Условия использования",
+      "foot.privacy": "Политика конфиденциальности",
+      "foot.refund": "Политика возврата",
+      "foot.contact": "Контакты",
+      "foot.copy": "© 2026 WattsonBot. Все права защищены.",
+      "foot.tagline": "Для владельцев Tesla, от владельца Tesla."
     }
   };
 
@@ -1284,6 +1334,7 @@
   }
   document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
   document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
+  try { const s = localStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); } catch {}
 </script>
 
 <!-- TWEAKS -->
@@ -1299,7 +1350,8 @@
   const ACCENT_OPTIONS = ["#e9a431", "#0066cc", "#e23a3a", "#30d158"];
 
   function TweaksApp() {
-    const [t, setTweak] = useTweaks(TWEAKS_DEFAULTS);
+    const savedLang = (() => { try { return localStorage.getItem('wattson-lang') || TWEAKS_DEFAULTS.lang; } catch { return TWEAKS_DEFAULTS.lang; } })();
+    const [t, setTweak] = useTweaks({...TWEAKS_DEFAULTS, lang: savedLang});
 
     React.useEffect(() => {
       document.documentElement.style.setProperty('--accent', t.accent);
