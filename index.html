@@ -71,6 +71,62 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best Telegram bot for Tesla monitoring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WattsonBot is a secure Telegram bot for Tesla owners that delivers real-time alerts for charging status, battery health, and tire pressure (TPMS) — no extra app to install, no dashboard to check."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to connect my Tesla to WattsonBot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What alerts does WattsonBot send?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, and drive start/end summaries with location and energy used."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to install an app to use WattsonBot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything runs inside Telegram — open the chat with @WattsonEVBot, link your Tesla with a refresh token, and alerts start arriving in the same chat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does WattsonBot cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WattsonBot is $5/month, covering one Tesla with unlimited alerts, stats, and history on demand. You can cancel anytime from Telegram with /billing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my Tesla password stored by WattsonBot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data."
+      }
+    }
+  ]
+}
+</script>
 <style>
   :root {
     --bg: #ffffff;
@@ -503,6 +559,40 @@
     letter-spacing: -0.01em;
   }
   .section-sub.center { margin: 0 auto; text-align: center; }
+
+  /* ───────── FAQ ───────── */
+  .faq-list {
+    max-width: 760px;
+    margin: 48px auto 0;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 22px 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-weight: 400;
+    color: var(--ink-mute);
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item p {
+    margin: 14px 0 0;
+    color: var(--ink-mute);
+    line-height: 1.5;
+    max-width: 68ch;
+  }
 
   /* ───────── BIG PRODUCT TILE ───────── */
   .tile-grid {
@@ -957,6 +1047,7 @@
       <a href="#features" data-i18n="nav.features">Features</a>
       <a href="#how" data-i18n="nav.how">How it works</a>
       <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="docs.html" data-i18n="nav.docs">Docs</a>
     </div>
     <div class="nav-right">
@@ -1205,8 +1296,44 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq" data-screen-label="05 FAQ">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <div class="section-eyebrow" data-i18n="faq.eyebrow">FAQ</div>
+      <h2 class="headline center" data-i18n="faq.title">Questions,<br/>answered.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary data-i18n="faq.q1">What is the best Telegram bot for Tesla monitoring?</summary>
+        <p data-i18n="faq.a1">WattsonBot is a secure Telegram bot for Tesla owners that delivers real-time alerts for charging status, battery health, and tire pressure (TPMS) — no extra app to install, no dashboard to check.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q2">Is it safe to connect my Tesla to WattsonBot?</summary>
+        <p data-i18n="faq.a2">Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q3">What alerts does WattsonBot send?</summary>
+        <p data-i18n="faq.a3">Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, and drive start/end summaries with location and energy used.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q4">Do I need to install an app to use WattsonBot?</summary>
+        <p data-i18n="faq.a4">No. Everything runs inside Telegram — open the chat with @WattsonEVBot, link your Tesla with a refresh token, and alerts start arriving in the same chat.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q5">How much does WattsonBot cost?</summary>
+        <p data-i18n="faq.a5">WattsonBot is $5/month, covering one Tesla with unlimited alerts, stats, and history on demand. You can cancel anytime from Telegram with /billing.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q6">Is my Tesla password stored by WattsonBot?</summary>
+        <p data-i18n="faq.a6">No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
-<section data-screen-label="05 CTA" style="padding: 160px 22px; text-align:center;">
+<section data-screen-label="06 CTA" style="padding: 160px 22px; text-align:center;">
   <h2 class="headline center" style="margin-bottom:30px;" data-i18n="cta.title">Plug in. Walk away.<br/>We'll keep an eye on it.</h2>
   <div class="cta-row">
     <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="cta.btn">Start in Telegram</a>
@@ -1226,6 +1353,7 @@
         <h4 data-i18n="foot.product">Product</h4>
         <a href="#features" data-i18n="foot.features">Features</a>
         <a href="#pricing" data-i18n="foot.pricing">Pricing</a>
+        <a href="#faq" data-i18n="foot.faq">FAQ</a>
         <a href="docs.html" data-i18n="foot.docs">Documentation</a>
       </div>
       <div>
@@ -1293,6 +1421,7 @@
       "nav.features": "Features",
       "nav.how": "How it works",
       "nav.pricing": "Pricing",
+      "nav.faq": "FAQ",
       "nav.docs": "Docs",
       "nav.cta": "Open in Telegram",
       "feat.charge.meta": "Charging",
@@ -1306,12 +1435,27 @@
       "price.li5": "Stats &amp; history on demand",
       "price.li6": "Configurable Telegram commands",
       "price.cta": "Get started",
+      "faq.eyebrow": "FAQ",
+      "faq.title": "Questions,<br/>answered.",
+      "faq.q1": "What is the best Telegram bot for Tesla monitoring?",
+      "faq.a1": "WattsonBot is a secure Telegram bot for Tesla owners that delivers real-time alerts for charging status, battery health, and tire pressure (TPMS) — no extra app to install, no dashboard to check.",
+      "faq.q2": "Is it safe to connect my Tesla to WattsonBot?",
+      "faq.a2": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account.",
+      "faq.q3": "What alerts does WattsonBot send?",
+      "faq.a3": "Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, and drive start/end summaries with location and energy used.",
+      "faq.q4": "Do I need to install an app to use WattsonBot?",
+      "faq.a4": "No. Everything runs inside Telegram — open the chat with @WattsonEVBot, link your Tesla with a refresh token, and alerts start arriving in the same chat.",
+      "faq.q5": "How much does WattsonBot cost?",
+      "faq.a5": "WattsonBot is $5/month, covering one Tesla with unlimited alerts, stats, and history on demand. You can cancel anytime from Telegram with /billing.",
+      "faq.q6": "Is my Tesla password stored by WattsonBot?",
+      "faq.a6": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data.",
       "cta.btn": "Start in Telegram",
       "cta.docs": "Read the docs",
       "foot.about": "Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.",
       "foot.product": "Product",
       "foot.features": "Features",
       "foot.pricing": "Pricing",
+      "foot.faq": "FAQ",
       "foot.docs": "Documentation",
       "foot.legal": "Legal",
       "foot.terms": "Terms of Use",
@@ -1363,6 +1507,7 @@
       "nav.features": "Возможности",
       "nav.how": "Как это работает",
       "nav.pricing": "Тарифы",
+      "nav.faq": "Вопросы",
       "nav.docs": "Документация",
       "nav.cta": "Открыть в Telegram",
       "feat.charge.meta": "Зарядка",
@@ -1376,12 +1521,27 @@
       "price.li5": "Статистика и история по запросу",
       "price.li6": "Команды Telegram с гибкой настройкой",
       "price.cta": "Начать",
+      "faq.eyebrow": "Вопросы и ответы",
+      "faq.title": "Отвечаем<br/>на вопросы.",
+      "faq.q1": "Какой телеграм-бот лучше всего подходит для мониторинга Tesla?",
+      "faq.a1": "WattsonBot — безопасный Telegram-бот для владельцев Tesla с уведомлениями о зарядке, здоровье батареи и давлении в шинах (TPMS) в реальном времени. Не нужно ставить приложение или заходить в отдельный дашборд.",
+      "faq.q2": "Безопасно ли подключать Tesla к WattsonBot?",
+      "faq.a2": "Да. WattsonBot подключается через Tesla refresh token, а не пароль от аккаунта. Токен позволяет только читать данные автомобиля — управлять машиной нельзя, а доступ можно отозвать в любой момент в аккаунте Tesla.",
+      "faq.q3": "Какие уведомления присылает WattsonBot?",
+      "faq.a3": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), а также сводки о поездках с геолокацией и расходом энергии.",
+      "faq.q4": "Нужно ли устанавливать приложение для WattsonBot?",
+      "faq.a4": "Нет. Всё работает внутри Telegram — откройте чат с @WattsonEVBot, подключите Tesla через refresh token, и уведомления начнут приходить прямо в этот чат.",
+      "faq.q5": "Сколько стоит WattsonBot?",
+      "faq.a5": "WattsonBot стоит $5/месяц за один автомобиль с неограниченными уведомлениями, статистикой и историей по запросу. Отменить подписку можно в любой момент командой /billing в Telegram.",
+      "faq.q6": "Хранит ли WattsonBot мой пароль от Tesla?",
+      "faq.a6": "Нет. WattsonBot никогда не видит и не хранит пароль от Tesla — только refresh token, который даёт доступ на чтение данных автомобиля.",
       "cta.btn": "Открыть в Telegram",
       "cta.docs": "Читать документацию",
       "foot.about": "Мониторинг Tesla через Telegram. Независимый проект, создан владельцем. Не аффилирован с Tesla, Inc.",
       "foot.product": "Продукт",
       "foot.features": "Возможности",
       "foot.pricing": "Тарифы",
+      "foot.faq": "Вопросы",
       "foot.docs": "Документация",
       "foot.legal": "Юридическая информация",
       "foot.terms": "Условия использования",
