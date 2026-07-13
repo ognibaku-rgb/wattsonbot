@@ -1045,7 +1045,7 @@
       <a href="#how" data-i18n="nav.how">Как это работает</a>
       <a href="#pricing" data-i18n="nav.pricing">Тарифы</a>
       <a href="#faq" data-i18n="nav.faq">Вопросы</a>
-      <a href="../docs.html?lang=ru" data-i18n="nav.docs">Документация</a>
+      <a href="../ru/docs.html" data-i18n="nav.docs">Документация</a>
     </div>
     <div class="nav-right">
       <div class="lang">
@@ -1249,7 +1249,7 @@
       <div class="step">
         <div class="step-num">STEP 02</div>
         <div class="step-title" data-i18n="how.s2.title">Выберите план</div>
-        <p class="step-body" data-i18n="how.s2.body">Solo для одной машины, Fleet — до пяти. Можно менять.</p>
+        <p class="step-body" data-i18n="how.s2.body">Solo — один автомобиль, всё включено.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 03</div>
@@ -1334,7 +1334,7 @@
   <h2 class="headline center" style="margin-bottom:30px;" data-i18n="cta.title">Подключите. Уходите.<br/>А мы присмотрим.</h2>
   <div class="cta-row">
     <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="cta.btn">Открыть в Telegram</a>
-    <a href="../docs.html?lang=ru" class="btn btn-link" data-i18n="cta.docs">Читать документацию</a>
+    <a href="../ru/docs.html" class="btn btn-link" data-i18n="cta.docs">Читать документацию</a>
   </div>
 </section>
 
@@ -1351,13 +1351,13 @@
         <a href="#features" data-i18n="foot.features">Возможности</a>
         <a href="#pricing" data-i18n="foot.pricing">Тарифы</a>
         <a href="#faq" data-i18n="foot.faq">Вопросы</a>
-        <a href="../docs.html?lang=ru" data-i18n="foot.docs">Документация</a>
+        <a href="../ru/docs.html" data-i18n="foot.docs">Документация</a>
       </div>
       <div>
         <h4 data-i18n="foot.legal">Юридическая информация</h4>
-        <a href="../terms.html?lang=ru" data-i18n="foot.terms">Условия использования</a>
-        <a href="../privacy.html?lang=ru" data-i18n="foot.privacy">Политика конфиденциальности</a>
-        <a href="../refund.html?lang=ru" data-i18n="foot.refund">Политика возврата</a>
+        <a href="../ru/terms.html" data-i18n="foot.terms">Условия использования</a>
+        <a href="../ru/privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a>
+        <a href="../ru/refund.html" data-i18n="foot.refund">Политика возврата</a>
       </div>
       <div>
         <h4 data-i18n="foot.contact">Контакты</h4>
@@ -1405,7 +1405,7 @@
       "how.s1.title": "Open the bot",
       "how.s1.body": "Find @WattsonEVBot on Telegram and press Start.",
       "how.s2.title": "Choose a plan",
-      "how.s2.body": "Solo for one car, Fleet for up to five. Switch any time.",
+      "how.s2.body": "Solo — one car, everything included.",
       "how.s3.title": "Subscribe",
       "how.s3.body": "Pay in a few clicks. Instant activation, no waiting.",
       "how.s4.title": "Connect your Tesla",
@@ -1491,7 +1491,7 @@
       "how.s1.title": "Откройте бота",
       "how.s1.body": "Найдите @WattsonEVBot в Telegram и нажмите Старт.",
       "how.s2.title": "Выберите план",
-      "how.s2.body": "Solo для одной машины, Fleet — до пяти. Можно менять.",
+      "how.s2.body": "Solo — один автомобиль, всё включено.",
       "how.s3.title": "Оформите подписку",
       "how.s3.body": "Оплата за несколько кликов. Мгновенная активация.",
       "how.s4.title": "Подключите Tesla",
@@ -1559,13 +1559,6 @@
     document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
     document.documentElement.lang = lang;
     try { sessionStorage.setItem('wattson-lang', lang); } catch {}
-    document.querySelectorAll('a[href]').forEach(function(a) {
-      var h = a.getAttribute('href');
-      if (/^(docs|terms|privacy|refund)\.html/.test(h)) {
-        var base = h.split('?')[0];
-        a.setAttribute('href', lang === 'ru' ? base + '?lang=ru' : base);
-      }
-    });
   }
   document.getElementById('lang-en').addEventListener('click', () => { location.href = '../'; });
   document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));

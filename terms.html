@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://wattsonbot.org/terms.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/terms.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/terms.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/terms.html" />
 <title>Terms of Service — WattsonBot</title>
 <style>
   :root {
@@ -128,11 +131,6 @@
   .foot-top p { margin: 8px 0 0; max-width: 36ch; }
   .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
 
-  /* i18n */
-  [data-lang] { display: none; }
-  .en [data-lang="en"] { display: revert; }
-  .ru [data-lang="ru"] { display: revert; }
-
   @media (max-width: 700px) {
     .page-hero { padding: 52px 18px 36px; }
     .doc-body { padding: 0 18px; }
@@ -155,7 +153,7 @@
   gtag('config', 'G-SCG2HR7EJV');
 </script>
 </head>
-<body class="en">
+<body>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -164,8 +162,7 @@
       WattsonBot
     </a>
     <div class="nav-right">
-      <a href="index.html" class="nav-home" data-lang="en">← Home</a>
-      <a href="index.html" class="nav-home" data-lang="ru">← Главная</a>
+      <a href="index.html" class="nav-home">← Home</a>
       <div class="lang">
         <button class="on" id="lang-en">EN</button>
         <span>·</span>
@@ -176,17 +173,14 @@
 </nav>
 
 <div class="page-hero">
-  <div class="eyebrow" data-lang="en">Legal</div>
-  <div class="eyebrow" data-lang="ru">Юридическая информация</div>
-  <h1 data-lang="en">Terms of Service</h1>
-  <h1 data-lang="ru">Условия использования</h1>
-  <div class="updated" data-lang="en">Last updated: May 29, 2026</div>
-  <div class="updated" data-lang="ru">Последнее обновление: 29 мая 2026 г.</div>
+  <div class="eyebrow">Legal</div>
+  <h1>Terms of Service</h1>
+  <div class="updated">Last updated: May 29, 2026</div>
 </div>
 
 <div class="doc-body">
 
-  <div class="doc-lang" data-lang="en">
+  <div class="doc-lang">
     <h2>1. Service Description</h2>
     <p>WattsonBot ("the Service") is a subscription-based software service that provides Tesla vehicle monitoring and notifications via Telegram. By subscribing, you receive access to a managed Telegram bot connected to your Tesla account through your personal TeslaMate instance.</p>
 
@@ -221,41 +215,6 @@
     <p>Questions? Contact us via Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> or email <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
   </div>
 
-  <div class="doc-lang" data-lang="ru">
-    <h2>1. Описание сервиса</h2>
-    <p>WattsonBot («Сервис») — это подписочный программный сервис, предоставляющий мониторинг электромобиля Tesla и уведомления через Telegram. Оформляя подписку, вы получаете доступ к управляемому Telegram-боту, подключённому к вашей учётной записи Tesla через персональный экземпляр TeslaMate.</p>
-
-    <h2>2. Условия доступа</h2>
-    <p>Для использования Сервиса вам должно быть не менее 18 лет, а также необходима действующая учётная запись Tesla. Используя Сервис, вы подтверждаете, что предоставленные данные достоверны и вы имеете право подключить свою учётную запись Tesla.</p>
-
-    <h2>3. Подписка и оплата</h2>
-    <p>Сервис предоставляется на условиях ежемесячной подписки. Оплата принимается через ⭐ Telegram Stars или 💎 USDT (через @CryptoBot). Подписка действует 30 дней с момента оплаты и не продлевается автоматически — продление выполняется вручную через команду /billing в боте. Цены указаны в USD.</p>
-    <ul>
-      <li><strong>Solo</strong> — $5/месяц, один автомобиль</li>
-    </ul>
-
-    <h2>4. Отмена и возврат средств</h2>
-    <p>Поскольку подписка не продлевается автоматически, для отмены достаточно не продлевать её по истечении срока. Доступ сохраняется до конца оплаченного периода. Возврат средств за неполный период не производится. В случае технической неполадки свяжитесь с поддержкой в течение 7 дней — мы рассмотрим ваш запрос.</p>
-
-    <h2>5. Допустимое использование</h2>
-    <p>Вы соглашаетесь не злоупотреблять Сервисом, не предпринимать попыток несанкционированного доступа и не нарушать применимое законодательство. Сервис предназначен только для личного использования. Перепродажа или сублицензирование доступа запрещены.</p>
-
-    <h2>6. Данные учётной записи Tesla</h2>
-    <p>Для доступа к данным автомобиля вы предоставляете Tesla refresh token. Токен хранится в зашифрованном виде и используется исключительно для получения телеметрии. Мы не передаём ваши данные третьим лицам. Вы можете отозвать доступ в любое время в настройках безопасности учётной записи Tesla.</p>
-
-    <h2>7. Доступность сервиса</h2>
-    <p>Мы стремимся к высокой доступности Сервиса, однако не гарантируем его бесперебойную работу. Плановые технические работы, сбои у третьих сторон (Telegram, Tesla API) или форс-мажорные обстоятельства могут вызывать временные перебои. Компенсация за простой менее 24 часов не предусмотрена.</p>
-
-    <h2>8. Ограничение ответственности</h2>
-    <p>Сервис предоставляется «как есть». В максимально допустимой законодательством мере WattsonBot не несёт ответственности за любые косвенные, случайные или последующие убытки, возникшие в результате использования или невозможности использования Сервиса.</p>
-
-    <h2>9. Изменение условий</h2>
-    <p>Мы можем периодически обновлять настоящие Условия. О существенных изменениях мы уведомим через Telegram-бот. Продолжение использования Сервиса после изменений означает ваше согласие с новыми Условиями.</p>
-
-    <h2>10. Контакты</h2>
-    <p>Вопросы? Пишите в Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
-  </div>
-
 </div>
 
 <footer>
@@ -263,75 +222,39 @@
     <div class="foot-top">
       <div>
         <h4>WattsonBot</h4>
-        <p data-lang="en">Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
-        <p data-lang="ru">Мониторинг Tesla через Telegram. Независимый проект, создан владельцем. Не аффилирован с Tesla, Inc.</p>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
       </div>
       <div>
-        <h4 data-lang="en">Product</h4>
-        <h4 data-lang="ru">Продукт</h4>
-        <div data-lang="en">
+        <h4>Product</h4>
+        <div>
           <a href="index.html#features">Features</a>
           <a href="index.html#pricing">Pricing</a>
           <a href="docs.html">Documentation</a>
         </div>
-        <div data-lang="ru">
-          <a href="index.html#features">Возможности</a>
-          <a href="index.html#pricing">Тарифы</a>
-          <a href="docs.html">Документация</a>
-        </div>
       </div>
       <div>
-        <h4 data-lang="en">Legal</h4>
-        <h4 data-lang="ru">Юридическая информация</h4>
-        <div data-lang="en">
+        <h4>Legal</h4>
+        <div>
           <a href="terms.html">Terms of Use</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="refund.html">Refund Policy</a>
         </div>
-        <div data-lang="ru">
-          <a href="terms.html">Условия использования</a>
-          <a href="privacy.html">Политика конфиденциальности</a>
-          <a href="refund.html">Политика возврата</a>
-        </div>
       </div>
       <div>
-        <h4 data-lang="en">Contact</h4>
-        <h4 data-lang="ru">Контакты</h4>
+        <h4>Contact</h4>
         <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
         <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <div data-lang="en">© 2026 WattsonBot. All rights reserved.</div>
-      <div data-lang="ru">© 2026 WattsonBot. Все права защищены.</div>
-      <div data-lang="en">Made for Tesla owners, by a Tesla owner.</div>
-      <div data-lang="ru">Для владельцев Tesla, от владельца Tesla.</div>
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
     </div>
   </div>
 </footer>
 
 <script>
-  function setLang(lang) {
-    document.body.className = lang;
-    document.getElementById('lang-en').classList.toggle('on', lang === 'en');
-    document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
-    document.documentElement.lang = lang;
-    try { sessionStorage.setItem('wattson-lang', lang); } catch {}
-    document.querySelectorAll('a[href]').forEach(function(a) {
-      var h = a.getAttribute('href');
-      if (/^(index|docs|privacy|refund)\.html/.test(h)) {
-        var base = h.split('?')[0];
-        a.setAttribute('href', lang === 'ru' ? base + '?lang=ru' : base);
-      }
-    });
-  }
-  document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
-  document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
-  try {
-    var urlLang = new URLSearchParams(location.search).get('lang');
-    if (urlLang === 'ru' || urlLang === 'en') { setLang(urlLang); }
-    else { var s = sessionStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); }
-  } catch {}
+  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/terms.html'; });
 </script>
 </body>
 </html>

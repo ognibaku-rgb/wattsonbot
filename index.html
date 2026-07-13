@@ -1249,7 +1249,7 @@
       <div class="step">
         <div class="step-num">STEP 02</div>
         <div class="step-title" data-i18n="how.s2.title">Choose a plan</div>
-        <p class="step-body" data-i18n="how.s2.body">Solo for one car, Fleet for up to five. Switch any time.</p>
+        <p class="step-body" data-i18n="how.s2.body">Solo — one car, everything included.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 03</div>
@@ -1405,7 +1405,7 @@
       "how.s1.title": "Open the bot",
       "how.s1.body": "Find @WattsonEVBot on Telegram and press Start.",
       "how.s2.title": "Choose a plan",
-      "how.s2.body": "Solo for one car, Fleet for up to five. Switch any time.",
+      "how.s2.body": "Solo — one car, everything included.",
       "how.s3.title": "Subscribe",
       "how.s3.body": "Pay in a few clicks. Instant activation, no waiting.",
       "how.s4.title": "Connect your Tesla",
@@ -1491,7 +1491,7 @@
       "how.s1.title": "Откройте бота",
       "how.s1.body": "Найдите @WattsonEVBot в Telegram и нажмите Старт.",
       "how.s2.title": "Выберите план",
-      "how.s2.body": "Solo для одной машины, Fleet — до пяти. Можно менять.",
+      "how.s2.body": "Solo — один автомобиль, всё включено.",
       "how.s3.title": "Оформите подписку",
       "how.s3.body": "Оплата за несколько кликов. Мгновенная активация.",
       "how.s4.title": "Подключите Tesla",
@@ -1561,9 +1561,9 @@
     try { sessionStorage.setItem('wattson-lang', lang); } catch {}
     document.querySelectorAll('a[href]').forEach(function(a) {
       var h = a.getAttribute('href');
-      if (/^(docs|terms|privacy|refund)\.html/.test(h)) {
-        var base = h.split('?')[0];
-        a.setAttribute('href', lang === 'ru' ? base + '?lang=ru' : base);
+      var m = h.match(/^(?:ru\/)?(docs|terms|privacy|refund)\.html$/);
+      if (m) {
+        a.setAttribute('href', lang === 'ru' ? 'ru/' + m[1] + '.html' : m[1] + '.html');
       }
     });
   }

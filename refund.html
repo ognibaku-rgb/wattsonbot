@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://wattsonbot.org/refund.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/refund.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/refund.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/refund.html" />
 <title>Refund Policy — WattsonBot</title>
 <style>
   :root {
@@ -107,9 +110,6 @@
   .foot-top a:hover { color: var(--ink); }
   .foot-top p { margin: 8px 0 0; max-width: 36ch; }
   .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
-  [data-lang] { display: none; }
-  .en [data-lang="en"] { display: revert; }
-  .ru [data-lang="ru"] { display: revert; }
   @media (max-width: 700px) {
     .page-hero { padding: 52px 18px 36px; }
     .doc-body { padding: 0 18px; }
@@ -132,7 +132,7 @@
   gtag('config', 'G-SCG2HR7EJV');
 </script>
 </head>
-<body class="en">
+<body>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -141,8 +141,7 @@
       WattsonBot
     </a>
     <div class="nav-right">
-      <a href="index.html" class="nav-home" data-lang="en">← Home</a>
-      <a href="index.html" class="nav-home" data-lang="ru">← Главная</a>
+      <a href="index.html" class="nav-home">← Home</a>
       <div class="lang">
         <button class="on" id="lang-en">EN</button>
         <span>·</span>
@@ -153,17 +152,14 @@
 </nav>
 
 <div class="page-hero">
-  <div class="eyebrow" data-lang="en">Legal</div>
-  <div class="eyebrow" data-lang="ru">Юридическая информация</div>
-  <h1 data-lang="en">Refund Policy</h1>
-  <h1 data-lang="ru">Политика возврата средств</h1>
-  <div class="updated" data-lang="en">Last updated: May 29, 2026</div>
-  <div class="updated" data-lang="ru">Последнее обновление: 29 мая 2026 г.</div>
+  <div class="eyebrow">Legal</div>
+  <h1>Refund Policy</h1>
+  <div class="updated">Last updated: May 29, 2026</div>
 </div>
 
 <div class="doc-body">
 
-  <div class="doc-lang" data-lang="en">
+  <div class="doc-lang">
     <h2>Subscription Expiry</h2>
     <p>WattsonBot subscriptions do not renew automatically. Your access is valid for 30 days from the payment date. After that, access stops and no further charges are made. To continue, simply renew via the /billing command in the bot.</p>
 
@@ -183,26 +179,6 @@
     <p>For any billing questions: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> or <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> on Telegram.</p>
   </div>
 
-  <div class="doc-lang" data-lang="ru">
-    <h2>Истечение подписки</h2>
-    <p>Подписка WattsonBot не продлевается автоматически. Доступ действует 30 дней с момента оплаты. По истечении срока доступ прекращается, никаких списаний не происходит. Для продления используйте команду /billing в боте.</p>
-
-    <h2>Возврат средств</h2>
-    <div class="policy-highlight">
-      <p>Мы предлагаем <strong>полный возврат средств в течение 7 дней</strong> с момента первого платежа, если сервис вам не подошёл.</p>
-    </div>
-    <p>Для запроса возврата напишите в Telegram <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> в течение 7 дней с момента оплаты.</p>
-    <p>Возврат за последующие расчётные периоды не предусмотрен, за исключением следующих случаев:</p>
-    <ul>
-      <li>Подтверждённый технический сбой на нашей стороне продолжительностью более 48 часов</li>
-      <li>Дублирующее списание средств</li>
-    </ul>
-    <p>Возврат обрабатывается вручную нашей службой поддержки. Для платежей Telegram Stars возврат осуществляется в соответствии с политикой Telegram. Для платежей USDT сумма возвращается на исходный кошелёк в течение 5–10 рабочих дней.</p>
-
-    <h2>Контакты</h2>
-    <p>По вопросам биллинга: <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a> или <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> в Telegram.</p>
-  </div>
-
 </div>
 
 <footer>
@@ -210,75 +186,39 @@
     <div class="foot-top">
       <div>
         <h4>WattsonBot</h4>
-        <p data-lang="en">Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
-        <p data-lang="ru">Мониторинг Tesla через Telegram. Независимый проект, создан владельцем. Не аффилирован с Tesla, Inc.</p>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
       </div>
       <div>
-        <h4 data-lang="en">Product</h4>
-        <h4 data-lang="ru">Продукт</h4>
-        <div data-lang="en">
+        <h4>Product</h4>
+        <div>
           <a href="index.html#features">Features</a>
           <a href="index.html#pricing">Pricing</a>
           <a href="docs.html">Documentation</a>
         </div>
-        <div data-lang="ru">
-          <a href="index.html#features">Возможности</a>
-          <a href="index.html#pricing">Тарифы</a>
-          <a href="docs.html">Документация</a>
-        </div>
       </div>
       <div>
-        <h4 data-lang="en">Legal</h4>
-        <h4 data-lang="ru">Юридическая информация</h4>
-        <div data-lang="en">
+        <h4>Legal</h4>
+        <div>
           <a href="terms.html">Terms of Use</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="refund.html">Refund Policy</a>
         </div>
-        <div data-lang="ru">
-          <a href="terms.html">Условия использования</a>
-          <a href="privacy.html">Политика конфиденциальности</a>
-          <a href="refund.html">Политика возврата</a>
-        </div>
       </div>
       <div>
-        <h4 data-lang="en">Contact</h4>
-        <h4 data-lang="ru">Контакты</h4>
+        <h4>Contact</h4>
         <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
         <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <div data-lang="en">© 2026 WattsonBot. All rights reserved.</div>
-      <div data-lang="ru">© 2026 WattsonBot. Все права защищены.</div>
-      <div data-lang="en">Made for Tesla owners, by a Tesla owner.</div>
-      <div data-lang="ru">Для владельцев Tesla, от владельца Tesla.</div>
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
     </div>
   </div>
 </footer>
 
 <script>
-  function setLang(lang) {
-    document.body.className = lang;
-    document.getElementById('lang-en').classList.toggle('on', lang === 'en');
-    document.getElementById('lang-ru').classList.toggle('on', lang === 'ru');
-    document.documentElement.lang = lang;
-    try { sessionStorage.setItem('wattson-lang', lang); } catch {}
-    document.querySelectorAll('a[href]').forEach(function(a) {
-      var h = a.getAttribute('href');
-      if (/^(index|docs|terms|privacy)\.html/.test(h)) {
-        var base = h.split('?')[0];
-        a.setAttribute('href', lang === 'ru' ? base + '?lang=ru' : base);
-      }
-    });
-  }
-  document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
-  document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
-  try {
-    var urlLang = new URLSearchParams(location.search).get('lang');
-    if (urlLang === 'ru' || urlLang === 'en') { setLang(urlLang); }
-    else { var s = sessionStorage.getItem('wattson-lang'); if (s === 'ru') setLang('ru'); }
-  } catch {}
+  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/refund.html'; });
 </script>
 </body>
 </html>

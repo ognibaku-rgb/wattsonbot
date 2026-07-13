@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://wattsonbot.org/ru/terms.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/terms.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/terms.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/terms.html" />
+<title>Условия использования — WattsonBot</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --bg-dark: #1a2240;
+    --ink: #1d1d1f; --ink-mute: #6e6e73; --ink-faint: #86868b;
+    --line: #d2d2d7; --accent: #e9a431; --accent-hover: #f0b13f;
+    --radius: 18px; --maxw: 1240px; --doc-maxw: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em; line-height: 1.6;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo { width: 28px; height: 28px; border-radius: 7px; overflow: hidden; display: block; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 2px 6px; border-radius: 6px; }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home { color: var(--ink-mute); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .nav-home:hover { color: var(--ink); }
+
+  /* HERO */
+  .page-hero {
+    padding: 72px 22px 52px; text-align: center; background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 52px); line-height: 1.1;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 10px;
+  }
+  .page-hero .updated {
+    font-size: 13px; color: var(--ink-faint);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* CONTENT */
+  .doc-body { max-width: var(--doc-maxw); margin: 0 auto; padding: 0 22px; }
+
+  .doc-lang {
+    padding: 60px 0 80px;
+  }
+
+  .doc-body h2 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+    color: var(--ink); margin: 40px 0 10px; line-height: 1.3;
+  }
+  .doc-body h2:first-of-type { margin-top: 0; }
+  .doc-body p {
+    font-size: 16px; color: var(--ink-mute); line-height: 1.65;
+    margin: 0 0 16px;
+  }
+  .doc-body ul {
+    margin: 0 0 16px; padding-left: 0; list-style: none;
+  }
+  .doc-body ul li {
+    font-size: 16px; color: var(--ink-mute); line-height: 1.6;
+    padding: 5px 0 5px 20px; position: relative;
+  }
+  .doc-body ul li::before {
+    content: "–"; position: absolute; left: 0; color: var(--accent);
+  }
+  .doc-body a { color: var(--accent); text-decoration: none; }
+  .doc-body a:hover { text-decoration: underline; }
+  code {
+    background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; color: var(--ink);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #f5f5f7; padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a { display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0; }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
+
+  @media (max-width: 700px) {
+    .page-hero { padding: 52px 18px 36px; }
+    .doc-body { padding: 0 18px; }
+    .doc-lang { padding: 44px 0 56px; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SCG2HR7EJV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SCG2HR7EJV');
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">
+      <div class="nav-logo"><img src="../logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="../index.html" class="nav-home">← Главная</a>
+      <div class="lang">
+        <button id="lang-en">EN</button>
+        <span>·</span>
+        <button class="on" id="lang-ru">RU</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Юридическая информация</div>
+  <h1>Условия использования</h1>
+  <div class="updated">Последнее обновление: 29 мая 2026 г.</div>
+</div>
+
+<div class="doc-body">
+
+  <div class="doc-lang">
+    <h2>1. Описание сервиса</h2>
+    <p>WattsonBot («Сервис») — это подписочный программный сервис, предоставляющий мониторинг электромобиля Tesla и уведомления через Telegram. Оформляя подписку, вы получаете доступ к управляемому Telegram-боту, подключённому к вашей учётной записи Tesla через персональный экземпляр TeslaMate.</p>
+
+    <h2>2. Условия доступа</h2>
+    <p>Для использования Сервиса вам должно быть не менее 18 лет, а также необходима действующая учётная запись Tesla. Используя Сервис, вы подтверждаете, что предоставленные данные достоверны и вы имеете право подключить свою учётную запись Tesla.</p>
+
+    <h2>3. Подписка и оплата</h2>
+    <p>Сервис предоставляется на условиях ежемесячной подписки. Оплата принимается через ⭐ Telegram Stars или 💎 USDT (через @CryptoBot). Подписка действует 30 дней с момента оплаты и не продлевается автоматически — продление выполняется вручную через команду /billing в боте. Цены указаны в USD.</p>
+    <ul>
+      <li><strong>Solo</strong> — $5/месяц, один автомобиль</li>
+    </ul>
+
+    <h2>4. Отмена и возврат средств</h2>
+    <p>Поскольку подписка не продлевается автоматически, для отмены достаточно не продлевать её по истечении срока. Доступ сохраняется до конца оплаченного периода. Возврат средств за неполный период не производится. В случае технической неполадки свяжитесь с поддержкой в течение 7 дней — мы рассмотрим ваш запрос.</p>
+
+    <h2>5. Допустимое использование</h2>
+    <p>Вы соглашаетесь не злоупотреблять Сервисом, не предпринимать попыток несанкционированного доступа и не нарушать применимое законодательство. Сервис предназначен только для личного использования. Перепродажа или сублицензирование доступа запрещены.</p>
+
+    <h2>6. Данные учётной записи Tesla</h2>
+    <p>Для доступа к данным автомобиля вы предоставляете Tesla refresh token. Токен хранится в зашифрованном виде и используется исключительно для получения телеметрии. Мы не передаём ваши данные третьим лицам. Вы можете отозвать доступ в любое время в настройках безопасности учётной записи Tesla.</p>
+
+    <h2>7. Доступность сервиса</h2>
+    <p>Мы стремимся к высокой доступности Сервиса, однако не гарантируем его бесперебойную работу. Плановые технические работы, сбои у третьих сторон (Telegram, Tesla API) или форс-мажорные обстоятельства могут вызывать временные перебои. Компенсация за простой менее 24 часов не предусмотрена.</p>
+
+    <h2>8. Ограничение ответственности</h2>
+    <p>Сервис предоставляется «как есть». В максимально допустимой законодательством мере WattsonBot не несёт ответственности за любые косвенные, случайные или последующие убытки, возникшие в результате использования или невозможности использования Сервиса.</p>
+
+    <h2>9. Изменение условий</h2>
+    <p>Мы можем периодически обновлять настоящие Условия. О существенных изменениях мы уведомим через Telegram-бот. Продолжение использования Сервиса после изменений означает ваше согласие с новыми Условиями.</p>
+
+    <h2>10. Контакты</h2>
+    <p>Вопросы? Пишите в Telegram: <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a> или на почту <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Мониторинг Tesla через Telegram. Независимый проект, создан владельцем. Не аффилирован с Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Продукт</h4>
+        <div>
+          <a href="../index.html#features">Возможности</a>
+          <a href="../index.html#pricing">Тарифы</a>
+          <a href="docs.html">Документация</a>
+        </div>
+      </div>
+      <div>
+        <h4>Юридическая информация</h4>
+        <div>
+          <a href="terms.html">Условия использования</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <a href="refund.html">Политика возврата</a>
+        </div>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="mailto:ognibaku@gmail.com">ognibaku@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. Все права защищены.</div>
+      <div>Для владельцев Tesla, от владельца Tesla.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('lang-en').addEventListener('click', () => { location.href = '../terms.html'; });
+</script>
+</body>
+</html>
