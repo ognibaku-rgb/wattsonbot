@@ -78,4 +78,4 @@ WattsonBot is not affiliated with Tesla, Inc.
 
 ## Contact
 
-📧 [ognibaku@gmail.com](mailto:ognibaku@gmail.com)
+📧 [wattsonevbot@gmail.com](mailto:wattsonevbot@gmail.com)
