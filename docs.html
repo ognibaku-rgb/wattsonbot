@@ -440,7 +440,7 @@
         <div class="step-num">4</div>
         <div class="step-body">
           <h4>Connect your Tesla</h4>
-          <p>Send your Tesla refresh token when prompted. Get one with <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> (third-party open-source app) or the <a href="https://tesla-info.com/tesla-token.php">web-based generator</a> if you don't have an iPhone. This credential lets the bot read car data only — it cannot control the car.</p>
+          <p>Send your Tesla refresh token when prompted — takes about two minutes, see <a href="#token">how to get one</a> below. This credential lets the bot read car data only — it cannot control the car.</p>
         </div>
       </div>
       <div class="step-card">
@@ -451,6 +451,26 @@
         </div>
       </div>
     </div>
+
+    <h3 id="token">How to get a Tesla refresh token</h3>
+    <p>Both tools below are third-party open-source apps recommended by the <a href="https://docs.teslamate.org/docs/faq/">TeslaMate FAQ</a>. You sign in on Tesla's official page — your password never goes to the tool or to us, and the token can be revoked at any time from your Tesla account.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">A</div>
+        <div class="step-body">
+          <h4>iPhone / Mac — Auth App for Tesla</h4>
+          <p>Install <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> from the App Store, open it and sign in to your Tesla account (the login happens on Tesla's official page). Copy the <strong>Refresh Token</strong> it shows and send it to the bot.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">B</div>
+        <div class="step-body">
+          <h4>Windows / Linux / Mac — Tesla Auth</h4>
+          <p>Download <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth</a> for your system, run it and sign in to your Tesla account (MFA supported). Copy the <strong>Refresh Token</strong> from the final window and send it to the bot.</p>
+        </div>
+      </div>
+    </div>
+    <p>Stuck? Send /support in the bot chat — we'll walk you through it.</p>
   </div>
 
   <!-- COMMANDS -->
@@ -664,7 +684,7 @@
       </div>
       <div class="faq-item">
         <h4>What is a Tesla refresh token?</h4>
-        <p>A long-lived credential that lets the bot read your car's data without your password. It cannot control the car. Get one with <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> (third-party open-source app) or a <a href="https://tesla-info.com/tesla-token.php">web-based generator</a>.</p>
+        <p>A long-lived credential that lets the bot read your car's data without your password. It cannot control the car. See the <a href="#token">step-by-step guide</a> in Getting Started — it takes about two minutes with <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> (iPhone/Mac) or <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth</a> (Windows/Linux/Mac).</p>
       </div>
       <div class="faq-item">
         <h4>How do I change my plan?</h4>
