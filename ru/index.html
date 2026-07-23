@@ -1055,7 +1055,7 @@
         <span>·</span>
         <button class="on" id="lang-ru">RU</button>
       </div>
-      <a href="https://t.me/WattsonEVBot" class="btn btn-link" style="font-size:13px;" data-i18n="nav.cta">Открыть в Telegram</a>
+      <a href="https://t.me/WattsonEVBot" class="btn btn-link" style="font-size:13px;" data-i18n="nav.cta" data-cta="nav">Открыть в Telegram</a>
     </div>
   </div>
 </nav>
@@ -1066,7 +1066,7 @@
   <h1 class="display" data-i18n="hero.title">Ваша Tesla.<br/>Всегда под рукой.</h1>
   <p class="lede" data-i18n="hero.lede">Мгновенные уведомления о зарядке, батарее, давлении в шинах и поездках. Прямо в Telegram, в момент события.</p>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="hero.cta">Открыть в Telegram</a>
+    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="hero.cta" data-cta="hero">Открыть в Telegram</a>
     <a href="#how" class="btn btn-link" data-i18n="hero.learn">Как это работает</a>
   </div>
 
@@ -1289,7 +1289,7 @@
           <li data-i18n="price.li5">Статистика и история по запросу</li>
           <li data-i18n="price.li6">Команды Telegram с гибкой настройкой</li>
         </ul>
-        <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;" data-i18n="price.cta">Начать</a>
+        <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;" data-i18n="price.cta" data-cta="pricing">Начать</a>
       </div>
     </div>
   </div>
@@ -1335,7 +1335,7 @@
 <section data-screen-label="06 CTA" style="padding: 160px 22px; text-align:center;">
   <h2 class="headline center" style="margin-bottom:30px;" data-i18n="cta.title">Подключите. Уходите.<br/>А мы присмотрим.</h2>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="cta.btn">Открыть в Telegram</a>
+    <a href="https://t.me/WattsonEVBot" class="btn btn-primary" data-i18n="cta.btn" data-cta="final_cta">Открыть в Telegram</a>
     <a href="../ru/docs.html" class="btn btn-link" data-i18n="cta.docs">Читать документацию</a>
   </div>
 </section>
@@ -1364,7 +1364,7 @@
       <div>
         <h4 data-i18n="foot.contact">Контакты</h4>
         <a href="mailto:wattsonevbot@gmail.com">wattsonevbot@gmail.com</a>
-        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+        <a href="https://t.me/WattsonEVBot" data-cta="footer">@WattsonEVBot</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -1374,6 +1374,14 @@
   </div>
 </footer>
 
+<script>
+  // Named CTA click tracking (distinct from the generic GA4 "click" auto-event)
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    gtag('event', 'click_start_bot', { cta_location: el.getAttribute('data-cta') });
+  });
+</script>
 
 <script>
   // ───────── Bilingual support ─────────
