@@ -313,6 +313,9 @@
     margin: 0 0 8px; color: var(--ink); line-height: 1.3;
   }
   .faq-item p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .faq-item p + p, .faq-item p + ol { margin-top: 10px; }
+  .faq-item ol { margin: 0 0 0 20px; padding: 0; font-size: 15px; color: var(--ink-mute); line-height: 1.55; }
+  .faq-item ol + p { margin-top: 10px; }
   .faq-item a { color: var(--accent); text-decoration: none; }
   .faq-item a:hover { text-decoration: underline; }
 
@@ -456,24 +459,7 @@
     </div>
 
     <h3 id="token">Как получить Tesla refresh token</h3>
-    <p>Оба инструмента ниже — сторонние open-source приложения, рекомендованные <a href="https://docs.teslamate.org/docs/faq/">FAQ TeslaMate</a>. Вход выполняется на официальной странице Tesla — пароль не передаётся ни инструменту, ни нам, а токен можно отозвать в любой момент в аккаунте Tesla.</p>
-    <div class="steps">
-      <div class="step-card">
-        <div class="step-num">A</div>
-        <div class="step-body">
-          <h4>iPhone / Mac — Auth App for Tesla</h4>
-          <p>Установите <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> из App Store, откройте и войдите в аккаунт Tesla (логин проходит на официальной странице Tesla). Скопируйте <strong>Refresh Token</strong> и отправьте его боту.</p>
-        </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">B</div>
-        <div class="step-body">
-          <h4>Windows / Linux / Mac — Tesla Auth</h4>
-          <p>Скачайте <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth</a> для вашей системы, запустите и войдите в аккаунт Tesla (MFA поддерживается). Скопируйте <strong>Refresh Token</strong> из финального окна и отправьте его боту.</p>
-        </div>
-      </div>
-    </div>
-    <p>Не получается? Отправьте /support в чате с ботом — поможем.</p>
+    <p>Оба инструмента — сторонние open-source приложения, рекомендованные <a href="https://docs.teslamate.org/docs/faq/">TeslaMate FAQ</a>. Полная пошаговая инструкция: смотрите <a href="#token-faq">Как получить Tesla refresh token?</a> в FAQ ниже.</p>
   </div>
 
   <!-- COMMANDS -->
@@ -685,9 +671,28 @@
         <h4>Почему бот не отвечает на команды?</h4>
         <p>Проверьте ℹ️ /status — подключён ли MQTT. Если нет, нажмите 🔄 /reconnect. Если не помогает — напишите в <a href="mailto:wattsonevbot@gmail.com">поддержку</a>.</p>
       </div>
-      <div class="faq-item">
-        <h4>Что такое Tesla refresh token?</h4>
-        <p>Долгосрочный ключ доступа к данным без пароля. Не позволяет управлять машиной. Смотрите <a href="#token">пошаговую инструкцию</a> в разделе «Начало работы» — займёт около двух минут через <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> (iPhone/Mac) или <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth</a> (Windows/Linux/Mac).</p>
+      <div class="faq-item" id="token-faq">
+        <h4>Как получить Tesla refresh token?</h4>
+        <p>Refresh token — это долгосрочный ключ доступа, который позволяет боту читать данные автомобиля без пароля. Управлять машиной он не даёт и может быть отозван в любой момент из аккаунта Tesla.</p>
+        <p><strong>📱 iPhone / Mac — Auth App for Tesla</strong></p>
+        <ol>
+          <li>Установите <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> из App Store</li>
+          <li>Откройте приложение, нажмите Sign In</li>
+          <li>Войдите в аккаунт Tesla во встроенном браузере — это официальная страница Tesla, пароль не проходит через приложение или WattsonBot</li>
+          <li>Введите код MFA, если он включён</li>
+          <li>Найдите карточку <strong>Refresh Token</strong> («Long-lived») и нажмите Copy</li>
+          <li>Вставьте токен в чат с WattsonBot</li>
+        </ol>
+        <p><strong>💻 Windows / Linux / Mac — Tesla Auth</strong></p>
+        <ol>
+          <li>Скачайте последний релиз для вашей ОС: <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth</a></li>
+          <li>Запустите программу (на macOS/Linux может понадобиться разрешить запуск в настройках безопасности)</li>
+          <li>Откроется браузер с официальной страницей входа Tesla — войдите, введите MFA при необходимости</li>
+          <li>В финальном окне появятся Access Token и Refresh Token</li>
+          <li>Скопируйте Refresh Token</li>
+          <li>Вставьте его в чат с WattsonBot</li>
+        </ol>
+        <p>Не получилось? Напишите /support в чате бота — поможем.</p>
       </div>
       <div class="faq-item">
         <h4>Как изменить план?</h4>
