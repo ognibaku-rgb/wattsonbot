@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
+
+<title>Уведомления Sentry Mode Tesla в Telegram | WattsonBot</title>
+<meta name="description" content="Получайте уведомление в Telegram в момент включения или выключения Sentry Mode на Tesla — плюс уведомления о зарядке, батарее, шинах, поездках и незапертых дверях. Подтверждение активации без открытия приложения. $5/мес.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html">
+<meta property="og:site_name" content="WattsonBot">
+<meta property="og:title" content="Уведомления Sentry Mode Tesla в Telegram">
+<meta property="og:description" content="Уведомление в Telegram в момент включения или выключения Sentry Mode — подтверждение активации без открытия приложения.">
+<meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "WattsonBot", "item": "https://wattsonbot.org/ru/" },
+    { "@type": "ListItem", "position": 2, "name": "Уведомления Sentry Mode", "item": "https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Присылает ли WattsonBot уведомление при включении Sentry Mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. WattsonBot отправляет сообщение в Telegram при каждом включении или выключении Sentry Mode на машине, чтобы вы могли подтвердить активацию в пункте назначения без открытия приложения Tesla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Может ли WattsonBot включить или выключить Sentry Mode за меня?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. WattsonBot подключается через refresh-токен только на чтение и может только наблюдать и сообщать о статусе — он не может отправлять команды машине, включая переключение Sentry Mode."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Уведомляет ли он о событиях Sentry Mode вроде записей или инцидентов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WattsonBot уведомляет о самом статусе включения/выключения Sentry Mode. Он не получает и не пересылает записи с камер — они остаются на USB-накопителе машины и в приложении Tesla, как и предусмотрено."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие ещё уведомления идут вместе с Sentry Mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В том же чате Telegram также приходят уведомления о зарядке, низком заряде батареи, давлении в шинах, незапертой машине и итогах поездок со стоимостью и эффективностью — всё в рамках одного плана за $5/мес."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Передаётся ли пароль от Tesla боту?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Вход происходит на официальной странице Tesla; WattsonBot получает только отзываемый refresh-токен."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько это стоит?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$5/мес за план Solo, есть бесплатный триал — включает уведомления Sentry Mode плюс все остальные типы уведомлений и 16 команд в чате."
+      }
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --bg-dark: #1a2240;
+    --ink: #1d1d1f;
+    --ink-mute: #6e6e73;
+    --ink-faint: #86868b;
+    --line: #d2d2d7;
+    --accent: #e9a431;
+    --accent-hover: #f0b13f;
+    --radius: 18px;
+    --radius-lg: 28px;
+    --maxw: 1240px;
+    --doc-maxw: 800px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo {
+    width: 28px; height: 28px; border-radius: 7px;
+    overflow: hidden; display: block;
+    box-shadow: 0 1px 2px rgba(0,0,0,.12);
+  }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button {
+    background: none; border: none; cursor: pointer; font: inherit; color: inherit;
+    padding: 2px 6px; border-radius: 6px;
+  }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home {
+    color: var(--ink-mute); text-decoration: none; font-size: 13px;
+    transition: color .2s;
+  }
+  .nav-home:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-size: 17px; font-weight: 400;
+    letter-spacing: -0.01em; cursor: pointer; border: none;
+    text-decoration: none; transition: all .18s ease;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+    padding: 12px 24px; border-radius: 999px;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-link { color: var(--accent); font-size: 17px; }
+  .btn-link:hover { text-decoration: underline; }
+  .btn-link::after { content: " ›"; }
+  .cta-row {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    margin-top: 34px;
+  }
+
+  .page-hero {
+    padding: 80px 22px 60px;
+    text-align: center;
+    background: var(--bg);
+  }
+  .eyebrow {
+    font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-mute); margin-bottom: 18px; font-weight: 500;
+  }
+  .page-hero h1 {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1.06; letter-spacing: -0.03em; font-weight: 700;
+    margin: 0 auto 18px; max-width: 18ch;
+  }
+  .page-hero p {
+    font-size: clamp(17px, 1.4vw, 21px);
+    color: var(--ink-mute); max-width: 560px; margin: 0 auto;
+    line-height: 1.45; letter-spacing: -0.01em;
+  }
+
+  .doc-body {
+    max-width: var(--doc-maxw);
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+  .doc-section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-section:last-child { border-bottom: none; }
+  .section-eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .doc-section h2 {
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.1; letter-spacing: -0.025em; font-weight: 700;
+    margin: 0 0 20px;
+  }
+  .doc-section > p, .doc-lead {
+    font-size: 17px; color: var(--ink-mute); line-height: 1.55;
+    margin: 0 0 24px; max-width: 62ch;
+  }
+  .doc-section h3 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 40px 0 10px; color: var(--ink);
+  }
+
+  .chores { list-style: none; padding: 0; margin: 8px 0 0; }
+  .chores li {
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+    font-size: 15px; color: var(--ink-mute); line-height: 1.5;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .chores li:last-child { border-bottom: none; }
+  .chores li strong { color: var(--ink); font-weight: 600; }
+  .chores .tick { flex-shrink: 0; width: 22px; text-align: center; }
+
+  .alert-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    margin-top: 8px;
+  }
+  .alert-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-card h4 { font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .alert-card p { font-size: 13px; color: var(--ink-mute); margin: 0; line-height: 1.45; }
+
+  code {
+    background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; color: var(--ink);
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+  .step-card {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .step-card:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: var(--accent); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    margin-top: 2px;
+  }
+  .step-body h4 {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+    margin: 0 0 5px; color: var(--ink);
+  }
+  .step-body p {
+    font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.5;
+  }
+  .step-body a { color: var(--accent); text-decoration: none; }
+  .step-body a:hover { text-decoration: underline; }
+
+  .honest {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin-top: 36px;
+  }
+  .honest h3 { margin: 0 0 10px; }
+  .honest p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .honest a { color: var(--accent); text-decoration: none; }
+  .honest a:hover { text-decoration: underline; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .faq-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item h4 {
+    font-size: 17px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0 0 8px; color: var(--ink); line-height: 1.3;
+  }
+  .faq-item p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .faq-item a { color: var(--accent); text-decoration: none; }
+  .faq-item a:hover { text-decoration: underline; }
+
+  .final-cta {
+    background: var(--bg-dark);
+    color: #f5f5f7;
+    text-align: center;
+    padding: 90px 22px;
+    margin-top: 40px;
+  }
+  .final-cta h2 {
+    font-size: clamp(30px, 3.6vw, 52px);
+    letter-spacing: -0.03em; font-weight: 700;
+    margin: 0 0 14px; line-height: 1.08;
+  }
+  .final-cta p {
+    color: #a1a1a6; font-size: 17px; max-width: 480px;
+    margin: 0 auto; line-height: 1.5;
+  }
+
+  footer {
+    background: #f5f5f7;
+    padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a {
+    display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0;
+  }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom {
+    display: flex; justify-content: space-between; padding-top: 24px;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  @media (max-width: 760px) {
+    .page-hero { padding: 56px 18px 44px; }
+    .doc-body { padding: 0 18px; }
+    .doc-section { padding: 52px 0; }
+    .alert-grid { grid-template-columns: 1fr; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SCG2HR7EJV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SCG2HR7EJV');
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">
+      <div class="nav-logo"><img src="../logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="../index.html" class="nav-home">← На главную</a>
+      <div class="lang">
+        <button id="lang-en">EN</button>
+        <span>·</span>
+        <button class="on" id="lang-ru">RU</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="eyebrow">Уведомления Sentry Mode</div>
+  <h1>Знайте, что Sentry<br/>включён. Без проверки.</h1>
+  <p>Сообщение в Telegram в момент включения или выключения Sentry Mode — подтверждение активации в пункте назначения без открытия приложения Tesla.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts_ru" class="btn btn-primary" data-cta="hero">Начать в Telegram</a>
+    <a href="#alerts" class="btn btn-link">Все уведомления</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="doc-body">
+
+  <!-- THE PROBLEM -->
+  <div class="doc-section" id="tradeoff">
+    <div class="section-eyebrow">01 / Привычка</div>
+    <h2>Паркуетесь, включаете Sentry — и надеетесь.</h2>
+    <p>Sentry Mode — одна из лучших функций безопасности Tesla, но подтвердить, что он реально активен, значит открыть приложение и проверить переключатель — каждый раз, когда паркуетесь там, где это важно. Маленькая привычка, которую легко пропустить в спешке и легко забыть перепроверить.</p>
+    <ul class="chores">
+      <li><span class="tick">🅿️</span><span><strong>Припарковались в незнакомом месте.</strong> Хочется подтверждения, что Sentry реально включился — а не просто что вы нажали переключатель.</span></li>
+      <li><span class="tick">🔄</span><span><strong>Sentry неожиданно отключился.</strong> Низкий заряд, изменение настройки или обновление ПО может выключить его незаметно для вас.</span></li>
+      <li><span class="tick">📱</span><span><strong>Проверка означает открыть приложение.</strong> Ещё одно приложение, ещё один запрос входа, ещё одна вещь, которую нужно вспомнить по дороге.</span></li>
+    </ul>
+    <p style="margin-top:28px;">WattsonBot убирает часть с «надеждой» — вы получаете сообщение в момент реального изменения статуса, в том же чате, где вы уже есть.</p>
+  </div>
+
+  <!-- ALL ALERTS -->
+  <div class="doc-section" id="alerts">
+    <div class="section-eyebrow">02 / Что вы получаете</div>
+    <h2>Sentry Mode плюс всё остальное.</h2>
+    <p>Уведомления Sentry Mode — один из девяти автоматических типов уведомлений в каждом плане, приходят в Telegram, настройка не нужна кроме переключателя в /alerts.</p>
+    <div class="alert-grid">
+      <div class="alert-card">
+        <div class="alert-icon">🛡️</div>
+        <div>
+          <h4>Переключение Sentry Mode</h4>
+          <p>Приходит при включении или выключении Sentry Mode.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔓</div>
+        <div>
+          <h4>Машина осталась незапертой</h4>
+          <p>Приходит, когда машина припаркована и не заперта.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <h4>Зарядка началась</h4>
+          <p>Приходит ~через 35 секунд после подключения и начала зарядки.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <h4>Зарядка прервана</h4>
+          <p>Приходит, когда зарядка останавливается до заданного лимита.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔋</div>
+        <div>
+          <h4>Низкий заряд</h4>
+          <p>Приходит, когда батарея падает ниже заданного порога.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🛞</div>
+        <div>
+          <h4>Низкое давление в шине</h4>
+          <p>Уведомление по каждой шине при падении ниже порога.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🚗</div>
+        <div>
+          <h4>Начало / конец поездки</h4>
+          <p>Итог поездки: расстояние, эффективность, стоимость.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">📅</div>
+        <div>
+          <h4>Месячный отчёт</h4>
+          <p>км, кВт·ч, сессии зарядки и общая стоимость по тарифу.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="honest">
+      <h3>Чего он не делает</h3>
+      <p>WattsonBot уведомляет о статусе включения/выключения Sentry Mode — он не получает и не пересылает записи с камер. Они остаются на USB-накопителе машины и в приложении Tesla, как и задумано Tesla. Доступ только на чтение также означает, что бот не может переключить Sentry Mode за вас — он только наблюдает и сообщает.</p>
+    </div>
+
+    <div class="cta-row" style="justify-content:flex-start;">
+      <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts_ru" class="btn btn-primary" data-cta="alerts_section">Попробовать бесплатно в Telegram</a>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="doc-section" id="how">
+    <div class="section-eyebrow">03 / Подключение</div>
+    <h2>Запуск за 5 минут.</h2>
+    <p>WattsonBot подключается к вашей Tesla через refresh-токен только на чтение и сразу начинает наблюдать — без камер, дополнительного оборудования и установки чего-либо на машину.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Откройте бота</h4>
+          <p>Откройте <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts_ru" data-cta="how_step">t.me/WattsonEVBot</a> и нажмите <strong>Start</strong>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Выберите план</h4>
+          <p>Начните с бесплатного триала или сразу возьмите Solo ($5/мес). Оплата Telegram Stars или крипто.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Привяжите Tesla</h4>
+          <p>Отправьте refresh-токен Tesla — только чтение, отзываемый. <a href="../tesla-refresh-token-guide.html">Полный гайд здесь</a>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Уведомления начинают приходить</h4>
+          <p>Sentry Mode, зарядка, батарея, давление в шинах, итоги поездок — всё автоматически. Любое из них можно отключить через /alerts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="doc-section" id="faq">
+    <div class="section-eyebrow">04 / FAQ</div>
+    <h2>Честные вопросы.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>Уведомляет ли он о включении Sentry Mode?</h4>
+        <p>Да — сообщение в Telegram приходит при каждом включении или выключении Sentry Mode, чтобы вы могли подтвердить активацию без открытия приложения.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Может ли он включить или выключить Sentry Mode за меня?</h4>
+        <p>Нет. WattsonBot использует refresh-токен только на чтение и может только наблюдать и сообщать о статусе, а не отправлять команды.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Пересылает ли он записи с камер Sentry?</h4>
+        <p>Нет. Он уведомляет только о статусе включения/выключения. Записи остаются на USB-накопителе машины и в приложении Tesla.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Какие ещё уведомления идут вместе с этим?</h4>
+        <p>Зарядка, низкий заряд батареи, давление в шинах, незапертая машина и итоги поездок со стоимостью — всё в рамках одного плана за $5/мес.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Передаётся ли пароль от Tesla боту?</h4>
+        <p>Нет. Вход происходит на официальной странице Tesla; WattsonBot получает только отзываемый refresh-токен.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Сколько это стоит?</h4>
+        <p>$5/мес за план Solo — одна машина, все 9 типов уведомлений, 16 команд, статистика и история. Есть бесплатный триал.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /doc-body -->
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Припарковались. Включили Sentry.<br/>Получили подтверждение.</h2>
+  <p>Запуск за 5 минут. Бесплатный триал, затем $5/мес. Отмена в любой момент.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts_ru" class="btn btn-primary" data-cta="final_cta">Начать в Telegram</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Мониторинг Tesla через Telegram. Независимый проект. Не аффилирован с Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Продукт</h4>
+        <div>
+          <a href="../index.html#features">Возможности</a>
+          <a href="../index.html#pricing">Тарифы</a>
+          <a href="../docs.html">Документация</a>
+          <a href="../teslamate-alternative.html">Альтернатива TeslaMate</a>
+          <a href="../tesla-app-alternative.html">Альтернатива приложению Tesla</a>
+          <a href="../teslafi-alternative.html">Альтернатива TeslaFi</a>
+          <a href="../tesla-sentry-mode-alerts.html">Уведомления Sentry Mode</a>
+        </div>
+      </div>
+      <div>
+        <h4>Документы</h4>
+        <div>
+          <a href="../terms.html">Условия использования</a>
+          <a href="../privacy.html">Политика конфиденциальности</a>
+          <a href="../refund.html">Политика возврата</a>
+        </div>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="mailto:wattsonevbot@gmail.com">wattsonevbot@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. Все права защищены.</div>
+      <div>Сделано для владельцев Tesla, владельцем Tesla.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('lang-en').addEventListener('click', () => { location.href = '../tesla-sentry-mode-alerts.html'; });
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    gtag('event', 'click_start_bot', { cta_location: 'sentry_alerts_ru_' + el.getAttribute('data-cta') });
+  });
+</script>
+
+</body>
+</html>

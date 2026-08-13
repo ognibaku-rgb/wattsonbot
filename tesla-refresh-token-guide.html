@@ -8,20 +8,20 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 
-<title>TeslaMate Alternative — Tesla Alerts Without a Server | WattsonBot</title>
-<meta name="description" content="Looking for a TeslaMate alternative without a VPS, Docker or maintenance? WattsonBot delivers the same Tesla alerts — charging, battery, TPMS, drives — straight to Telegram. Hosted for you, live in 5 minutes, $5/month.">
+<title>How to Get a Tesla Refresh Token (2026 Guide) | WattsonBot</title>
+<meta name="description" content="Step-by-step guide to getting a Tesla refresh token safely — for Auth App for Tesla (iOS/Mac) and Tesla Auth (Windows/Linux/Mac). Read-only, revocable, your password never leaves Tesla's login page.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://wattsonbot.org/teslamate-alternative.html">
-<link rel="alternate" hreflang="en" href="https://wattsonbot.org/teslamate-alternative.html" />
-<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/teslamate-alternative.html" />
-<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/teslamate-alternative.html" />
+<link rel="canonical" href="https://wattsonbot.org/tesla-refresh-token-guide.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-refresh-token-guide.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/tesla-refresh-token-guide.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/tesla-refresh-token-guide.html" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://wattsonbot.org/teslamate-alternative.html">
+<meta property="og:url" content="https://wattsonbot.org/tesla-refresh-token-guide.html">
 <meta property="og:site_name" content="WattsonBot">
-<meta property="og:title" content="TeslaMate Alternative — Tesla Alerts Without a Server">
-<meta property="og:description" content="The same Tesla alerts you set up TeslaMate for — hosted for you, delivered in Telegram. No VPS, no Docker, no maintenance. $5/month.">
+<meta property="og:title" content="How to Get a Tesla Refresh Token (2026 Guide)">
+<meta property="og:description" content="Step-by-step, safe guide to getting a Tesla refresh token — read-only, revocable, your password never leaves Tesla's own login page.">
 <meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
@@ -33,7 +33,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "WattsonBot", "item": "https://wattsonbot.org/" },
-    { "@type": "ListItem", "position": 2, "name": "TeslaMate Alternative", "item": "https://wattsonbot.org/teslamate-alternative.html" }
+    { "@type": "ListItem", "position": 2, "name": "Tesla Refresh Token Guide", "item": "https://wattsonbot.org/tesla-refresh-token-guide.html" }
   ]
 }
 </script>
@@ -44,50 +44,50 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is WattsonBot based on TeslaMate?",
+      "name": "What is a Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — under the hood WattsonBot runs the same open-source TeslaMate engine (an unmodified official release) in a private, isolated instance dedicated to you. We handle the servers, database, MQTT broker, updates and backups; you just get the alerts in Telegram."
+        "text": "A refresh token is a long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It can be revoked at any time from your Tesla account, and it cannot control the car."
       }
     },
     {
       "@type": "Question",
-      "name": "Do I need a VPS, Docker or any server to use WattsonBot?",
+      "name": "Is it safe to get a Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. There is nothing to install or host. You open the bot in Telegram, link your Tesla with a read-only refresh token, and alerts start arriving in the same chat — usually within 5 minutes."
+        "text": "Yes, when you use a reputable open-source tool and log in on Tesla's own official page — not a page controlled by the app requesting the token. Auth App for Tesla and Tesla Auth are open-source and recommended by the TeslaMate project's own FAQ. Never enter your Tesla password into any page that isn't Tesla's."
       }
     },
     {
       "@type": "Question",
-      "name": "Can WattsonBot control or unlock my Tesla?",
+      "name": "Can a refresh token unlock or drive my Tesla?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. WattsonBot connects with a Tesla refresh token that grants read-only access to vehicle data. It cannot send commands, unlock doors or drive the car, and the token can be revoked at any time from your Tesla account."
+        "text": "No. A refresh token used by tools like WattsonBot or TeslaMate grants read-only access to vehicle data — location, battery, charging state, tyre pressure, and similar. It cannot send commands to the car."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I switch back to self-hosted TeslaMate later?",
+      "name": "How do I revoke a Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, there is no lock-in. Cancel anytime with /billing in the bot, revoke the token from your Tesla account, and set up your own TeslaMate whenever you like."
+        "text": "Log in to your Tesla Account page, go to the security/authorized apps section, and revoke access for the app in question. This immediately invalidates the token."
       }
     },
     {
       "@type": "Question",
-      "name": "How is WattsonBot different from the official Tesla app?",
+      "name": "Which app should I use — Auth App for Tesla or Tesla Auth?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Tesla app shows state when you open it; WattsonBot pushes alerts the app doesn't send — charging interrupted, low tyre pressure, car left unlocked, Sentry Mode toggles, drive summaries with cost and efficiency — plus stats and history on demand."
+        "text": "Auth App for Tesla is for iPhone and Mac. Tesla Auth is a desktop tool for Windows, Linux and Mac. Both are open-source, free, and produce the same kind of refresh token — pick whichever matches your device."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does WattsonBot cost compared to self-hosting TeslaMate?",
+      "name": "Does the refresh token expire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "WattsonBot is $5/month with a free trial. Self-hosting TeslaMate is free software, but typically means a $5–10/month VPS plus your time for setup, updates, backups and troubleshooting."
+        "text": "Refresh tokens are long-lived but not permanent — Tesla can invalidate them (e.g. after a password change) and apps that use them, like WattsonBot, handle re-authentication if that happens."
       }
     }
   ]
@@ -124,7 +124,6 @@
 
   ::selection { background: var(--ink); color: var(--bg); }
 
-  /* ── NAV ── */
   .nav {
     position: sticky; top: 0; z-index: 50;
     background: rgba(255,255,255,.72);
@@ -162,7 +161,6 @@
   }
   .nav-home:hover { color: var(--ink); }
 
-  /* ── BUTTONS ── */
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
     font: inherit; font-size: 17px; font-weight: 400;
@@ -183,7 +181,6 @@
     margin-top: 34px;
   }
 
-  /* ── PAGE HERO ── */
   .page-hero {
     padding: 80px 22px 60px;
     text-align: center;
@@ -204,7 +201,6 @@
     line-height: 1.45; letter-spacing: -0.01em;
   }
 
-  /* ── DOC LAYOUT ── */
   .doc-body {
     max-width: var(--doc-maxw);
     margin: 0 auto;
@@ -233,8 +229,12 @@
     font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
     margin: 40px 0 10px; color: var(--ink);
   }
+  .doc-section ol, .doc-section ul.plain {
+    font-size: 15px; color: var(--ink-mute); line-height: 1.7;
+    max-width: 62ch; padding-left: 22px;
+  }
+  .doc-section ol li, .doc-section ul.plain li { margin-bottom: 6px; }
 
-  /* ── CHECKLIST ── */
   .chores { list-style: none; padding: 0; margin: 8px 0 0; }
   .chores li {
     padding: 14px 0; border-bottom: 1px solid var(--line);
@@ -245,30 +245,6 @@
   .chores li strong { color: var(--ink); font-weight: 600; }
   .chores .tick { flex-shrink: 0; width: 22px; text-align: center; }
 
-  /* ── COMPARISON TABLE ── */
-  .cmp-wrap { overflow-x: auto; margin-top: 8px; }
-  .cmp-table {
-    width: 100%; border-collapse: collapse;
-    font-size: 15px; min-width: 560px;
-  }
-  .cmp-table th {
-    text-align: left; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--ink-faint); font-weight: 600;
-    padding: 10px 14px; border-bottom: 1px solid var(--line);
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-  .cmp-table th:nth-child(3) { color: var(--accent); }
-  .cmp-table td {
-    padding: 14px; border-bottom: 1px solid var(--line);
-    vertical-align: top; line-height: 1.45; color: var(--ink-mute);
-  }
-  .cmp-table td:first-child {
-    font-weight: 600; color: var(--ink); width: 170px;
-    letter-spacing: -0.01em;
-  }
-  .cmp-table tr:last-child td { border-bottom: none; }
-  .cmp-table tr:hover td { background: var(--bg-alt); }
-
   code {
     background: var(--bg-alt); border: 1px solid var(--line);
     padding: 1px 6px; border-radius: 5px;
@@ -276,7 +252,6 @@
     font-size: 0.85em; color: var(--ink);
   }
 
-  /* ── STEPS ── */
   .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
   .step-card {
     display: flex; gap: 20px; align-items: flex-start;
@@ -303,7 +278,6 @@
   .step-body a { color: var(--accent); text-decoration: none; }
   .step-body a:hover { text-decoration: underline; }
 
-  /* ── HONEST BOX ── */
   .honest {
     background: var(--bg-alt);
     border-radius: var(--radius);
@@ -315,7 +289,16 @@
   .honest a { color: var(--accent); text-decoration: none; }
   .honest a:hover { text-decoration: underline; }
 
-  /* ── FAQ ── */
+  .warn {
+    background: #fdf4e3;
+    border: 1px solid #f0d9a8;
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin: 24px 0;
+  }
+  .warn h3 { margin: 0 0 8px; color: #8a5a12; }
+  .warn p { font-size: 15px; color: #6e5230; margin: 0; line-height: 1.55; }
+
   .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
   .faq-item {
     padding: 24px 0;
@@ -330,7 +313,6 @@
   .faq-item a { color: var(--accent); text-decoration: none; }
   .faq-item a:hover { text-decoration: underline; }
 
-  /* ── FINAL CTA ── */
   .final-cta {
     background: var(--bg-dark);
     color: #f5f5f7;
@@ -348,7 +330,6 @@
     margin: 0 auto; line-height: 1.5;
   }
 
-  /* ── FOOTER ── */
   footer {
     background: #f5f5f7;
     padding: 70px 22px 30px;
@@ -372,13 +353,10 @@
     flex-wrap: wrap; gap: 16px;
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 760px) {
     .page-hero { padding: 56px 18px 44px; }
     .doc-body { padding: 0 18px; }
     .doc-section { padding: 52px 0; }
-    .cmp-table td { font-size: 13px; padding: 11px 10px; }
-    .cmp-table td:first-child { width: 130px; }
     .foot-top { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
@@ -419,97 +397,125 @@
 
 <!-- HERO -->
 <div class="page-hero">
-  <div class="eyebrow">TeslaMate Alternative</div>
-  <h1>TeslaMate, minus<br/>the server.</h1>
-  <p>All the Tesla alerts you'd set up TeslaMate for — charging, battery, tyres, drives — delivered in Telegram and hosted for you. Live in about 5 minutes.</p>
+  <div class="eyebrow">Tesla Refresh Token</div>
+  <h1>How to get a Tesla<br/>refresh token safely.</h1>
+  <p>A refresh token lets apps like WattsonBot or TeslaMate read your car's data — without ever seeing your Tesla password. Here's exactly how to get one, on any platform.</p>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="hero">Start in Telegram</a>
-    <a href="#compare" class="btn btn-link">See the comparison</a>
+    <a href="#ios" class="btn btn-primary" data-cta="hero">iPhone / Mac guide</a>
+    <a href="#desktop" class="btn btn-link">Windows / Linux guide</a>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div class="doc-body">
 
-  <!-- THE TRADE-OFF -->
-  <div class="doc-section" id="tradeoff">
-    <div class="section-eyebrow">01 / The trade-off</div>
-    <h2>TeslaMate is brilliant. Hosting it is a chore.</h2>
-    <p><a href="https://docs.teslamate.org/" style="color:var(--accent); text-decoration:none;">TeslaMate</a> is the best open-source Tesla data logger there is — free software, beautiful Grafana dashboards, a passionate community. But "free" assumes you run it yourself, and that part is a real, recurring job:</p>
+  <!-- WHAT IS IT -->
+  <div class="doc-section" id="what">
+    <div class="section-eyebrow">01 / Background</div>
+    <h2>What a refresh token actually is.</h2>
+    <p>A Tesla refresh token is a long-lived credential issued by Tesla's own authentication system. It's how third-party tools — TeslaMate, WattsonBot, and similar — read your car's live data (location, battery, charging state, tyre pressure) without you handing over your password to a third party.</p>
     <ul class="chores">
-      <li><span class="tick">🖥️</span><span><strong>A server.</strong> A VPS or a machine at home that stays on 24/7 — typically $5–10/month before you've received a single alert.</span></li>
-      <li><span class="tick">🐳</span><span><strong>Docker Compose, PostgreSQL, MQTT.</strong> Initial setup is an evening if everything goes right — and the first debugging session when it doesn't.</span></li>
-      <li><span class="tick">🔄</span><span><strong>Updates.</strong> TeslaMate tracks Tesla's API changes; skip updates and data stops flowing. Someone has to read the release notes and migrate.</span></li>
-      <li><span class="tick">💾</span><span><strong>Backups.</strong> Your entire driving history lives in that database. No backups — no history the day the disk dies.</span></li>
-      <li><span class="tick">🔔</span><span><strong>Alerts are DIY.</strong> Out of the box TeslaMate gives you dashboards, not push notifications. Alerts mean wiring up MQTT with Node-RED or scripts — another system to maintain.</span></li>
+      <li><span class="tick">🔒</span><span><strong>Read-only.</strong> A refresh token cannot unlock, start, or drive the car. It only grants read access to vehicle telemetry.</span></li>
+      <li><span class="tick">🔑</span><span><strong>Your password stays with Tesla.</strong> You authenticate on Tesla's own login page; the token is what the app receives afterward.</span></li>
+      <li><span class="tick">♻️</span><span><strong>Revocable anytime.</strong> Remove access instantly from your Tesla account's authorized-apps list.</span></li>
     </ul>
-    <p style="margin-top:28px;">If you enjoy that kind of tinkering — genuinely, self-host it. If you just want the alerts, that's exactly the part we productized.</p>
-  </div>
 
-  <!-- COMPARISON -->
-  <div class="doc-section" id="compare">
-    <div class="section-eyebrow">02 / Side by side</div>
-    <h2>Self-hosted TeslaMate vs WattsonBot</h2>
-    <div class="cmp-wrap">
-      <table class="cmp-table">
-        <thead><tr><th></th><th>Self-hosted TeslaMate</th><th>WattsonBot</th></tr></thead>
-        <tbody>
-          <tr><td>Time to first alert</td><td>An evening of setup, plus MQTT/Node-RED wiring for notifications</td><td>~5 minutes in Telegram</td></tr>
-          <tr><td>Monthly cost</td><td>Free software + $5–10 VPS + your time</td><td>$5 flat, free trial first</td></tr>
-          <tr><td>Maintenance</td><td>Updates, migrations, backups, uptime — all yours</td><td>All handled for you</td></tr>
-          <tr><td>Push alerts</td><td>DIY via MQTT + Node-RED/scripts</td><td>9 alert types built in: charging, battery, TPMS, drives, Sentry, left-unlocked</td></tr>
-          <tr><td>Where you look</td><td>Grafana dashboards in a browser</td><td>Telegram chat you already have open</td></tr>
-          <tr><td>Stats &amp; history</td><td>Full Grafana suite, raw SQL access</td><td>16 chat commands: trips, charts, monthly reports, costs</td></tr>
-          <tr><td>Data &amp; control</td><td>Everything on your hardware</td><td>Isolated private instance; read-only token you can revoke anytime</td></tr>
-          <tr><td>Best for</td><td>Tinkerers who want dashboards and full ownership</td><td>Owners who want the alerts, not the ops</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="honest">
-      <h3>When self-hosting is the right call</h3>
-      <p>Honestly: if you want the full Grafana dashboard experience, raw SQL access to every data point, and you're comfortable running Docker — self-hosted <a href="https://docs.teslamate.org/">TeslaMate</a> is excellent and free, and we'd point you straight at it. WattsonBot exists for everyone who read that setup guide and closed the tab.</p>
-    </div>
-
-    <div class="cta-row" style="justify-content:flex-start;">
-      <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="comparison">Try it free in Telegram</a>
+    <div class="warn">
+      <h3>⚠️ Only ever log in on Tesla's own page</h3>
+      <p>Whichever tool you use, the login screen it opens must be Tesla's real domain. Never type your Tesla password into a form embedded in a random third-party site. The two tools below are open-source, widely used, and recommended by the <a href="https://docs.teslamate.org/docs/faq/" style="color:#8a5a12;">TeslaMate project's own FAQ</a> — they open Tesla's actual login page for you.</p>
     </div>
   </div>
 
-  <!-- HOW IT WORKS -->
-  <div class="doc-section" id="how">
-    <div class="section-eyebrow">03 / Under the hood</div>
-    <h2>The same engine. Zero ops.</h2>
-    <p>WattsonBot isn't a TeslaMate clone — it runs the real thing. Every subscriber gets a <strong>private, isolated instance of the open-source TeslaMate engine</strong> (unmodified official release) with its own database and MQTT broker, plus our notification bot on top. We keep it updated, backed up and running; you get the output in Telegram.</p>
+  <!-- IOS -->
+  <div class="doc-section" id="ios">
+    <div class="section-eyebrow">02 / iPhone &amp; Mac</div>
+    <h2>Auth App for Tesla</h2>
+    <p>The simplest route if you're on iOS or Mac.</p>
     <div class="steps">
       <div class="step-card">
         <div class="step-num">1</div>
         <div class="step-body">
-          <h4>Open the bot</h4>
-          <p>Open <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" data-cta="how_step">t.me/WattsonEVBot</a> and tap <strong>Start</strong>. No app, no signup form.</p>
+          <h4>Install the app</h4>
+          <p>Get <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> from the App Store.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <div class="step-body">
-          <h4>Pick a plan</h4>
-          <p>Start with the free trial or go straight to Solo ($5/mo). Pay with Telegram Stars or crypto.</p>
+          <h4>Sign in</h4>
+          <p>Open the app and tap Sign In. This opens Tesla's own login page in an in-app browser — your password never passes through the app itself.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <div class="step-body">
-          <h4>Link your Tesla</h4>
-          <p>Send a Tesla refresh token — read-only, revocable, your password never leaves Tesla's own login page. <a href="docs.html#token">Two-minute guide here</a>.</p>
+          <h4>Enter MFA if prompted</h4>
+          <p>Same as logging into the Tesla app normally.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
         <div class="step-body">
-          <h4>Alerts start arriving</h4>
-          <p>Charging, battery, TPMS, drive summaries with cost — all in the same Telegram chat, plus 16 commands for stats and history.</p>
+          <h4>Copy the Refresh Token</h4>
+          <p>Find the card labeled <strong>Refresh Token</strong> ("Long-lived") and tap Copy.</p>
         </div>
       </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Paste it into WattsonBot</h4>
+          <p>Send it directly in the <a href="https://t.me/WattsonEVBot?start=seo_token_guide" data-cta="ios_step">WattsonBot</a> chat when prompted during setup.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div class="doc-section" id="desktop">
+    <div class="section-eyebrow">03 / Windows, Linux &amp; Mac</div>
+    <h2>Tesla Auth (desktop tool)</h2>
+    <p>For Windows, Linux, or if you'd rather not install an iOS app.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Download the release</h4>
+          <p>Grab the latest build for your OS from <a href="https://github.com/adriankumpf/tesla_auth/releases/latest">Tesla Auth on GitHub</a>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Run it</h4>
+          <p>macOS/Linux may prompt you to allow the app in your Security &amp; Privacy settings the first time.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Log in on the page it opens</h4>
+          <p>It opens a browser window to Tesla's actual login page — sign in, enter MFA if enabled.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Copy the Refresh Token</h4>
+          <p>The final window shows both an Access Token and a Refresh Token — copy the Refresh Token.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Paste it into WattsonBot</h4>
+          <p>Send it directly in the <a href="https://t.me/WattsonEVBot?start=seo_token_guide" data-cta="desktop_step">WattsonBot</a> chat when prompted during setup.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="honest">
+      <h3>Stuck?</h3>
+      <p>Send <code>/support</code> in the WattsonBot chat and we'll walk you through it — or check the full <a href="docs.html#token-faq">token FAQ in the docs</a>.</p>
     </div>
   </div>
 
@@ -519,28 +525,28 @@
     <h2>Fair questions.</h2>
     <div class="faq-list">
       <div class="faq-item">
-        <h4>Is WattsonBot based on TeslaMate?</h4>
-        <p>Yes — under the hood it runs the same open-source TeslaMate engine (an unmodified official release) in a private instance dedicated to you. We maintain the servers, updates and backups. Credit where due: the TeslaMate project is what makes this data possible.</p>
+        <h4>What is a Tesla refresh token?</h4>
+        <p>A long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It can be revoked anytime and cannot control the car.</p>
       </div>
       <div class="faq-item">
-        <h4>Do I need a VPS or Docker?</h4>
-        <p>No. Nothing to install, nothing to host. If you can open a Telegram chat, you can run WattsonBot.</p>
+        <h4>Is it safe?</h4>
+        <p>Yes, when you use a reputable open-source tool that logs you in on Tesla's own official page — never a page controlled by the requesting app. Both tools above are open-source and recommended by TeslaMate's own FAQ.</p>
       </div>
       <div class="faq-item">
-        <h4>Can it control or unlock my car?</h4>
-        <p>No. The refresh token grants read-only access to vehicle data. WattsonBot cannot send commands to the car, and you can revoke the token at any time from your Tesla account.</p>
+        <h4>Can a refresh token unlock or drive my Tesla?</h4>
+        <p>No. It grants read-only access to vehicle data — location, battery, charging state, tyre pressure. It cannot send commands to the car.</p>
       </div>
       <div class="faq-item">
-        <h4>Can I switch back to self-hosting later?</h4>
-        <p>Anytime. There's no lock-in: cancel with /billing, revoke the token, and spin up your own TeslaMate whenever you like.</p>
+        <h4>How do I revoke it?</h4>
+        <p>Log in to your Tesla Account page, go to the authorized-apps / security section, and revoke access for the app. This invalidates the token immediately.</p>
       </div>
       <div class="faq-item">
-        <h4>How is this different from the Tesla app?</h4>
-        <p>The Tesla app shows you state when you open it. WattsonBot pushes what the app won't: charging interrupted, low tyre pressure, car left unlocked, Sentry Mode toggles, drive summaries with energy cost — without you having to check.</p>
+        <h4>Auth App for Tesla or Tesla Auth — which one?</h4>
+        <p>Auth App for Tesla is for iPhone/Mac. Tesla Auth is a desktop tool for Windows, Linux and Mac. Pick whichever matches your device — the resulting token works the same either way.</p>
       </div>
       <div class="faq-item">
-        <h4>What does it cost?</h4>
-        <p>$5/month for the Solo plan — one car, all alerts, all 16 commands, stats and history. There's a free trial, and you can cancel anytime from Telegram.</p>
+        <h4>Does the token expire?</h4>
+        <p>It's long-lived but not permanent — Tesla can invalidate it (e.g. after a password change), and apps that use it, like WattsonBot, handle re-authentication if that happens.</p>
       </div>
     </div>
   </div>
@@ -549,10 +555,10 @@
 
 <!-- FINAL CTA -->
 <div class="final-cta">
-  <h2>Skip the server.<br/>Keep the alerts.</h2>
-  <p>Live in 5 minutes. Free trial, then $5/month. Cancel anytime.</p>
+  <h2>Got your token?<br/>Alerts are 2 minutes away.</h2>
+  <p>Paste it into WattsonBot and start receiving Tesla alerts in Telegram. Free trial, then $5/month.</p>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="final_cta">Start in Telegram</a>
+    <a href="https://t.me/WattsonEVBot?start=seo_token_guide" class="btn btn-primary" data-cta="final_cta">Start in Telegram</a>
   </div>
 </div>
 
@@ -562,7 +568,7 @@
     <div class="foot-top">
       <div>
         <h4>WattsonBot</h4>
-        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc. or the TeslaMate project.</p>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
       </div>
       <div>
         <h4>Product</h4>
@@ -598,13 +604,12 @@
 </footer>
 
 <script>
-  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/teslamate-alternative.html'; });
+  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/tesla-refresh-token-guide.html'; });
 
-  // Named CTA click tracking (distinct from the generic GA4 "click" auto-event)
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-cta]');
     if (!el) return;
-    gtag('event', 'click_start_bot', { cta_location: 'tm_alt_' + el.getAttribute('data-cta') });
+    gtag('event', 'click_start_bot', { cta_location: 'token_guide_' + el.getAttribute('data-cta') });
   });
 </script>
 

@@ -8,20 +8,20 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 
-<title>TeslaMate Alternative — Tesla Alerts Without a Server | WattsonBot</title>
-<meta name="description" content="Looking for a TeslaMate alternative without a VPS, Docker or maintenance? WattsonBot delivers the same Tesla alerts — charging, battery, TPMS, drives — straight to Telegram. Hosted for you, live in 5 minutes, $5/month.">
+<title>Tesla Sentry Mode Telegram Alerts | WattsonBot</title>
+<meta name="description" content="Get a Telegram alert the moment Sentry Mode turns on or off on your Tesla — plus alerts for charging, battery, TPMS, drives and unlocked doors. Confirm it activated at your destination without opening the app. $5/month.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://wattsonbot.org/teslamate-alternative.html">
-<link rel="alternate" hreflang="en" href="https://wattsonbot.org/teslamate-alternative.html" />
-<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/teslamate-alternative.html" />
-<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/teslamate-alternative.html" />
+<link rel="canonical" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://wattsonbot.org/teslamate-alternative.html">
+<meta property="og:url" content="https://wattsonbot.org/tesla-sentry-mode-alerts.html">
 <meta property="og:site_name" content="WattsonBot">
-<meta property="og:title" content="TeslaMate Alternative — Tesla Alerts Without a Server">
-<meta property="og:description" content="The same Tesla alerts you set up TeslaMate for — hosted for you, delivered in Telegram. No VPS, no Docker, no maintenance. $5/month.">
+<meta property="og:title" content="Tesla Sentry Mode Telegram Alerts">
+<meta property="og:description" content="A Telegram alert the moment Sentry Mode turns on or off — confirm it activated without opening the app.">
 <meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
@@ -33,7 +33,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "WattsonBot", "item": "https://wattsonbot.org/" },
-    { "@type": "ListItem", "position": 2, "name": "TeslaMate Alternative", "item": "https://wattsonbot.org/teslamate-alternative.html" }
+    { "@type": "ListItem", "position": 2, "name": "Sentry Mode Alerts", "item": "https://wattsonbot.org/tesla-sentry-mode-alerts.html" }
   ]
 }
 </script>
@@ -44,50 +44,50 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is WattsonBot based on TeslaMate?",
+      "name": "Does WattsonBot send an alert when Sentry Mode turns on?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — under the hood WattsonBot runs the same open-source TeslaMate engine (an unmodified official release) in a private, isolated instance dedicated to you. We handle the servers, database, MQTT broker, updates and backups; you just get the alerts in Telegram."
+        "text": "Yes. WattsonBot sends a Telegram message whenever Sentry Mode is enabled or disabled on your car, so you can confirm it activated at your destination without opening the Tesla app."
       }
     },
     {
       "@type": "Question",
-      "name": "Do I need a VPS, Docker or any server to use WattsonBot?",
+      "name": "Can WattsonBot turn Sentry Mode on or off for me?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. There is nothing to install or host. You open the bot in Telegram, link your Tesla with a read-only refresh token, and alerts start arriving in the same chat — usually within 5 minutes."
+        "text": "No. WattsonBot connects with a read-only refresh token and can only observe and report state — it cannot send commands to the car, including toggling Sentry Mode."
       }
     },
     {
       "@type": "Question",
-      "name": "Can WattsonBot control or unlock my Tesla?",
+      "name": "Does it alert on Sentry Mode events like recordings or incidents?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. WattsonBot connects with a Tesla refresh token that grants read-only access to vehicle data. It cannot send commands, unlock doors or drive the car, and the token can be revoked at any time from your Tesla account."
+        "text": "WattsonBot alerts on the Sentry Mode on/off state itself. It does not access or forward Sentry Mode's camera recordings — those remain on the car's USB drive and in the Tesla app, as usual."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I switch back to self-hosted TeslaMate later?",
+      "name": "What other alerts come with Sentry Mode notifications?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, there is no lock-in. Cancel anytime with /billing in the bot, revoke the token from your Tesla account, and set up your own TeslaMate whenever you like."
+        "text": "The same Telegram chat also gets charging alerts, low battery, TPMS/tyre pressure warnings, car left unlocked, and drive-ended summaries with cost and efficiency — all part of the same $5/month plan."
       }
     },
     {
       "@type": "Question",
-      "name": "How is WattsonBot different from the official Tesla app?",
+      "name": "Is my Tesla password shared with WattsonBot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Tesla app shows state when you open it; WattsonBot pushes alerts the app doesn't send — charging interrupted, low tyre pressure, car left unlocked, Sentry Mode toggles, drive summaries with cost and efficiency — plus stats and history on demand."
+        "text": "No. Authentication happens on Tesla's own login page. WattsonBot only ever receives a revocable refresh token, never your password."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does WattsonBot cost compared to self-hosting TeslaMate?",
+      "name": "How much does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "WattsonBot is $5/month with a free trial. Self-hosting TeslaMate is free software, but typically means a $5–10/month VPS plus your time for setup, updates, backups and troubleshooting."
+        "text": "$5/month for the Solo plan, with a free trial — includes Sentry Mode alerts plus all other notification types and 16 chat commands."
       }
     }
   ]
@@ -124,7 +124,6 @@
 
   ::selection { background: var(--ink); color: var(--bg); }
 
-  /* ── NAV ── */
   .nav {
     position: sticky; top: 0; z-index: 50;
     background: rgba(255,255,255,.72);
@@ -162,7 +161,6 @@
   }
   .nav-home:hover { color: var(--ink); }
 
-  /* ── BUTTONS ── */
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
     font: inherit; font-size: 17px; font-weight: 400;
@@ -183,7 +181,6 @@
     margin-top: 34px;
   }
 
-  /* ── PAGE HERO ── */
   .page-hero {
     padding: 80px 22px 60px;
     text-align: center;
@@ -204,7 +201,6 @@
     line-height: 1.45; letter-spacing: -0.01em;
   }
 
-  /* ── DOC LAYOUT ── */
   .doc-body {
     max-width: var(--doc-maxw);
     margin: 0 auto;
@@ -234,7 +230,6 @@
     margin: 40px 0 10px; color: var(--ink);
   }
 
-  /* ── CHECKLIST ── */
   .chores { list-style: none; padding: 0; margin: 8px 0 0; }
   .chores li {
     padding: 14px 0; border-bottom: 1px solid var(--line);
@@ -245,29 +240,17 @@
   .chores li strong { color: var(--ink); font-weight: 600; }
   .chores .tick { flex-shrink: 0; width: 22px; text-align: center; }
 
-  /* ── COMPARISON TABLE ── */
-  .cmp-wrap { overflow-x: auto; margin-top: 8px; }
-  .cmp-table {
-    width: 100%; border-collapse: collapse;
-    font-size: 15px; min-width: 560px;
+  .alert-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    margin-top: 8px;
   }
-  .cmp-table th {
-    text-align: left; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--ink-faint); font-weight: 600;
-    padding: 10px 14px; border-bottom: 1px solid var(--line);
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  .alert-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
   }
-  .cmp-table th:nth-child(3) { color: var(--accent); }
-  .cmp-table td {
-    padding: 14px; border-bottom: 1px solid var(--line);
-    vertical-align: top; line-height: 1.45; color: var(--ink-mute);
-  }
-  .cmp-table td:first-child {
-    font-weight: 600; color: var(--ink); width: 170px;
-    letter-spacing: -0.01em;
-  }
-  .cmp-table tr:last-child td { border-bottom: none; }
-  .cmp-table tr:hover td { background: var(--bg-alt); }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-card h4 { font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .alert-card p { font-size: 13px; color: var(--ink-mute); margin: 0; line-height: 1.45; }
 
   code {
     background: var(--bg-alt); border: 1px solid var(--line);
@@ -276,7 +259,6 @@
     font-size: 0.85em; color: var(--ink);
   }
 
-  /* ── STEPS ── */
   .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
   .step-card {
     display: flex; gap: 20px; align-items: flex-start;
@@ -303,7 +285,6 @@
   .step-body a { color: var(--accent); text-decoration: none; }
   .step-body a:hover { text-decoration: underline; }
 
-  /* ── HONEST BOX ── */
   .honest {
     background: var(--bg-alt);
     border-radius: var(--radius);
@@ -315,7 +296,6 @@
   .honest a { color: var(--accent); text-decoration: none; }
   .honest a:hover { text-decoration: underline; }
 
-  /* ── FAQ ── */
   .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
   .faq-item {
     padding: 24px 0;
@@ -330,7 +310,6 @@
   .faq-item a { color: var(--accent); text-decoration: none; }
   .faq-item a:hover { text-decoration: underline; }
 
-  /* ── FINAL CTA ── */
   .final-cta {
     background: var(--bg-dark);
     color: #f5f5f7;
@@ -348,7 +327,6 @@
     margin: 0 auto; line-height: 1.5;
   }
 
-  /* ── FOOTER ── */
   footer {
     background: #f5f5f7;
     padding: 70px 22px 30px;
@@ -372,13 +350,11 @@
     flex-wrap: wrap; gap: 16px;
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 760px) {
     .page-hero { padding: 56px 18px 44px; }
     .doc-body { padding: 0 18px; }
     .doc-section { padding: 52px 0; }
-    .cmp-table td { font-size: 13px; padding: 11px 10px; }
-    .cmp-table td:first-child { width: 130px; }
+    .alert-grid { grid-template-columns: 1fr; }
     .foot-top { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
@@ -419,74 +395,116 @@
 
 <!-- HERO -->
 <div class="page-hero">
-  <div class="eyebrow">TeslaMate Alternative</div>
-  <h1>TeslaMate, minus<br/>the server.</h1>
-  <p>All the Tesla alerts you'd set up TeslaMate for — charging, battery, tyres, drives — delivered in Telegram and hosted for you. Live in about 5 minutes.</p>
+  <div class="eyebrow">Sentry Mode Alerts</div>
+  <h1>Know Sentry Mode<br/>is on. Without checking.</h1>
+  <p>A Telegram message the instant Sentry Mode turns on or off — confirm it activated at your destination without pulling out the Tesla app.</p>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="hero">Start in Telegram</a>
-    <a href="#compare" class="btn btn-link">See the comparison</a>
+    <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts" class="btn btn-primary" data-cta="hero">Start in Telegram</a>
+    <a href="#alerts" class="btn btn-link">See all alerts</a>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div class="doc-body">
 
-  <!-- THE TRADE-OFF -->
+  <!-- THE PROBLEM -->
   <div class="doc-section" id="tradeoff">
-    <div class="section-eyebrow">01 / The trade-off</div>
-    <h2>TeslaMate is brilliant. Hosting it is a chore.</h2>
-    <p><a href="https://docs.teslamate.org/" style="color:var(--accent); text-decoration:none;">TeslaMate</a> is the best open-source Tesla data logger there is — free software, beautiful Grafana dashboards, a passionate community. But "free" assumes you run it yourself, and that part is a real, recurring job:</p>
+    <div class="section-eyebrow">01 / The habit</div>
+    <h2>You park, turn on Sentry, and... hope.</h2>
+    <p>Sentry Mode is one of Tesla's best security features, but confirming it's actually active means opening the app and checking the toggle — every single time you park somewhere you care about. It's a small habit that's easy to skip when you're in a hurry, and easy to forget to double-check.</p>
     <ul class="chores">
-      <li><span class="tick">🖥️</span><span><strong>A server.</strong> A VPS or a machine at home that stays on 24/7 — typically $5–10/month before you've received a single alert.</span></li>
-      <li><span class="tick">🐳</span><span><strong>Docker Compose, PostgreSQL, MQTT.</strong> Initial setup is an evening if everything goes right — and the first debugging session when it doesn't.</span></li>
-      <li><span class="tick">🔄</span><span><strong>Updates.</strong> TeslaMate tracks Tesla's API changes; skip updates and data stops flowing. Someone has to read the release notes and migrate.</span></li>
-      <li><span class="tick">💾</span><span><strong>Backups.</strong> Your entire driving history lives in that database. No backups — no history the day the disk dies.</span></li>
-      <li><span class="tick">🔔</span><span><strong>Alerts are DIY.</strong> Out of the box TeslaMate gives you dashboards, not push notifications. Alerts mean wiring up MQTT with Node-RED or scripts — another system to maintain.</span></li>
+      <li><span class="tick">🅿️</span><span><strong>Parked in an unfamiliar area.</strong> You want confirmation Sentry actually engaged — not just that you tapped the toggle.</span></li>
+      <li><span class="tick">🔄</span><span><strong>Sentry got disabled unexpectedly.</strong> Low battery, a setting change, or a software update can turn it off without you noticing.</span></li>
+      <li><span class="tick">📱</span><span><strong>Checking means opening the app.</strong> One more app, one more login prompt, one more thing to remember mid-errand.</span></li>
     </ul>
-    <p style="margin-top:28px;">If you enjoy that kind of tinkering — genuinely, self-host it. If you just want the alerts, that's exactly the part we productized.</p>
+    <p style="margin-top:28px;">WattsonBot removes the "hope" part — you get a message the moment the state actually changes, in the same chat you're already in.</p>
   </div>
 
-  <!-- COMPARISON -->
-  <div class="doc-section" id="compare">
-    <div class="section-eyebrow">02 / Side by side</div>
-    <h2>Self-hosted TeslaMate vs WattsonBot</h2>
-    <div class="cmp-wrap">
-      <table class="cmp-table">
-        <thead><tr><th></th><th>Self-hosted TeslaMate</th><th>WattsonBot</th></tr></thead>
-        <tbody>
-          <tr><td>Time to first alert</td><td>An evening of setup, plus MQTT/Node-RED wiring for notifications</td><td>~5 minutes in Telegram</td></tr>
-          <tr><td>Monthly cost</td><td>Free software + $5–10 VPS + your time</td><td>$5 flat, free trial first</td></tr>
-          <tr><td>Maintenance</td><td>Updates, migrations, backups, uptime — all yours</td><td>All handled for you</td></tr>
-          <tr><td>Push alerts</td><td>DIY via MQTT + Node-RED/scripts</td><td>9 alert types built in: charging, battery, TPMS, drives, Sentry, left-unlocked</td></tr>
-          <tr><td>Where you look</td><td>Grafana dashboards in a browser</td><td>Telegram chat you already have open</td></tr>
-          <tr><td>Stats &amp; history</td><td>Full Grafana suite, raw SQL access</td><td>16 chat commands: trips, charts, monthly reports, costs</td></tr>
-          <tr><td>Data &amp; control</td><td>Everything on your hardware</td><td>Isolated private instance; read-only token you can revoke anytime</td></tr>
-          <tr><td>Best for</td><td>Tinkerers who want dashboards and full ownership</td><td>Owners who want the alerts, not the ops</td></tr>
-        </tbody>
-      </table>
+  <!-- ALL ALERTS -->
+  <div class="doc-section" id="alerts">
+    <div class="section-eyebrow">02 / What you get</div>
+    <h2>Sentry Mode, plus everything else.</h2>
+    <p>Sentry Mode alerts are one of nine automatic notification types included in every plan — sent to Telegram, no configuration needed beyond the toggle in /alerts.</p>
+    <div class="alert-grid">
+      <div class="alert-card">
+        <div class="alert-icon">🛡️</div>
+        <div>
+          <h4>Sentry Mode toggled</h4>
+          <p>Sent when Sentry Mode is enabled or disabled on the car.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔓</div>
+        <div>
+          <h4>Car left unlocked</h4>
+          <p>Sent when the car is parked and unlocked.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <h4>Charging started</h4>
+          <p>Sent ~35 seconds after plug-in and charging begins.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <h4>Charge interrupted</h4>
+          <p>Sent when charging stops before your set limit.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔋</div>
+        <div>
+          <h4>Low battery</h4>
+          <p>Sent when battery drops below your configured threshold.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🛞</div>
+        <div>
+          <h4>Low tyre pressure</h4>
+          <p>Per-wheel alert when pressure drops below threshold.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🚗</div>
+        <div>
+          <h4>Drive started / ended</h4>
+          <p>Trip summary with distance, efficiency, and cost.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">📅</div>
+        <div>
+          <h4>Monthly report</h4>
+          <p>km, kWh, charging sessions, and total cost by tariff.</p>
+        </div>
+      </div>
     </div>
 
     <div class="honest">
-      <h3>When self-hosting is the right call</h3>
-      <p>Honestly: if you want the full Grafana dashboard experience, raw SQL access to every data point, and you're comfortable running Docker — self-hosted <a href="https://docs.teslamate.org/">TeslaMate</a> is excellent and free, and we'd point you straight at it. WattsonBot exists for everyone who read that setup guide and closed the tab.</p>
+      <h3>What it doesn't do</h3>
+      <p>WattsonBot alerts on the Sentry Mode on/off state — it doesn't access or forward the camera recordings themselves. Those stay on the car's USB drive and in the Tesla app, exactly as Tesla designed it. Read-only access also means it can't toggle Sentry Mode for you; it only observes and reports.</p>
     </div>
 
     <div class="cta-row" style="justify-content:flex-start;">
-      <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="comparison">Try it free in Telegram</a>
+      <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts" class="btn btn-primary" data-cta="alerts_section">Try it free in Telegram</a>
     </div>
   </div>
 
   <!-- HOW IT WORKS -->
   <div class="doc-section" id="how">
-    <div class="section-eyebrow">03 / Under the hood</div>
-    <h2>The same engine. Zero ops.</h2>
-    <p>WattsonBot isn't a TeslaMate clone — it runs the real thing. Every subscriber gets a <strong>private, isolated instance of the open-source TeslaMate engine</strong> (unmodified official release) with its own database and MQTT broker, plus our notification bot on top. We keep it updated, backed up and running; you get the output in Telegram.</p>
+    <div class="section-eyebrow">03 / Setup</div>
+    <h2>Live in about 5 minutes.</h2>
+    <p>WattsonBot connects to your Tesla with a read-only refresh token and starts watching immediately — no cameras, no extra hardware, nothing to install on the car.</p>
     <div class="steps">
       <div class="step-card">
         <div class="step-num">1</div>
         <div class="step-body">
           <h4>Open the bot</h4>
-          <p>Open <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" data-cta="how_step">t.me/WattsonEVBot</a> and tap <strong>Start</strong>. No app, no signup form.</p>
+          <p>Open <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts" data-cta="how_step">t.me/WattsonEVBot</a> and tap <strong>Start</strong>.</p>
         </div>
       </div>
       <div class="step-card">
@@ -500,14 +518,14 @@
         <div class="step-num">3</div>
         <div class="step-body">
           <h4>Link your Tesla</h4>
-          <p>Send a Tesla refresh token — read-only, revocable, your password never leaves Tesla's own login page. <a href="docs.html#token">Two-minute guide here</a>.</p>
+          <p>Send a Tesla refresh token — read-only, revocable. <a href="tesla-refresh-token-guide.html">Full guide here</a>.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
         <div class="step-body">
           <h4>Alerts start arriving</h4>
-          <p>Charging, battery, TPMS, drive summaries with cost — all in the same Telegram chat, plus 16 commands for stats and history.</p>
+          <p>Sentry Mode, charging, battery, TPMS, drive summaries — all pushed automatically. Toggle any of them off anytime via /alerts.</p>
         </div>
       </div>
     </div>
@@ -519,28 +537,28 @@
     <h2>Fair questions.</h2>
     <div class="faq-list">
       <div class="faq-item">
-        <h4>Is WattsonBot based on TeslaMate?</h4>
-        <p>Yes — under the hood it runs the same open-source TeslaMate engine (an unmodified official release) in a private instance dedicated to you. We maintain the servers, updates and backups. Credit where due: the TeslaMate project is what makes this data possible.</p>
+        <h4>Does it alert when Sentry Mode turns on?</h4>
+        <p>Yes — a Telegram message is sent whenever Sentry Mode is enabled or disabled, so you can confirm it activated without opening the app.</p>
       </div>
       <div class="faq-item">
-        <h4>Do I need a VPS or Docker?</h4>
-        <p>No. Nothing to install, nothing to host. If you can open a Telegram chat, you can run WattsonBot.</p>
+        <h4>Can it turn Sentry Mode on or off for me?</h4>
+        <p>No. WattsonBot uses a read-only refresh token and can only observe and report state, not send commands.</p>
       </div>
       <div class="faq-item">
-        <h4>Can it control or unlock my car?</h4>
-        <p>No. The refresh token grants read-only access to vehicle data. WattsonBot cannot send commands to the car, and you can revoke the token at any time from your Tesla account.</p>
+        <h4>Does it forward Sentry's camera recordings?</h4>
+        <p>No. It alerts on the on/off state only. Recordings stay on the car's USB drive and in the Tesla app.</p>
       </div>
       <div class="faq-item">
-        <h4>Can I switch back to self-hosting later?</h4>
-        <p>Anytime. There's no lock-in: cancel with /billing, revoke the token, and spin up your own TeslaMate whenever you like.</p>
+        <h4>What other alerts come with it?</h4>
+        <p>Charging, low battery, TPMS/tyre pressure, car left unlocked, and drive-ended summaries with cost — all in the same $5/month plan.</p>
       </div>
       <div class="faq-item">
-        <h4>How is this different from the Tesla app?</h4>
-        <p>The Tesla app shows you state when you open it. WattsonBot pushes what the app won't: charging interrupted, low tyre pressure, car left unlocked, Sentry Mode toggles, drive summaries with energy cost — without you having to check.</p>
+        <h4>Is my Tesla password shared with WattsonBot?</h4>
+        <p>No. You log in on Tesla's own page; WattsonBot only ever receives a revocable refresh token.</p>
       </div>
       <div class="faq-item">
         <h4>What does it cost?</h4>
-        <p>$5/month for the Solo plan — one car, all alerts, all 16 commands, stats and history. There's a free trial, and you can cancel anytime from Telegram.</p>
+        <p>$5/month for the Solo plan — one car, all 9 alert types, 16 commands, stats and history. Free trial included.</p>
       </div>
     </div>
   </div>
@@ -549,10 +567,10 @@
 
 <!-- FINAL CTA -->
 <div class="final-cta">
-  <h2>Skip the server.<br/>Keep the alerts.</h2>
+  <h2>Park. Enable Sentry.<br/>Get the confirmation.</h2>
   <p>Live in 5 minutes. Free trial, then $5/month. Cancel anytime.</p>
   <div class="cta-row">
-    <a href="https://t.me/WattsonEVBot?start=seo_tm_alt" class="btn btn-primary" data-cta="final_cta">Start in Telegram</a>
+    <a href="https://t.me/WattsonEVBot?start=seo_sentry_alerts" class="btn btn-primary" data-cta="final_cta">Start in Telegram</a>
   </div>
 </div>
 
@@ -562,7 +580,7 @@
     <div class="foot-top">
       <div>
         <h4>WattsonBot</h4>
-        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc. or the TeslaMate project.</p>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
       </div>
       <div>
         <h4>Product</h4>
@@ -598,13 +616,12 @@
 </footer>
 
 <script>
-  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/teslamate-alternative.html'; });
+  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/tesla-sentry-mode-alerts.html'; });
 
-  // Named CTA click tracking (distinct from the generic GA4 "click" auto-event)
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-cta]');
     if (!el) return;
-    gtag('event', 'click_start_bot', { cta_location: 'tm_alt_' + el.getAttribute('data-cta') });
+    gtag('event', 'click_start_bot', { cta_location: 'sentry_alerts_' + el.getAttribute('data-cta') });
   });
 </script>
 
