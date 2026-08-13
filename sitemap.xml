@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://wattsonbot.org/docs.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/docs.html" />
@@ -48,7 +48,7 @@
   </url>
   <url>
     <loc>https://wattsonbot.org/ru/docs.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/docs.html" />
@@ -126,5 +126,59 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/tesla-sentry-mode-alerts.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/tesla-sentry-mode-alerts.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/privacy.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/privacy.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/ru/privacy.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/privacy.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/terms.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/terms.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/terms.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/terms.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/ru/terms.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/terms.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/terms.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/terms.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/refund.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/refund.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/refund.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/refund.html" />
+  </url>
+  <url>
+    <loc>https://wattsonbot.org/ru/refund.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wattsonbot.org/refund.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/refund.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/refund.html" />
   </url>
 </urlset>
