@@ -26,7 +26,7 @@
 1. Open @WattsonEVBot and press /start
 2. Choose a plan — or start with a free 48-hour trial
 3. Pay with ⭐ Telegram Stars or 💎 USDT (via @CryptoBot)
-4. Send your Tesla refresh token — your private stack spins up in seconds
+4. Tap "Log in with Tesla" (or send a refresh token manually) — your private stack spins up in seconds
 5. Receive real-time alerts and use /status, /battery, /location and more
 ```
 
