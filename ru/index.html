@@ -1609,7 +1609,7 @@
     document.documentElement.lang = lang;
     try { sessionStorage.setItem('wattson-lang', lang); } catch {}
   }
-  document.getElementById('lang-en').addEventListener('click', () => { location.href = '../'; });
+  document.getElementById('lang-en').addEventListener('click', () => { location.href = '../?lang=en'; });
   document.getElementById('lang-ru').addEventListener('click', () => setLang('ru'));
   try {
     var urlLang = new URLSearchParams(location.search).get('lang');
