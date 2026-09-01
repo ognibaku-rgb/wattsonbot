@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
+
+<title>Воспроизведение маршрута поездки Tesla | WattsonBot</title>
+<meta name="description" content="Проигрывание поездки Tesla на интерактивной карте — трек в цветах скорости, заряд батареи и точка, где машина встала на зарядку. Те же данные поездки, что WattsonBot присылает в Telegram.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wattsonbot.org/ru/route-replay.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/route-replay.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/route-replay.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/route-replay.html" />
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wattsonbot.org/ru/route-replay.html">
+<meta property="og:site_name" content="WattsonBot">
+<meta property="og:title" content="Воспроизведение маршрута поездки Tesla">
+<meta property="og:description" content="Проиграй поездку Tesla на карте — трек в цветах скорости, заряд батареи и где она зарядилась.">
+<meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Воспроизведение маршрута поездки Tesla">
+<meta name="twitter:description" content="Проиграй поездку Tesla на карте — трек в цветах скорости, заряд батареи и где она зарядилась.">
+<meta name="twitter:image" content="https://wattsonbot.org/og-image.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "WattsonBot", "item": "https://wattsonbot.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Воспроизведение маршрута", "item": "https://wattsonbot.org/ru/route-replay.html" }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="../assets/leaflet/leaflet.css">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --bg-dark: #1a2240;
+    --ink: #1d1d1f;
+    --ink-mute: #6e6e73;
+    --ink-faint: #86868b;
+    --line: #d2d2d7;
+    --accent: #e9a431;
+    --accent-hover: #f0b13f;
+    --radius: 18px;
+    --radius-lg: 28px;
+    --maxw: 1240px;
+    --doc-maxw: 860px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em; line-height: 1.5;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  .nav { position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08); }
+  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; font-size: 14px; }
+  .nav-brand { display: flex; align-items: center; gap: 8px; font-weight: 600;
+    letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo { width: 28px; height: 28px; border-radius: 7px; overflow: hidden; display: block;
+    box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button { background: none; border: none; cursor: pointer; font: inherit; color: inherit;
+    padding: 2px 6px; border-radius: 6px; }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home { color: var(--ink-mute); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .nav-home:hover { color: var(--ink); }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 17px;
+    font-weight: 400; letter-spacing: -0.01em; cursor: pointer; border: none;
+    text-decoration: none; transition: all .18s ease; }
+  .btn-primary { background: var(--accent); color: white; padding: 12px 24px; border-radius: 999px; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-link { color: var(--accent); font-size: 17px; }
+  .btn-link:hover { text-decoration: underline; }
+  .btn-link::after { content: " ›"; }
+  .cta-row { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center;
+    align-items: center; margin-top: 34px; }
+
+  .page-hero { padding: 80px 22px 40px; text-align: center; background: var(--bg); }
+  .eyebrow { font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-mute); margin-bottom: 18px; font-weight: 500; }
+  .page-hero h1 { font-size: clamp(38px, 5vw, 64px); line-height: 1.06; letter-spacing: -0.03em;
+    font-weight: 700; margin: 0 auto 18px; max-width: 18ch; }
+  .page-hero p { font-size: clamp(17px, 1.4vw, 21px); color: var(--ink-mute); max-width: 620px;
+    margin: 0 auto; line-height: 1.45; letter-spacing: -0.01em; }
+
+  .doc-body { max-width: var(--doc-maxw); margin: 0 auto; padding: 0 22px; }
+  .doc-section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  .doc-section:last-child { border-bottom: none; }
+  .section-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .doc-section h2 { font-size: clamp(26px, 3vw, 40px); line-height: 1.12; letter-spacing: -0.025em;
+    font-weight: 700; margin: 0 0 20px; }
+  .doc-section > p { font-size: 17px; color: var(--ink-mute); line-height: 1.55; margin: 0 0 24px; max-width: 62ch; }
+
+  .alert-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .alert-card:last-child { border-bottom: none; }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-card h4 { font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .alert-card p { font-size: 13px; color: var(--ink-mute); margin: 0; line-height: 1.45; }
+
+  .faq-item { padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item h4 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px;
+    color: var(--ink); line-height: 1.3; }
+  .faq-item p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .faq-item a { color: var(--accent); text-decoration: none; }
+  .faq-item a:hover { text-decoration: underline; }
+
+  .final-cta { background: var(--bg-dark); color: #f5f5f7; text-align: center; padding: 90px 22px; margin-top: 40px; }
+  .final-cta h2 { font-size: clamp(28px, 3.6vw, 48px); letter-spacing: -0.03em; font-weight: 700;
+    margin: 0 0 14px; line-height: 1.1; }
+  .final-cta p { color: #a1a1a6; font-size: 17px; max-width: 520px; margin: 0 auto; line-height: 1.5; }
+
+  footer { background: #f5f5f7; padding: 70px 22px 30px; border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6; }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08); }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a { display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0; }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom { display: flex; justify-content: space-between; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
+
+  /* ── Виджет воспроизведения ─────────────────────────────────────── */
+  .replay-wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
+  .replay-card {
+    background: #0d1424; border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(13,20,36,.55), 0 2px 8px rgba(0,0,0,.08);
+    border: 1px solid rgba(255,255,255,.06);
+  }
+  #map { width: 100%; height: 460px; background: #0d1424; }
+  .leaflet-container { font: inherit; background: #0d1424; }
+  /* Keyless OSM tiles darkened to match the card. */
+  .leaflet-tile { filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.9) saturate(0.65); }
+  .leaflet-bar a { background: #1a2338; color: #e8ecf5; border-bottom-color: rgba(255,255,255,.12); }
+  .leaflet-bar a:hover { background: #232f4d; }
+  .leaflet-control-attribution {
+    background: rgba(13,20,36,.7) !important; color: #8b93a7 !important; font-size: 10px !important;
+  }
+  .leaflet-control-attribution a { color: #a7b0c6 !important; }
+
+  .replay-controls { display: flex; align-items: center; gap: 16px; padding: 16px 18px;
+    background: #111a2e; border-top: 1px solid rgba(255,255,255,.06); }
+  .replay-play {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: var(--accent); color: #fff; font-size: 17px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: background .15s;
+  }
+  .replay-play:hover { background: var(--accent-hover); }
+  .replay-scrub { flex: 1; appearance: none; -webkit-appearance: none; height: 5px; border-radius: 999px;
+    background: rgba(255,255,255,.16); outline: none; cursor: pointer; }
+  .replay-scrub::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px;
+    border-radius: 50%; background: #fff; border: 3px solid var(--accent); cursor: pointer; }
+  .replay-scrub::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff;
+    border: 3px solid var(--accent); cursor: pointer; }
+
+  .replay-readout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(255,255,255,.06); }
+  .readout-cell { background: #0d1424; padding: 16px 18px; text-align: center; }
+  .readout-cell .val { font-size: 22px; font-weight: 700; color: #f2f5fb; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums; }
+  .readout-cell .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: #7b849b; margin-top: 4px; }
+
+  .replay-legend { display: flex; flex-wrap: wrap; gap: 14px 20px; justify-content: center;
+    margin: 22px auto 0; max-width: 680px; font-size: 13px; color: var(--ink-mute); }
+  .replay-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .swatch { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .replay-meta { text-align: center; margin-top: 10px; font-size: 13px; color: var(--ink-faint); }
+
+  @media (max-width: 760px) {
+    .page-hero { padding: 56px 18px 32px; }
+    .doc-body { padding: 0 18px; }
+    .doc-section { padding: 48px 0; }
+    #map { height: 360px; }
+    .replay-readout { grid-template-columns: repeat(2, 1fr); }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SCG2HR7EJV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SCG2HR7EJV');
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo"><img src="../logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="/" class="nav-home">← На главную</a>
+      <div class="lang">
+        <button id="lang-en">EN</button>
+        <span>·</span>
+        <button class="on" id="lang-ru">RU</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Маршрут поездки</div>
+  <h1>Проиграй поездку.</h1>
+  <p>После каждой поездки у WattsonBot есть весь GPS-трек, скорость и кривая заряда. Вот как это выглядит на карте — потяни ползунок или нажми play.</p>
+</div>
+
+<div class="replay-wrap">
+  <div class="replay-card">
+    <div id="map"></div>
+    <div class="replay-controls">
+      <button class="replay-play" id="playBtn" aria-label="Играть">▶</button>
+      <input class="replay-scrub" id="scrub" type="range" min="0" max="100" value="0" step="1" aria-label="Перемотка поездки" />
+    </div>
+    <div class="replay-readout">
+      <div class="readout-cell"><div class="val" id="rElapsed">0:00</div><div class="lbl">Время</div></div>
+      <div class="readout-cell"><div class="val" id="rSpeed">0</div><div class="lbl">км/ч</div></div>
+      <div class="readout-cell"><div class="val" id="rBatt">72%</div><div class="lbl">Заряд</div></div>
+      <div class="readout-cell"><div class="val" id="rDist">0.0</div><div class="lbl">км пройдено</div></div>
+    </div>
+  </div>
+
+  <div class="replay-legend">
+    <span><i class="swatch" style="background:#2ecc71"></i> &lt; 20</span>
+    <span><i class="swatch" style="background:#1abc9c"></i> 20–50</span>
+    <span><i class="swatch" style="background:#3498db"></i> 50–90</span>
+    <span><i class="swatch" style="background:#e67e22"></i> 90–120</span>
+    <span><i class="swatch" style="background:#e74c3c"></i> &gt; 120 км/ч</span>
+    <span><i class="dot" style="background:#2ecc71"></i> Старт</span>
+    <span><i class="dot" style="background:#e74c3c"></i> Финиш</span>
+    <span><i class="dot" style="background:#f1c40f"></i> ⚡ Зарядка</span>
+  </div>
+  <p class="replay-meta" id="tripMeta"></p>
+</div>
+
+<div class="doc-body">
+
+  <div class="doc-section" id="what">
+    <div class="section-eyebrow">01 / Что на экране</div>
+    <h2>Каждая поездка записана — настраивать нечего.</h2>
+    <p>WattsonBot опрашивает Tesla несколько раз в минуту, пока она едет. Этого хватает, чтобы восстановить весь маршрут, раскрасить его по скорости и отметить, где машина в итоге встала на зарядку. Поездка выше — синтетический пример, но форма данных ровно такая же, как у реальной поездки.</p>
+    <div>
+      <div class="alert-card">
+        <div class="alert-icon">🗺</div>
+        <div><h4>Трек в цветах скорости</h4><p>Зелёный там, где ползли, красный — где разогнались. Та же шкала цветов, что бот использует на карте в Telegram.</p></div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔋</div>
+        <div><h4>Кривая заряда</h4><p>Заряд батареи в каждой точке — видно, куда именно ушёл запас хода.</p></div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚡</div>
+        <div><h4>Зарядка по прибытии</h4><p>Если по приезде воткнули кабель — это место отмечено на маршруте.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section" id="chat">
+    <div class="section-eyebrow">02 / Где это живёт</div>
+    <h2>В чате Telegram, сразу как припарковался.</h2>
+    <p>Ради этого не нужно открывать дашборд. Когда поездка заканчивается, WattsonBot присылает сводку — расстояние, время, расход, стоимость — с кнопкой «Маршрут поездки», которая возвращает карту в цветах скорости. Заряд, давление в шинах, Sentry Mode и уведомления о зарядке приходят в тот же чат.</p>
+  </div>
+
+  <div class="doc-section" id="faq">
+    <div class="section-eyebrow">03 / Резонные вопросы</div>
+    <h2>Резонные вопросы.</h2>
+    <div class="faq-item">
+      <h4>Это реальная поездка?</h4>
+      <p>Нет — поездка на этой странице сгенерирована, поэтому не раскрывает ничей настоящий адрес. У реальной поездки те же поля: GPS-трек, скорость в каждой точке и заряд батареи.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Мне дадут именно такой интерактивный плеер?</h4>
+      <p>Бот присылает в Telegram отрендеренную картинку карты после каждой поездки. Эта страница — демо данных под ней; полноценный интерактивный replay прямо в чате в планах.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Насколько точен трек?</h4>
+      <p>Это опрос, а не стриминг — обычно точка раз в 20–30 секунд, во время движения чаще. Хватает для точного маршрута и профиля скорости, но не для сантиметровой точности.</p>
+    </div>
+    <div class="faq-item">
+      <h4>WattsonBot хранит историю моих поездок?</h4>
+      <p>Данные поездок лежат в вашей изолированной базе и используются, чтобы отвечать на команды в чате. Детали хранения — в <a href="privacy.html">Политике конфиденциальности</a>.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="final-cta">
+  <h2>Смотри свои поездки<br/>на карте.</h2>
+  <p>Запуск за 5 минут. Бесплатный пробный период, потом $5/мес. Отмена в любой момент.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot?start=seo_route_replay_ru" class="btn btn-primary" data-cta="final_cta">Запустить в Telegram</a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Мониторинг Tesla через Telegram. Независимый проект, сделан владельцем. Не аффилирован с Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Продукт</h4>
+        <div>
+          <a href="index.html#features">Возможности</a>
+          <a href="index.html#pricing">Цены</a>
+          <a href="docs.html">Документация</a>
+          <a href="route-replay.html">Маршрут поездки</a>
+          <a href="teslamate-alternative.html">Альтернатива TeslaMate</a>
+          <a href="tesla-app-alternative.html">Альтернатива приложению Tesla</a>
+          <a href="tesla-charging-notifications.html">Уведомления о зарядке</a>
+        </div>
+      </div>
+      <div>
+        <h4>Правовое</h4>
+        <div>
+          <a href="terms.html">Условия использования</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <a href="refund.html">Политика возврата</a>
+        </div>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="mailto:wattsonevbot@gmail.com">wattsonevbot@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. Все права защищены.</div>
+      <div>Сделано для владельцев Tesla владельцем Tesla.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/leaflet/leaflet.js"></script>
+<script src="../assets/demo-drive.js"></script>
+<script>
+(function () {
+  var L = window.L;
+  var DRIVE = window.__DEMO_DRIVE__;
+  if (!L || !DRIVE) return;
+
+  var pts = DRIVE.points; // [lng, lat, tSec, speedKmh, battPct]
+  var n = pts.length;
+
+  var SPEED_BUCKETS = [
+    { max: 20, color: '#2ecc71' },
+    { max: 50, color: '#1abc9c' },
+    { max: 90, color: '#3498db' },
+    { max: 120, color: '#e67e22' },
+    { max: Infinity, color: '#e74c3c' }
+  ];
+  function speedColor(kmh) {
+    for (var i = 0; i < SPEED_BUCKETS.length; i++) {
+      if (kmh <= SPEED_BUCKETS[i].max) return SPEED_BUCKETS[i].color;
+    }
+    return '#e74c3c';
+  }
+
+  var cumKm = [0];
+  function hav(a, b) {
+    var R = 6371, toRad = function (d) { return d * Math.PI / 180; };
+    var dLat = toRad(b[1] - a[1]), dLon = toRad(b[0] - a[0]);
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(a[1])) * Math.cos(toRad(b[1])) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+  for (var i = 1; i < n; i++) cumKm[i] = cumKm[i - 1] + hav(pts[i - 1], pts[i]);
+
+  var map = L.map('map', { zoomControl: true, attributionControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    subdomains: 'abc', maxZoom: 19
+  }).addTo(map);
+
+  var latlngs = [];
+  for (var j = 0; j < n; j++) {
+    latlngs.push([pts[j][1], pts[j][0]]);
+    if (j > 0) {
+      L.polyline([[pts[j - 1][1], pts[j - 1][0]], [pts[j][1], pts[j][0]]], {
+        color: speedColor(pts[j][3]), weight: 5, opacity: 0.9, lineCap: 'round'
+      }).addTo(map);
+    }
+  }
+  map.fitBounds(L.latLngBounds(latlngs).pad(0.12));
+
+  function pin(color) {
+    return L.divIcon({
+      className: '', iconSize: [16, 16], iconAnchor: [8, 8],
+      html: '<span style="display:block;width:16px;height:16px;border-radius:50%;background:' +
+        color + ';border:3px solid #0d1424;box-shadow:0 0 0 1px ' + color + '"></span>'
+    });
+  }
+  L.marker([pts[0][1], pts[0][0]], { icon: pin('#2ecc71') }).addTo(map).bindPopup('Старт');
+  L.marker([pts[n - 1][1], pts[n - 1][0]], { icon: pin('#e74c3c') }).addTo(map).bindPopup('Финиш');
+  if (DRIVE.meta && DRIVE.meta.chargedAtEnd) {
+    L.marker([pts[n - 1][1], pts[n - 1][0]], {
+      icon: L.divIcon({
+        className: '', iconSize: [22, 22], iconAnchor: [11, 11],
+        html: '<span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;' +
+          'border-radius:50%;background:#f1c40f;border:2px solid #0d1424;font-size:12px">⚡</span>'
+      })
+    }).addTo(map).bindPopup('Встала на зарядку по прибытии');
+  }
+
+  var cursor = L.circleMarker([pts[0][1], pts[0][0]], {
+    radius: 8, color: '#fff', weight: 2, fillColor: '#e9a431', fillOpacity: 1
+  }).addTo(map);
+
+  var elElapsed = document.getElementById('rElapsed');
+  var elSpeed = document.getElementById('rSpeed');
+  var elBatt = document.getElementById('rBatt');
+  var elDist = document.getElementById('rDist');
+  var scrub = document.getElementById('scrub');
+  var playBtn = document.getElementById('playBtn');
+  var meta = document.getElementById('tripMeta');
+
+  scrub.max = String(n - 1);
+
+  if (DRIVE.meta) {
+    meta.textContent = 'Вечерняя поездка домой · ' + DRIVE.meta.distanceKm + ' км · ' +
+      DRIVE.meta.durationMin + ' мин · макс ' + DRIVE.meta.maxSpeed + ' км/ч';
+  }
+
+  function fmtTime(sec) {
+    var m = Math.floor(sec / 60), s = Math.round(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function render(idx) {
+    idx = Math.max(0, Math.min(n - 1, idx | 0));
+    var p = pts[idx];
+    cursor.setLatLng([p[1], p[0]]);
+    elElapsed.textContent = fmtTime(p[2]);
+    elSpeed.textContent = String(p[3]);
+    elBatt.textContent = p[4].toFixed(0) + '%';
+    elDist.textContent = cumKm[idx].toFixed(1);
+    if (String(idx) !== scrub.value) scrub.value = String(idx);
+  }
+
+  var playing = false, timer = null, pos = 0;
+  function tick() {
+    pos += 1;
+    if (pos >= n - 1) { pos = n - 1; render(pos); stop(); return; }
+    render(pos);
+  }
+  function play() {
+    if (pos >= n - 1) pos = 0;
+    playing = true; playBtn.textContent = '⏸'; playBtn.setAttribute('aria-label', 'Пауза');
+    timer = setInterval(tick, 90);
+    gtag('event', 'route_replay_play');
+  }
+  function stop() {
+    playing = false; playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', 'Играть');
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+  playBtn.addEventListener('click', function () { playing ? stop() : play(); });
+  scrub.addEventListener('input', function () { stop(); pos = parseInt(scrub.value, 10) || 0; render(pos); });
+
+  render(0);
+})();
+</script>
+
+<script>
+  document.getElementById('lang-en').addEventListener('click', function () { location.href = '../route-replay.html'; });
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    gtag('event', 'click_start_bot', { cta_location: 'route_replay_ru_' + el.getAttribute('data-cta') });
+  });
+</script>
+
+</body>
+</html>
