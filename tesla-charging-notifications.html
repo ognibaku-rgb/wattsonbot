@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
+
+<title>Tesla Charging Notifications in Telegram | WattsonBot</title>
+<meta name="description" content="Get a Telegram alert the moment your Tesla starts charging, hits your target, or gets unplugged early — plus battery, TPMS, Sentry Mode and drive alerts. Set up in 5 minutes. $5/month.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wattsonbot.org/tesla-charging-notifications.html">
+<link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-charging-notifications.html" />
+<link rel="alternate" hreflang="ru" href="https://wattsonbot.org/ru/tesla-charging-notifications.html" />
+<link rel="alternate" hreflang="x-default" href="https://wattsonbot.org/tesla-charging-notifications.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wattsonbot.org/tesla-charging-notifications.html">
+<meta property="og:site_name" content="WattsonBot">
+<meta property="og:title" content="Tesla Charging Notifications in Telegram">
+<meta property="og:description" content="A Telegram message the moment your Tesla starts charging, hits your target, or stops early — no more opening the app to check.">
+<meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tesla Charging Notifications in Telegram">
+<meta name="twitter:description" content="A Telegram message the moment your Tesla starts charging, hits your target, or stops early — no more opening the app to check.">
+<meta name="twitter:image" content="https://wattsonbot.org/og-image.jpg">
+<meta name="twitter:image:alt" content="Tesla Charging Notifications in Telegram">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "WattsonBot", "item": "https://wattsonbot.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Charging Notifications", "item": "https://wattsonbot.org/tesla-charging-notifications.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get a notification when my Tesla starts charging?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Connect your Tesla to WattsonBot with a read-only refresh token, and it sends a Telegram message about 35 seconds after you plug in and charging begins — no setup beyond linking the car."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get an alert when charging reaches my target?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. WattsonBot sends a Telegram message when the car reaches the charge limit you've set in the Tesla app, so you know it's ready without opening anything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will I be notified if charging stops unexpectedly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. If charging stops before your set limit — unplugged, breaker tripped, connector fault — WattsonBot sends a charge-interrupted alert so you can catch it early instead of finding a low battery in the morning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this replace the Tesla app's charging notifications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It complements it. WattsonBot delivers the same kind of event to Telegram — the chat many people already have open — alongside battery, tyre pressure, Sentry Mode and drive alerts in one place, plus stats and history on demand via chat commands."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my Tesla password shared with WattsonBot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Authentication happens on Tesla's own login page. WattsonBot only ever receives a revocable, read-only refresh token — never your password, and it cannot start or stop charging remotely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$5/month for the Solo plan, with a free trial — includes charging alerts plus all other notification types and 16 chat commands."
+      }
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --bg-dark: #1a2240;
+    --ink: #1d1d1f;
+    --ink-mute: #6e6e73;
+    --ink-faint: #86868b;
+    --line: #d2d2d7;
+    --accent: #e9a431;
+    --accent-hover: #f0b13f;
+    --radius: 18px;
+    --radius-lg: 28px;
+    --maxw: 1240px;
+    --doc-maxw: 800px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 0 22px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo {
+    width: 28px; height: 28px; border-radius: 7px;
+    overflow: hidden; display: block;
+    box-shadow: 0 1px 2px rgba(0,0,0,.12);
+  }
+  .nav-logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .nav-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+  .lang { display: flex; gap: 4px; color: var(--ink-mute); }
+  .lang button {
+    background: none; border: none; cursor: pointer; font: inherit; color: inherit;
+    padding: 2px 6px; border-radius: 6px;
+  }
+  .lang button.on { color: var(--ink); font-weight: 600; }
+  .nav-home {
+    color: var(--ink-mute); text-decoration: none; font-size: 13px;
+    transition: color .2s;
+  }
+  .nav-home:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-size: 17px; font-weight: 400;
+    letter-spacing: -0.01em; cursor: pointer; border: none;
+    text-decoration: none; transition: all .18s ease;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+    padding: 12px 24px; border-radius: 999px;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-link { color: var(--accent); font-size: 17px; }
+  .btn-link:hover { text-decoration: underline; }
+  .btn-link::after { content: " ›"; }
+  .cta-row {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    margin-top: 34px;
+  }
+
+  .page-hero {
+    padding: 80px 22px 60px;
+    text-align: center;
+    background: var(--bg);
+  }
+  .eyebrow {
+    font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-mute); margin-bottom: 18px; font-weight: 500;
+  }
+  .page-hero h1 {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1.06; letter-spacing: -0.03em; font-weight: 700;
+    margin: 0 auto 18px; max-width: 18ch;
+  }
+  .page-hero p {
+    font-size: clamp(17px, 1.4vw, 21px);
+    color: var(--ink-mute); max-width: 560px; margin: 0 auto;
+    line-height: 1.45; letter-spacing: -0.01em;
+  }
+
+  .doc-body {
+    max-width: var(--doc-maxw);
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+  .doc-section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-section:last-child { border-bottom: none; }
+  .section-eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); font-weight: 600; margin-bottom: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .doc-section h2 {
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.1; letter-spacing: -0.025em; font-weight: 700;
+    margin: 0 0 20px;
+  }
+  .doc-section > p, .doc-lead {
+    font-size: 17px; color: var(--ink-mute); line-height: 1.55;
+    margin: 0 0 24px; max-width: 62ch;
+  }
+  .doc-section h3 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 40px 0 10px; color: var(--ink);
+  }
+
+  .chores { list-style: none; padding: 0; margin: 8px 0 0; }
+  .chores li {
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+    font-size: 15px; color: var(--ink-mute); line-height: 1.5;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .chores li:last-child { border-bottom: none; }
+  .chores li strong { color: var(--ink); font-weight: 600; }
+  .chores .tick { flex-shrink: 0; width: 22px; text-align: center; }
+
+  .alert-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    margin-top: 8px;
+  }
+  .alert-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-card h4 { font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .alert-card p { font-size: 13px; color: var(--ink-mute); margin: 0; line-height: 1.45; }
+
+  code {
+    background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; color: var(--ink);
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+  .step-card {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .step-card:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: var(--accent); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    margin-top: 2px;
+  }
+  .step-body h4 {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+    margin: 0 0 5px; color: var(--ink);
+  }
+  .step-body p {
+    font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.5;
+  }
+  .step-body a { color: var(--accent); text-decoration: none; }
+  .step-body a:hover { text-decoration: underline; }
+
+  .honest {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin-top: 36px;
+  }
+  .honest h3 { margin: 0 0 10px; }
+  .honest p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .honest a { color: var(--accent); text-decoration: none; }
+  .honest a:hover { text-decoration: underline; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .faq-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item h4 {
+    font-size: 17px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0 0 8px; color: var(--ink); line-height: 1.3;
+  }
+  .faq-item p { font-size: 15px; color: var(--ink-mute); margin: 0; line-height: 1.55; }
+  .faq-item a { color: var(--accent); text-decoration: none; }
+  .faq-item a:hover { text-decoration: underline; }
+
+  .final-cta {
+    background: var(--bg-dark);
+    color: #f5f5f7;
+    text-align: center;
+    padding: 90px 22px;
+    margin-top: 40px;
+  }
+  .final-cta h2 {
+    font-size: clamp(30px, 3.6vw, 52px);
+    letter-spacing: -0.03em; font-weight: 700;
+    margin: 0 0 14px; line-height: 1.08;
+  }
+  .final-cta p {
+    color: #a1a1a6; font-size: 17px; max-width: 480px;
+    margin: 0 auto; line-height: 1.5;
+  }
+
+  footer {
+    background: #f5f5f7;
+    padding: 70px 22px 30px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+  }
+  .foot-inner { max-width: var(--maxw); margin: 0 auto; }
+  .foot-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .foot-top h4 { font-size: 12px; color: var(--ink); margin: 0 0 14px; font-weight: 600; }
+  .foot-top a {
+    display: block; color: var(--ink-mute); text-decoration: none; padding: 4px 0;
+  }
+  .foot-top a:hover { color: var(--ink); }
+  .foot-top p { margin: 8px 0 0; max-width: 36ch; }
+  .foot-bottom {
+    display: flex; justify-content: space-between; padding-top: 24px;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  @media (max-width: 760px) {
+    .page-hero { padding: 56px 18px 44px; }
+    .doc-body { padding: 0 18px; }
+    .doc-section { padding: 52px 0; }
+    .alert-grid { grid-template-columns: 1fr; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .nav-home { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 6px; }
+  }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SCG2HR7EJV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SCG2HR7EJV');
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo"><img src="logo.jpg" alt="WattsonBot" /></div>
+      WattsonBot
+    </a>
+    <div class="nav-right">
+      <a href="/" class="nav-home">← Home</a>
+      <div class="lang">
+        <button class="on" id="lang-en">EN</button>
+        <span>·</span>
+        <button id="lang-ru">RU</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="eyebrow">Charging Notifications</div>
+  <h1>Know it's charging.<br/>Without opening the app.</h1>
+  <p>A Telegram message the moment your Tesla starts charging, hits your target, or gets unplugged early — right in the chat you already have open.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts" class="btn btn-primary" data-cta="hero">Start in Telegram</a>
+    <a href="#alerts" class="btn btn-link">See all alerts</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="doc-body">
+
+  <!-- THE PROBLEM -->
+  <div class="doc-section" id="tradeoff">
+    <div class="section-eyebrow">01 / The habit</div>
+    <h2>"Is it charging yet?" Check the app to find out.</h2>
+    <p>You plug in and want to know it actually started — not just that the cable clicked in. You want to know when it hits your target so you can move the car for someone else. And if a breaker trips or the cable gets bumped loose overnight, you want to find out before you're leaving on a low battery, not after.</p>
+    <ul class="chores">
+      <li><span class="tick">🔌</span><span><strong>Confirming it started.</strong> A quick check that the plug actually engaged, without walking back out to the car.</span></li>
+      <li><span class="tick">🎯</span><span><strong>Knowing when it's done.</strong> So you can unplug, move the car, or free up a shared charger.</span></li>
+      <li><span class="tick">⚠️</span><span><strong>Catching interruptions early.</strong> A tripped breaker or loose connector at 2am is better caught at 2am than at 7am.</span></li>
+    </ul>
+    <p style="margin-top:28px;">WattsonBot watches your Tesla's charging state and messages you the moment it changes — in the same Telegram chat as your battery, tyre pressure and Sentry Mode alerts.</p>
+  </div>
+
+  <!-- ALL ALERTS -->
+  <div class="doc-section" id="alerts">
+    <div class="section-eyebrow">02 / What you get</div>
+    <h2>Charging alerts, plus everything else.</h2>
+    <p>Charging notifications are three of nine automatic alert types included in every plan — sent to Telegram, no configuration needed beyond the toggles in /alerts.</p>
+    <div class="alert-grid">
+      <div class="alert-card">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <h4>Charging started</h4>
+          <p>Sent ~35 seconds after plug-in and charging begins.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">✅</div>
+        <div>
+          <h4>Target reached</h4>
+          <p>Sent when the battery hits the charge limit set in the Tesla app.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <h4>Charging interrupted</h4>
+          <p>Sent when charging stops before your set limit — unplugged, tripped breaker, connector fault.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🔋</div>
+        <div>
+          <h4>Low battery</h4>
+          <p>Sent when battery drops below your configured threshold.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🛡️</div>
+        <div>
+          <h4>Sentry Mode toggled</h4>
+          <p>Sent when Sentry Mode is enabled or disabled on the car.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🛞</div>
+        <div>
+          <h4>Low tyre pressure</h4>
+          <p>Per-wheel alert when pressure drops below threshold.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">🚗</div>
+        <div>
+          <h4>Drive started / ended</h4>
+          <p>Trip summary with distance, efficiency, and cost.</p>
+        </div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-icon">📅</div>
+        <div>
+          <h4>Monthly report</h4>
+          <p>km, kWh, charging sessions, and total cost by tariff.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="honest">
+      <h3>What it doesn't do</h3>
+      <p>WattsonBot connects with a read-only refresh token — it can observe and report charging state, but it can't start, stop, or adjust the charge limit remotely; that stays in the Tesla app. It also polls on an interval rather than streaming, so alerts land within roughly half a minute of the actual event, not the instant it happens.</p>
+    </div>
+
+    <div class="cta-row" style="justify-content:flex-start;">
+      <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts" class="btn btn-primary" data-cta="alerts_section">Try it free in Telegram</a>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="doc-section" id="how">
+    <div class="section-eyebrow">03 / Setup</div>
+    <h2>Live in about 5 minutes.</h2>
+    <p>WattsonBot connects to your Tesla with a read-only refresh token and starts watching immediately — no cameras, no extra hardware, nothing to install on the car.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Open the bot</h4>
+          <p>Open <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts" data-cta="how_step">t.me/WattsonEVBot</a> and tap <strong>Start</strong>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Pick a plan</h4>
+          <p>Start with the free trial or go straight to Solo ($5/mo). Pay with Telegram Stars or crypto.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Link your Tesla</h4>
+          <p>Tap "Log in with Tesla" and sign in on Tesla's own page — read-only, revocable. Prefer manual? <a href="tesla-refresh-token-guide.html">Full guide here</a>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Alerts start arriving</h4>
+          <p>Charging, battery, Sentry Mode, TPMS, drive summaries — all pushed automatically. Toggle any of them off anytime via /alerts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="doc-section" id="faq">
+    <div class="section-eyebrow">04 / FAQ</div>
+    <h2>Fair questions.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>How do I get a notification when my Tesla starts charging?</h4>
+        <p>Connect your Tesla to WattsonBot with a read-only refresh token, and it sends a Telegram message about 35 seconds after you plug in and charging begins — no setup beyond linking the car.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Can I get an alert when charging reaches my target?</h4>
+        <p>Yes. WattsonBot messages you when the car reaches the charge limit you've set in the Tesla app, so you know it's ready without opening anything.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Will I be notified if charging stops unexpectedly?</h4>
+        <p>Yes. If charging stops before your set limit — unplugged, tripped breaker, connector fault — you get a charge-interrupted alert, so you can catch it early instead of finding a low battery in the morning.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Does this replace the Tesla app's charging notifications?</h4>
+        <p>It complements it. WattsonBot delivers the same kind of event to Telegram — where many people already have a chat open — alongside battery, tyre pressure, Sentry Mode and drive alerts, plus stats and history on demand via chat commands.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Is my Tesla password shared with WattsonBot?</h4>
+        <p>No. You log in on Tesla's own page; WattsonBot only ever receives a revocable, read-only refresh token — it can't start or stop charging remotely.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What does it cost?</h4>
+        <p>$5/month for the Solo plan — one car, all 9 alert types, 16 commands, stats and history. Free trial included.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /doc-body -->
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Plug in. Walk away.<br/>We'll tell you when it's done.</h2>
+  <p>Live in 5 minutes. Free trial, then $5/month. Cancel anytime.</p>
+  <div class="cta-row">
+    <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts" class="btn btn-primary" data-cta="final_cta">Start in Telegram</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <h4>WattsonBot</h4>
+        <p>Tesla monitoring delivered through Telegram. Independent, owner-built. Not affiliated with Tesla, Inc.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <div>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#pricing">Pricing</a>
+          <a href="docs.html">Documentation</a>
+          <a href="teslamate-alternative.html">TeslaMate Alternative</a>
+          <a href="tesla-app-alternative.html">Tesla App Alternative</a>
+          <a href="teslafi-alternative.html">TeslaFi Alternative</a>
+          <a href="tesla-sentry-mode-alerts.html">Sentry Mode Alerts</a>
+          <a href="tesla-charging-notifications.html">Charging Notifications</a>
+        </div>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <div>
+          <a href="terms.html">Terms of Use</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="refund.html">Refund Policy</a>
+        </div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:wattsonevbot@gmail.com">wattsonevbot@gmail.com</a>
+        <a href="https://t.me/WattsonEVBot">@WattsonEVBot</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 WattsonBot. All rights reserved.</div>
+      <div>Made for Tesla owners, by a Tesla owner.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('lang-ru').addEventListener('click', () => { location.href = 'ru/tesla-charging-notifications.html'; });
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    gtag('event', 'click_start_bot', { cta_location: 'charge_alerts_' + el.getAttribute('data-cta') });
+  });
+</script>
+
+</body>
+</html>
