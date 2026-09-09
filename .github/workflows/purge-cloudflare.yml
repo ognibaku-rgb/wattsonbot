@@ -1,0 +1,43 @@
+name: Purge Cloudflare cache
+
+# GitHub Pages builds this repo from the branch, so a push to main fires an
+# internal "github-pages" deployment. Wait for that to finish, then flush the
+# Cloudflare edge cache so visitors don't get the stale HTML held under the
+# cache-html-edge rule (Edge TTL 1h).
+on:
+  deployment_status:
+  workflow_dispatch:
+
+concurrency:
+  group: cf-purge
+  cancel-in-progress: false
+
+jobs:
+  purge:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment_status.environment == 'github-pages')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge everything
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_PURGE_TOKEN: ${{ secrets.CF_PURGE_TOKEN }}
+        run: |
+          if [ -z "$CF_ZONE_ID" ] || [ -z "$CF_PURGE_TOKEN" ]; then
+            echo "::error::CF_ZONE_ID or CF_PURGE_TOKEN secret is not set"
+            exit 1
+          fi
+          resp=$(curl -sS -w '\n%{http_code}' -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_PURGE_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+          body=$(printf '%s\n' "$resp" | head -n -1)
+          code=$(printf '%s\n' "$resp" | tail -n1)
+          echo "HTTP $code"
+          echo "$body"
+          printf '%s' "$body" | grep -q '"success":true' || {
+            echo "::error::Cloudflare purge failed"; exit 1;
+          }
