@@ -405,6 +405,7 @@
   <div class="anchor-nav-inner">
     <a href="#start">Getting Started</a>
     <a href="#commands">Commands</a>
+    <a href="#miniapp">Mini App</a>
     <a href="#alerts">Alerts</a>
     <a href="#settings">Settings</a>
     <a href="#billing">Billing</a>
@@ -492,9 +493,33 @@
         <tr><td>⚙️ /settings</td><td>Configure language, currency, tariff, battery threshold, tyre pressure</td></tr>
         <tr><td>ℹ️ /status</td><td>Bot and MQTT connectivity status</td></tr>
         <tr><td>🔄 /reconnect</td><td>Force MQTT reconnect if live data has stopped updating</td></tr>
+        <tr><td>🟢 /live</td><td>Open the Mini App dashboard (Now, Drives, Charges, Trends)</td></tr>
+        <tr><td>🗺 /route</td><td>Trip planner: arrival charge forecast and chargers along the way, filtered by your connector type</td></tr>
+        <tr><td>🧮 /calc</td><td>Charge-time calculator, e.g. <code>/calc 32 80</code> for 32% → 80%, based on your own charging history</td></tr>
+        <tr><td>📄 /report</td><td>HTML report for a trip or for the last 30 days</td></tr>
+        <tr><td>🔬 /profiler</td><td>Snapshot of every signal the car is sending, by section</td></tr>
         <tr><td>💳 /billing</td><td>Current plan, expiry date, and link to manage subscription</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- MINI APP -->
+  <div class="doc-section" id="miniapp">
+    <div class="section-eyebrow">Dashboard</div>
+    <h2>Mini App</h2>
+    <p>A live dashboard that opens inside Telegram — no separate app and no extra login. Open it with the <strong>Live</strong> button next to the message field, or type <code>/live</code>. Trip and charge cards in the chat also have a button that opens the matching page.</p>
+    <table class="cmd-table">
+      <thead><tr><th>Tab</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td>Now</td><td>Live speed, charge level, range, power and temperatures while you drive or charge; updates in real time</td></tr>
+        <tr><td>Drives</td><td>Trips with distance and energy used, a route map and details for each trip</td></tr>
+        <tr><td>Charges</td><td>Home and Supercharger sessions: energy added, power curve and cost</td></tr>
+        <tr><td>Trends</td><td>Battery health (usable capacity and state of health against factory spec, monthly), efficiency and charging habits</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Periods.</strong> Drives and Charges have a <em>Today / Week / Month</em> switch. Month means the calendar month, from the 1st.</p>
+    <p><strong>Charts.</strong> Press and hold a chart (about half a second) to pin a tooltip, drag sideways to scrub it, hold again to remove it. The Now tab tries to keep the screen awake while it is open.</p>
+    <p><strong>Battery health.</strong> State of health is estimated from your charging history. It appears in <code>/stats</code> and on the Trends tab once enough sessions have been recorded.</p>
   </div>
 
   <!-- ALERTS -->
