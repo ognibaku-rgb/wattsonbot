@@ -1252,6 +1252,57 @@
         <p class="feat-body" data-i18n="feat.sec.body">We use your Tesla refresh token, end-to-end. No password, no credentials, revocable at any time.</p>
       </div>
     </div>
+
+    <!-- NEW FEATURES -->
+    <div style="margin-top:100px;text-align:center;">
+      <div class="section-eyebrow" data-i18n="new.eyebrow">New</div>
+      <h2 class="headline center" data-i18n="new.title">More than alerts.</h2>
+      <p class="section-sub center" data-i18n="new.sub">Mini App, battery health, route planning and reports — all inside the same chat.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div>
+          <div class="feat-num">01 / MINI APP</div>
+          <h3 class="feat-title" data-i18n="new.mini.title">Live dashboard in Telegram</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.mini.body">Trips, charges, trends and a live “Now” tab in one Mini App. Switch between Today, Week and Month.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">02 / BATTERY HEALTH</div>
+          <h3 class="feat-title" data-i18n="new.soh.title">Battery health, tracked</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.soh.body">Usable capacity and state of health against factory spec, with a monthly trend in /stats and the Mini App.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">03 / ROUTE PLANNER</div>
+          <h3 class="feat-title" data-i18n="new.route.title">Plan the trip, find the chargers</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.route.body">/route forecasts your arrival charge and picks chargers along the way, filtered by your connector type.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">04 / CHARGE CALC</div>
+          <h3 class="feat-title" data-i18n="new.calc.title">How long to charge?</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.calc.body">/calc 32 80 tells you the time and cost to go from 32% to 80%, based on your own charging history.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">05 / REPORTS</div>
+          <h3 class="feat-title" data-i18n="new.report.title">Trip and 30-day reports</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.report.body">A shareable report for any drive, plus a 30-day summary with day-by-day comparison. One tap from the trip card.</p>
+      </div>
+      <div class="feat">
+        <div>
+          <div class="feat-num">06 / CAR MESSAGES</div>
+          <h3 class="feat-title" data-i18n="new.alerts.title">Messages from the car</h3>
+        </div>
+        <p class="feat-body" data-i18n="new.alerts.body">Warnings and notices the car shows on its own screen arrive in Telegram too, so you see them without opening the Tesla app.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1331,6 +1382,8 @@
           <li data-i18n="price.li4">Drive event summaries</li>
           <li data-i18n="price.li5">Stats &amp; history on demand</li>
           <li data-i18n="price.li6">Configurable Telegram commands</li>
+          <li data-i18n="price.li7">Live Mini App dashboard &amp; trip reports</li>
+          <li data-i18n="price.li8">Battery health &amp; route planner</li>
         </ul>
         <a href="https://t.me/WattsonEVBot" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;" data-i18n="price.cta" data-cta="pricing">Get started</a>
       </div>
@@ -1442,6 +1495,21 @@
   // ───────── Bilingual support ─────────
   const I18N = {
     en: {
+      "new.eyebrow": "New",
+      "new.title": "More than alerts.",
+      "new.sub": "Mini App, battery health, route planning and reports — all inside the same chat.",
+      "new.mini.title": "Live dashboard in Telegram",
+      "new.mini.body": "Trips, charges, trends and a live “Now” tab in one Mini App. Switch between Today, Week and Month.",
+      "new.soh.title": "Battery health, tracked",
+      "new.soh.body": "Usable capacity and state of health against factory spec, with a monthly trend in /stats and the Mini App.",
+      "new.route.title": "Plan the trip, find the chargers",
+      "new.route.body": "/route forecasts your arrival charge and picks chargers along the way, filtered by your connector type.",
+      "new.calc.title": "How long to charge?",
+      "new.calc.body": "/calc 32 80 tells you the time and cost to go from 32% to 80%, based on your own charging history.",
+      "new.report.title": "Trip and 30-day reports",
+      "new.report.body": "A shareable report for any drive, plus a 30-day summary with day-by-day comparison. One tap from the trip card.",
+      "new.alerts.title": "Messages from the car",
+      "new.alerts.body": "Warnings and notices the car shows on its own screen arrive in Telegram too, so you see them without opening the Tesla app.",
       "hero.eyebrow": "WattsonBot · for Tesla owners",
       "hero.title": "Your Tesla.<br/>Always in your pocket.",
       "hero.lede": "Real-time alerts for charging, battery, tire pressure and drive events. Delivered to Telegram, the moment they happen.",
@@ -1501,6 +1569,8 @@
       "price.li4": "Drive event summaries",
       "price.li5": "Stats &amp; history on demand",
       "price.li6": "Configurable Telegram commands",
+      "price.li7": "Live Mini App dashboard &amp; trip reports",
+      "price.li8": "Battery health &amp; route planner",
       "price.cta": "Get started",
       "faq.eyebrow": "FAQ",
       "faq.title": "Questions,<br/>answered.",
@@ -1537,6 +1607,21 @@
       "foot.tagline": "Made for Tesla owners, by a Tesla owner."
     },
     ru: {
+      "new.eyebrow": "Новое",
+      "new.title": "Больше, чем уведомления.",
+      "new.sub": "Mini App, здоровье батареи, планирование маршрута и отчёты — всё в том же чате.",
+      "new.mini.title": "Дашборд прямо в Telegram",
+      "new.mini.body": "Поездки, зарядки, тренды и живая вкладка «Сейчас» в одном Mini App. Переключатель: сегодня, неделя, месяц.",
+      "new.soh.title": "Здоровье батареи под контролем",
+      "new.soh.body": "Реальная ёмкость и износ относительно заводской, помесячный тренд — в /stats и в Mini App.",
+      "new.route.title": "Планировщик маршрута",
+      "new.route.body": "/route прогнозирует заряд к прибытию и подбирает зарядки по пути — с учётом вашего типа разъёма.",
+      "new.calc.title": "Сколько заряжаться?",
+      "new.calc.body": "/calc 32 80 покажет время и стоимость зарядки с 32% до 80% — по вашей собственной истории зарядок.",
+      "new.report.title": "Отчёты о поездках",
+      "new.report.body": "Отчёт по любой поездке и сводка за 30 дней со сравнением по дням. Открывается одной кнопкой из карточки поездки.",
+      "new.alerts.title": "Сообщения от машины",
+      "new.alerts.body": "Предупреждения, которые машина показывает на экране, приходят и в Telegram — не нужно открывать приложение Tesla.",
       "hero.eyebrow": "WattsonBot · для владельцев Tesla",
       "hero.title": "Ваша Tesla.<br/>Всегда под рукой.",
       "hero.lede": "Мгновенные уведомления о зарядке, батарее, давлении в шинах и поездках. Прямо в Telegram, в момент события.",
@@ -1596,6 +1681,8 @@
       "price.li4": "Сводки по поездкам",
       "price.li5": "Статистика и история по запросу",
       "price.li6": "Команды Telegram с гибкой настройкой",
+      "price.li7": "Дашборд Mini App и отчёты о поездках",
+      "price.li8": "Здоровье батареи и планировщик маршрута",
       "price.cta": "Начать",
       "faq.eyebrow": "Вопросы и ответы",
       "faq.title": "Отвечаем<br/>на вопросы.",
