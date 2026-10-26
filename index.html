@@ -1052,6 +1052,37 @@
     .price { padding: 26px 22px; }
     .ticker { font-size: 10px; gap: 18px; }
   }
+
+  /* Mini App showcase */
+  .mini-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:56px; }
+  .mini-item { display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .mini-phone { width:100%; max-width:250px; height:395px; background:#0f1412; border:6px solid #26282b; border-radius:34px; padding:12px 11px; color:#ECEEF1; display:flex; flex-direction:column; gap:9px; box-shadow:0 24px 50px rgba(0,0,0,.18); overflow:hidden; text-align:left; font-size:11px; }
+  .mini-tabs { display:flex; gap:2px; background:#1a201d; border-radius:9px; padding:2px; }
+  .mini-tabs span { flex:1; text-align:center; padding:5px 0; border-radius:7px; color:#8a918c; font-size:10px; font-weight:600; }
+  .mini-tabs span.on { background:#2b3a33; color:#fff; }
+  .mini-seg { display:flex; gap:2px; align-self:flex-start; background:#1a201d; border-radius:8px; padding:2px; }
+  .mini-seg span { padding:3px 9px; border-radius:6px; color:#8a918c; font-size:10px; }
+  .mini-seg span.on { background:#5CC8FF; color:#06222e; font-weight:700; }
+  .mini-big { font-size:38px; font-weight:700; letter-spacing:-.02em; line-height:1; }
+  .mini-big small { font-size:13px; font-weight:500; color:#8a918c; margin-left:3px; }
+  .mini-sub { color:#8a918c; font-size:10.5px; }
+  .mini-bar { height:6px; border-radius:4px; background:#1f2723; overflow:hidden; }
+  .mini-bar i { display:block; height:100%; background:#4ADE9B; border-radius:4px; }
+  .mini-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .mini-tile { background:#161c19; border-radius:10px; padding:8px 6px; }
+  .mini-tile b { display:block; font-size:14px; }
+  .mini-tile em { font-style:normal; color:#8a918c; font-size:9px; }
+  .mini-row { background:#161c19; border-radius:10px; padding:8px 9px; display:flex; justify-content:space-between; gap:6px; align-items:center; }
+  .mini-row b { display:block; font-size:11.5px; }
+  .mini-row em { font-style:normal; color:#8a918c; font-size:9.5px; }
+  .mini-row .r { text-align:right; font-weight:700; font-size:11.5px; }
+  .mini-card { background:#161c19; border-radius:12px; padding:10px; }
+  .mini-chart { width:100%; height:70px; display:block; }
+  .mini-note { text-align:center; color:var(--ink-faint); font-size:12px; margin-top:34px; }
+  .mini-cap h3 { font-size:17px; margin:20px 0 6px; letter-spacing:-.01em; }
+  .mini-cap p { color:var(--ink-mute); font-size:14px; line-height:1.5; max-width:250px; }
+  @media (max-width:1000px) { .mini-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px) { .mini-grid { grid-template-columns:1fr; } }
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -1306,6 +1337,65 @@
   </div>
 </section>
 
+<!-- MINI APP SHOWCASE -->
+<section class="alt" id="miniapp" data-screen-label="02b Mini App">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <div class="section-eyebrow" data-i18n="mini.eyebrow">Mini App</div>
+      <h2 class="headline center" data-i18n="mini.title">Your car, as a live dashboard.</h2>
+      <p class="section-sub center" data-i18n="mini.sub">Open it from the bot with one tap. Four tabs, no extra app, no extra login.</p>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-item">
+        <div class="mini-phone">
+        <div class="mini-tabs"><span data-i18n="mini.tabNow" class="on">Now</span><span data-i18n="mini.tabDrives">Drives</span><span data-i18n="mini.tabCharges">Charges</span><span data-i18n="mini.tabTrends">Trends</span></div>
+        <div class="mini-sub" data-i18n="mini.driving">Model 3 · Driving</div>
+        <div class="mini-big">64<small data-i18n="mini.kmh">mph</small></div>
+        <div class="mini-bar"><i style="width:71%"></i></div>
+        <div class="mini-sub">71%</div>
+        <div class="mini-tiles">
+          <div class="mini-tile"><b data-i18n="mini.rngv">198 mi</b><em data-i18n="mini.rng">Range</em></div>
+          <div class="mini-tile"><b>28 kW</b><em data-i18n="mini.pwr">Power</em></div>
+          <div class="mini-tile"><b>14°C</b><em data-i18n="mini.out">Outside</em></div>
+        </div>
+        <div class="mini-card"><svg class="mini-chart" viewBox="0 0 200 70" preserveAspectRatio="none"><polyline fill="none" stroke="#5CC8FF" stroke-width="2" points="0,50 20,44 40,48 60,30 80,36 100,18 120,26 140,12 160,24 180,16 200,22"/></svg></div>
+        </div>
+        <div class="mini-cap"><h3 data-i18n="mini.now.title">Now</h3><p data-i18n="mini.now.body">Speed, charge, range and temperatures update live while you drive or charge.</p></div>
+      </div>
+      <div class="mini-item">
+        <div class="mini-phone">
+        <div class="mini-tabs"><span data-i18n="mini.tabNow">Now</span><span data-i18n="mini.tabDrives" class="on">Drives</span><span data-i18n="mini.tabCharges">Charges</span><span data-i18n="mini.tabTrends">Trends</span></div>
+        <div class="mini-seg"><span data-i18n="mini.today">Today</span><span data-i18n="mini.week" class="on">Week</span><span data-i18n="mini.month">Month</span></div>
+        <div class="mini-row"><div><b data-i18n="mini.d1">Home → Office</b><em data-i18n="mini.d1s">Mon · 08:12</em></div><div class="r" data-i18n="mini.d1r">11.4 mi</div></div><div class="mini-row"><div><b data-i18n="mini.d2">Office → Gym</b><em data-i18n="mini.d2s">Mon · 18:40</em></div><div class="r" data-i18n="mini.d2r">4.2 mi</div></div><div class="mini-row"><div><b data-i18n="mini.d3">Weekend trip</b><em data-i18n="mini.d3s">Sat · 10:05</em></div><div class="r" data-i18n="mini.d3r">86 mi</div></div>
+        <div class="mini-sub" data-i18n="mini.dtot">Week total: 142 mi · 24.6 kWh</div>
+        </div>
+        <div class="mini-cap"><h3 data-i18n="mini.dr.title">Drives</h3><p data-i18n="mini.dr.body">Every trip with distance and energy. Switch between Today, Week and Month.</p></div>
+      </div>
+      <div class="mini-item">
+        <div class="mini-phone">
+        <div class="mini-tabs"><span data-i18n="mini.tabNow">Now</span><span data-i18n="mini.tabDrives">Drives</span><span data-i18n="mini.tabCharges" class="on">Charges</span><span data-i18n="mini.tabTrends">Trends</span></div>
+        <div class="mini-seg"><span data-i18n="mini.today">Today</span><span data-i18n="mini.week">Week</span><span data-i18n="mini.month" class="on">Month</span></div>
+        <div class="mini-row"><div><b data-i18n="mini.c1">Home</b><em data-i18n="mini.c1s">Tue · 22:10 · 11 kW</em></div><div class="r" data-i18n="mini.c1r">+31 kWh</div></div><div class="mini-row"><div><b data-i18n="mini.c2">Supercharger</b><em data-i18n="mini.c2s">Sat · 12:40 · 142 kW</em></div><div class="r" data-i18n="mini.c2r">+38 kWh</div></div><div class="mini-row"><div><b data-i18n="mini.c3">Home</b><em data-i18n="mini.c3s">Thu · 23:05 · 11 kW</em></div><div class="r" data-i18n="mini.c3r">+24 kWh</div></div>
+        <div class="mini-sub" data-i18n="mini.ctot">Month total: 412 kWh</div>
+        </div>
+        <div class="mini-cap"><h3 data-i18n="mini.ch.title">Charges</h3><p data-i18n="mini.ch.body">Home and Supercharger sessions with energy added and cost.</p></div>
+      </div>
+      <div class="mini-item">
+        <div class="mini-phone">
+        <div class="mini-tabs"><span data-i18n="mini.tabNow">Now</span><span data-i18n="mini.tabDrives">Drives</span><span data-i18n="mini.tabCharges">Charges</span><span data-i18n="mini.tabTrends" class="on">Trends</span></div>
+        <div class="mini-card"><div class="mini-sub" data-i18n="mini.soh">Battery health</div>
+          <div class="mini-big" style="margin-top:6px">92.6<small>%</small></div>
+          <div class="mini-sub" data-i18n="mini.sohs">of factory capacity</div></div>
+        <div class="mini-card"><div class="mini-sub" data-i18n="mini.sohm">Monthly trend</div>
+          <svg class="mini-chart" viewBox="0 0 200 70" preserveAspectRatio="none"><polyline fill="none" stroke="#4ADE9B" stroke-width="2" points="0,10 33,14 66,16 100,22 133,26 166,30 200,34"/></svg></div>
+        </div>
+        <div class="mini-cap"><h3 data-i18n="mini.tr.title">Trends</h3><p data-i18n="mini.tr.body">Battery health over months, efficiency and charging habits at a glance.</p></div>
+      </div>
+    </div>
+    <p class="mini-note" data-i18n="mini.note">Illustrative screens with sample data.</p>
+  </div>
+</section>
+
 <!-- STATEMENT -->
 <section class="statement">
   <h2 data-i18n="stmt.title">Watch your car. <em>From anywhere.</em></h2>
@@ -1495,6 +1585,54 @@
   // ───────── Bilingual support ─────────
   const I18N = {
     en: {
+      "mini.eyebrow": "Mini App",
+      "mini.title": "Your car, as a live dashboard.",
+      "mini.sub": "Open it from the bot with one tap. Four tabs, no extra app, no extra login.",
+      "mini.tabNow": "Now",
+      "mini.tabDrives": "Drives",
+      "mini.tabCharges": "Charges",
+      "mini.tabTrends": "Trends",
+      "mini.now.title": "Now",
+      "mini.now.body": "Speed, charge, range and temperatures update live while you drive or charge.",
+      "mini.dr.title": "Drives",
+      "mini.dr.body": "Every trip with distance and energy. Switch between Today, Week and Month.",
+      "mini.ch.title": "Charges",
+      "mini.ch.body": "Home and Supercharger sessions with energy added and cost.",
+      "mini.tr.title": "Trends",
+      "mini.tr.body": "Battery health over months, efficiency and charging habits at a glance.",
+      "mini.driving": "Model 3 · Driving",
+      "mini.kmh": "mph",
+      "mini.rng": "Range",
+      "mini.pwr": "Power",
+      "mini.out": "Outside",
+      "mini.rngv": "198 mi",
+      "mini.today": "Today",
+      "mini.week": "Week",
+      "mini.month": "Month",
+      "mini.d1": "Home → Office",
+      "mini.d1s": "Mon · 08:12",
+      "mini.d1r": "11.4 mi",
+      "mini.d2": "Office → Gym",
+      "mini.d2s": "Mon · 18:40",
+      "mini.d2r": "4.2 mi",
+      "mini.d3": "Weekend trip",
+      "mini.d3s": "Sat · 10:05",
+      "mini.d3r": "86 mi",
+      "mini.dtot": "Week total: 142 mi · 24.6 kWh",
+      "mini.c1": "Home",
+      "mini.c1s": "Tue · 22:10 · 11 kW",
+      "mini.c1r": "+31 kWh",
+      "mini.c2": "Supercharger",
+      "mini.c2s": "Sat · 12:40 · 142 kW",
+      "mini.c2r": "+38 kWh",
+      "mini.c3": "Home",
+      "mini.c3s": "Thu · 23:05 · 11 kW",
+      "mini.c3r": "+24 kWh",
+      "mini.ctot": "Month total: 412 kWh",
+      "mini.soh": "Battery health",
+      "mini.sohs": "of factory capacity",
+      "mini.sohm": "Monthly trend",
+      "mini.note": "Illustrative screens with sample data.",
       "new.eyebrow": "New",
       "new.title": "More than alerts.",
       "new.sub": "Mini App, battery health, route planning and reports — all inside the same chat.",
@@ -1607,6 +1745,54 @@
       "foot.tagline": "Made for Tesla owners, by a Tesla owner."
     },
     ru: {
+      "mini.eyebrow": "Mini App",
+      "mini.title": "Ваша машина — как живой дашборд.",
+      "mini.sub": "Откройте из бота одним касанием. Четыре вкладки, без отдельного приложения и без нового входа.",
+      "mini.tabNow": "Сейчас",
+      "mini.tabDrives": "Поездки",
+      "mini.tabCharges": "Зарядки",
+      "mini.tabTrends": "Тренды",
+      "mini.now.title": "Сейчас",
+      "mini.now.body": "Скорость, заряд, запас хода и температуры обновляются в реальном времени в поездке и на зарядке.",
+      "mini.dr.title": "Поездки",
+      "mini.dr.body": "Все поездки с расстоянием и расходом. Переключайтесь: сегодня, неделя, месяц.",
+      "mini.ch.title": "Зарядки",
+      "mini.ch.body": "Домашние зарядки и Supercharger: сколько добавлено и во сколько обошлось.",
+      "mini.tr.title": "Тренды",
+      "mini.tr.body": "Здоровье батареи по месяцам, эффективность и привычки зарядки с одного взгляда.",
+      "mini.driving": "Model 3 · В пути",
+      "mini.kmh": "км/ч",
+      "mini.rng": "Запас",
+      "mini.pwr": "Мощность",
+      "mini.out": "Снаружи",
+      "mini.rngv": "318 км",
+      "mini.today": "Сегодня",
+      "mini.week": "Неделя",
+      "mini.month": "Месяц",
+      "mini.d1": "Дом → Офис",
+      "mini.d1s": "Пн · 08:12",
+      "mini.d1r": "18,4 км",
+      "mini.d2": "Офис → Зал",
+      "mini.d2s": "Пн · 18:40",
+      "mini.d2r": "6,8 км",
+      "mini.d3": "Поездка на выходные",
+      "mini.d3s": "Сб · 10:05",
+      "mini.d3r": "138 км",
+      "mini.dtot": "За неделю: 228 км · 39,4 кВт·ч",
+      "mini.c1": "Дом",
+      "mini.c1s": "Вт · 22:10 · 11 кВт",
+      "mini.c1r": "+31 кВт·ч",
+      "mini.c2": "Supercharger",
+      "mini.c2s": "Сб · 12:40 · 142 кВт",
+      "mini.c2r": "+38 кВт·ч",
+      "mini.c3": "Дом",
+      "mini.c3s": "Чт · 23:05 · 11 кВт",
+      "mini.c3r": "+24 кВт·ч",
+      "mini.ctot": "За месяц: 412 кВт·ч",
+      "mini.soh": "Здоровье батареи",
+      "mini.sohs": "от заводской ёмкости",
+      "mini.sohm": "Динамика по месяцам",
+      "mini.note": "Иллюстрации с примерами данных.",
       "new.eyebrow": "Новое",
       "new.title": "Больше, чем уведомления.",
       "new.sub": "Mini App, здоровье батареи, планирование маршрута и отчёты — всё в том же чате.",
