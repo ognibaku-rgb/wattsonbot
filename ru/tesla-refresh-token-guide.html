@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 
 <title>Как получить Tesla refresh token (гайд 2026) | WattsonBot</title>
-<meta name="description" content="Пошаговая инструкция, как безопасно получить Tesla refresh token — для Auth App for Tesla (iOS/Mac) и Tesla Auth (Windows/Linux/Mac). Только чтение, отзываемый, пароль никогда не покидает страницу входа Tesla.">
+<meta name="description" content="Пошаговая инструкция, как безопасно получить Tesla refresh token — для Auth App for Tesla (iOS/Mac) и Tesla Auth (Windows/Linux/Mac). Пароль не покидает страницу входа Tesla; что умеет токен и как его отозвать.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wattsonbot.org/ru/tesla-refresh-token-guide.html">
 <link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-refresh-token-guide.html" />
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://wattsonbot.org/ru/tesla-refresh-token-guide.html">
 <meta property="og:site_name" content="WattsonBot">
 <meta property="og:title" content="Как получить Tesla refresh token (гайд 2026)">
-<meta property="og:description" content="Пошаговый безопасный гайд по получению Tesla refresh token — только чтение, отзываемый, пароль не покидает официальную страницу входа Tesla.">
+<meta property="og:description" content="Пошаговый безопасный гайд по получению Tesla refresh token — пароль не покидает официальную страницу входа Tesla; что умеет токен и как его отозвать.">
 <meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:locale:alternate" content="en_US">
@@ -29,7 +29,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Как получить Tesla refresh token (гайд 2026)">
-<meta name="twitter:description" content="Пошаговый безопасный гайд по получению Tesla refresh token — только чтение, отзываемый, пароль не покидает официальную страницу входа Tesla.">
+<meta name="twitter:description" content="Пошаговый безопасный гайд по получению Tesla refresh token — пароль не покидает официальную страницу входа Tesla; что умеет токен и как его отозвать.">
 <meta name="twitter:image" content="https://wattsonbot.org/og-image.jpg">
 <meta name="twitter:image:alt" content="Как получить Tesla refresh token (гайд 2026)">
 
@@ -54,7 +54,7 @@
       "name": "Что такое Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Refresh token — это долгоживущий токен от Tesla, который позволяет стороннему приложению читать данные машины, не видя ваш пароль. Его можно отозвать в любой момент из аккаунта Tesla, и он не даёт управлять машиной."
+        "text": "Refresh token — это долгоживущий токен от Tesla, который позволяет стороннему приложению читать данные машины, не видя ваш пароль. Он даёт такой же доступ, как приложение Tesla, поэтому доверяйте его только проверенному сервису; смена пароля Tesla его отзывает."
       }
     },
     {
@@ -70,7 +70,7 @@
       "name": "Может ли refresh token открыть или завести машину?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Нет. Refresh token, используемый инструментами вроде WattsonBot или TeslaMate, даёт доступ только на чтение данных — местоположение, батарея, статус зарядки, давление в шинах. Он не может отправлять команды машине."
+        "text": "Технически да. Refresh token из Auth App for Tesla или Tesla Auth даёт такой же доступ, как приложение Tesla, включая команды. Важно, у какого сервиса он хранится: WattsonBot использует его только для чтения — местоположение, батарея, статус зарядки, давление в шинах — и никогда не отправляет машине команд."
       }
     },
     {
@@ -78,7 +78,7 @@
       "name": "Как отозвать Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Зайдите в аккаунт Tesla, в раздел безопасности/авторизованных приложений и отзовите доступ нужного приложения. Токен становится недействительным немедленно."
+        "text": "Смените пароль от аккаунта Tesla. Tesla аннулирует выданные ранее токены, и все приложения, которые ими пользовались, включая WattsonBot, теряют доступ."
       }
     },
     {
@@ -417,9 +417,9 @@
     <h2>Что такое refresh token на самом деле.</h2>
     <p>Tesla refresh token — это долгоживущий токен, выпущенный собственной системой аутентификации Tesla. Именно так сторонние инструменты — TeslaMate, WattsonBot и похожие — читают текущие данные машины (местоположение, батарея, статус зарядки, давление в шинах), не получая от вас пароль.</p>
     <ul class="chores">
-      <li><span class="tick">🔒</span><span><strong>Только чтение.</strong> Refresh token не может открыть, завести или вести машину. Он даёт только доступ на чтение телеметрии.</span></li>
+      <li><span class="tick">🔒</span><span><strong>Ключ с полным доступом.</strong> Сам токен умеет то же, что приложение Tesla, поэтому доверяйте его только проверенному сервису. WattsonBot только читает данные и никогда не отправляет машине команд.</span></li>
       <li><span class="tick">🔑</span><span><strong>Пароль остаётся у Tesla.</strong> Вы входите на официальной странице Tesla; приложение получает уже сам токен.</span></li>
-      <li><span class="tick">♻️</span><span><strong>Отзывается в любой момент.</strong> Уберите доступ мгновенно из списка авторизованных приложений в аккаунте Tesla.</span></li>
+      <li><span class="tick">♻️</span><span><strong>Отзывается в любой момент.</strong> Смените пароль Tesla — и токен перестанет работать.</span></li>
     </ul>
 
     <div class="warn">
@@ -528,7 +528,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <h4>Что такое Tesla refresh token?</h4>
-        <p>Долгоживущий токен от Tesla, который позволяет стороннему приложению читать данные машины, не видя пароль. Отзывается в любой момент и не даёт управлять машиной.</p>
+        <p>Долгоживущий токен от Tesla, который позволяет стороннему приложению читать данные машины, не видя пароль. Он даёт такой же доступ, как приложение Tesla, поэтому доверяйте его только проверенному сервису.</p>
       </div>
       <div class="faq-item">
         <h4>Это безопасно?</h4>
@@ -536,11 +536,11 @@
       </div>
       <div class="faq-item">
         <h4>Может ли refresh token открыть или завести машину?</h4>
-        <p>Нет. Он даёт доступ только на чтение данных — местоположение, батарея, статус зарядки, давление в шинах. Отправлять команды машине он не может.</p>
+        <p>Технически да: токен даёт такой же доступ, как приложение Tesla, включая команды. Поэтому важно, у какого сервиса он хранится. WattsonBot использует его только для чтения — местоположение, батарея, статус зарядки, давление в шинах — и никогда не отправляет машине команд.</p>
       </div>
       <div class="faq-item">
         <h4>Как его отозвать?</h4>
-        <p>Зайдите в аккаунт Tesla, в раздел авторизованных приложений/безопасности и отзовите доступ приложения. Токен становится недействительным сразу.</p>
+        <p>Смените пароль от аккаунта Tesla. Tesla аннулирует выданные ранее токены, и все приложения, которые ими пользовались, включая WattsonBot, теряют доступ.</p>
       </div>
       <div class="faq-item">
         <h4>Auth App for Tesla или Tesla Auth — что выбрать?</h4>

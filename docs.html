@@ -454,7 +454,7 @@
         <div class="step-num">4</div>
         <div class="step-body">
           <h4>Connect your Tesla</h4>
-          <p>Get your refresh token as described in <a href="#token">how to get a refresh token</a> below and paste it into the bot. Either way, this credential lets the bot read car data only — it cannot control the car.</p>
+          <p>Get your refresh token as described in <a href="#token">how to get a refresh token</a> below and paste it into the bot. Either way, the bot only reads car data with it — it never sends commands to the car.</p>
         </div>
       </div>
       <div class="step-card">
@@ -696,7 +696,7 @@
       </div>
       <div class="faq-item" id="token-faq">
         <h4>How do I get a Tesla refresh token?</h4>
-        <p>A refresh token is a long-lived credential that lets the bot read your car's data without your password. It cannot control the car and can be revoked at any time from your Tesla account.</p>
+        <p>A refresh token is a long-lived credential that lets the bot read your car's data without your password. The token itself gives the same access as the Tesla app, so share it only with a service you trust: WattsonBot uses it only to read data and never sends commands to the car. Changing your Tesla password invalidates it.</p>
         <p><strong>📱 iPhone / Mac — Auth App for Tesla</strong></p>
         <ol>
           <li>Install <a href="https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613">Auth App for Tesla</a> from the App Store</li>
@@ -731,7 +731,7 @@
       </div>
       <div class="faq-item">
         <h4>Is my Tesla password stored?</h4>
-        <p>No. WattsonBot only uses your refresh token. Your password is never sent to us. The token can be revoked at any time from your Tesla account.</p>
+        <p>No. WattsonBot only uses your refresh token. Your password is never sent to us. To revoke it at any time, change your Tesla password — that invalidates the token.</p>
       </div>
     </div>
   </div>

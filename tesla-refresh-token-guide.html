@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 
 <title>How to Get a Tesla Refresh Token (2026 Guide) | WattsonBot</title>
-<meta name="description" content="Step-by-step guide to getting a Tesla refresh token safely — for Auth App for Tesla (iOS/Mac) and Tesla Auth (Windows/Linux/Mac). Read-only, revocable, your password never leaves Tesla's login page.">
+<meta name="description" content="Step-by-step guide to getting a Tesla refresh token safely — for Auth App for Tesla (iOS/Mac) and Tesla Auth (Windows/Linux/Mac). Your password never leaves Tesla's login page — plus what the token can do and how to revoke it.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wattsonbot.org/tesla-refresh-token-guide.html">
 <link rel="alternate" hreflang="en" href="https://wattsonbot.org/tesla-refresh-token-guide.html" />
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://wattsonbot.org/tesla-refresh-token-guide.html">
 <meta property="og:site_name" content="WattsonBot">
 <meta property="og:title" content="How to Get a Tesla Refresh Token (2026 Guide)">
-<meta property="og:description" content="Step-by-step, safe guide to getting a Tesla refresh token — read-only, revocable, your password never leaves Tesla's own login page.">
+<meta property="og:description" content="Step-by-step, safe guide to getting a Tesla refresh token — your password never leaves Tesla's own login page; what the token allows and how to revoke it.">
 <meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
@@ -29,7 +29,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How to Get a Tesla Refresh Token (2026 Guide)">
-<meta name="twitter:description" content="Step-by-step, safe guide to getting a Tesla refresh token — read-only, revocable, your password never leaves Tesla's own login page.">
+<meta name="twitter:description" content="Step-by-step, safe guide to getting a Tesla refresh token — your password never leaves Tesla's own login page; what the token allows and how to revoke it.">
 <meta name="twitter:image" content="https://wattsonbot.org/og-image.jpg">
 <meta name="twitter:image:alt" content="How to Get a Tesla Refresh Token (2026 Guide)">
 
@@ -54,7 +54,7 @@
       "name": "What is a Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A refresh token is a long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It can be revoked at any time from your Tesla account, and it cannot control the car."
+        "text": "A refresh token is a long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It gives the same access as the Tesla app, so share it only with a service you trust; changing your Tesla password revokes it."
       }
     },
     {
@@ -70,7 +70,7 @@
       "name": "Can a refresh token unlock or drive my Tesla?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. A refresh token used by tools like WattsonBot or TeslaMate grants read-only access to vehicle data — location, battery, charging state, tyre pressure, and similar. It cannot send commands to the car."
+        "text": "Technically yes. A refresh token from Auth App for Tesla or Tesla Auth gives the same access as the Tesla app, including commands. What matters is the service that holds it: WattsonBot uses it only to read data — location, battery, charging state, tyre pressure — and never sends commands to the car."
       }
     },
     {
@@ -78,7 +78,7 @@
       "name": "How do I revoke a Tesla refresh token?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Log in to your Tesla Account page, go to the security/authorized apps section, and revoke access for the app in question. This immediately invalidates the token."
+        "text": "Change your Tesla account password. Tesla then invalidates previously issued tokens, and every app that used them — WattsonBot included — loses access."
       }
     },
     {
@@ -422,9 +422,9 @@
     <h2>What a refresh token actually is.</h2>
     <p>A Tesla refresh token is a long-lived credential issued by Tesla's own authentication system. It's how third-party tools — TeslaMate, WattsonBot, and similar — read your car's live data (location, battery, charging state, tyre pressure) without you handing over your password to a third party.</p>
     <ul class="chores">
-      <li><span class="tick">🔒</span><span><strong>Read-only.</strong> A refresh token cannot unlock, start, or drive the car. It only grants read access to vehicle telemetry.</span></li>
+      <li><span class="tick">🔒</span><span><strong>A full-access key.</strong> The token itself can do what the Tesla app can, so give it only to a service you trust. WattsonBot only reads data and never sends commands to the car.</span></li>
       <li><span class="tick">🔑</span><span><strong>Your password stays with Tesla.</strong> You authenticate on Tesla's own login page; the token is what the app receives afterward.</span></li>
-      <li><span class="tick">♻️</span><span><strong>Revocable anytime.</strong> Remove access instantly from your Tesla account's authorized-apps list.</span></li>
+      <li><span class="tick">♻️</span><span><strong>Revocable anytime.</strong> Change your Tesla password and the token stops working.</span></li>
     </ul>
 
     <div class="warn">
@@ -533,7 +533,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <h4>What is a Tesla refresh token?</h4>
-        <p>A long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It can be revoked anytime and cannot control the car.</p>
+        <p>A long-lived credential issued by Tesla that lets a third-party app read your car's data without ever seeing your password. It gives the same access as the Tesla app, so share it only with a service you trust.</p>
       </div>
       <div class="faq-item">
         <h4>Is it safe?</h4>
@@ -541,11 +541,11 @@
       </div>
       <div class="faq-item">
         <h4>Can a refresh token unlock or drive my Tesla?</h4>
-        <p>No. It grants read-only access to vehicle data — location, battery, charging state, tyre pressure. It cannot send commands to the car.</p>
+        <p>Technically yes: the token gives the same access as the Tesla app, including commands. That's why it matters who holds it. WattsonBot uses it only to read data — location, battery, charging state, tyre pressure — and never sends commands to the car.</p>
       </div>
       <div class="faq-item">
         <h4>How do I revoke it?</h4>
-        <p>Log in to your Tesla Account page, go to the authorized-apps / security section, and revoke access for the app. This invalidates the token immediately.</p>
+        <p>Change your Tesla account password. Tesla then invalidates previously issued tokens, and every app that used them — WattsonBot included — loses access.</p>
       </div>
       <div class="faq-item">
         <h4>Auth App for Tesla or Tesla Auth — which one?</h4>

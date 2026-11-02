@@ -93,7 +93,7 @@
       "name": "Is it safe to connect my Tesla to WattsonBot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account."
+        "text": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The bot only reads vehicle data and never sends commands to the car — it can't unlock, start or change charging. The token is stored encrypted, and changing your Tesla password revokes it at any time."
       }
     },
     {
@@ -125,7 +125,7 @@
       "name": "Is my Tesla password stored by WattsonBot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data."
+        "text": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which the bot uses to read vehicle data and nothing else."
       }
     },
     {
@@ -1449,7 +1449,7 @@
       <div class="step">
         <div class="step-num">STEP 04</div>
         <div class="step-title" data-i18n="how.s4.title">Connect your Tesla</div>
-        <p class="step-body" data-i18n="how.s4.body">Get your Tesla refresh token (about 2 minutes) and send it to the bot. Read-only, revocable at any time.</p>
+        <p class="step-body" data-i18n="how.s4.body">Get your Tesla refresh token (about 2 minutes) and send it to the bot. The bot only reads data; changing your Tesla password revokes access.</p>
         <a class="btn-link" style="font-size:14px;display:inline-block;margin-top:4px;" href="docs.html#token-faq" data-i18n="how.s4.link">Not sure how? See the 2-minute guide</a>
       </div>
     </div>
@@ -1500,7 +1500,7 @@
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q2">Is it safe to connect my Tesla to WattsonBot?</summary>
-        <p data-i18n="faq.a2">Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account.</p>
+        <p data-i18n="faq.a2">Yes. WattsonBot connects using a Tesla refresh token, not your account password. The bot only reads vehicle data and never sends commands to the car — it can't unlock, start or change charging. The token is stored encrypted, and changing your Tesla password revokes it at any time.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q3">What alerts does WattsonBot send?</summary>
@@ -1516,7 +1516,7 @@
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q6">Is my Tesla password stored by WattsonBot?</summary>
-        <p data-i18n="faq.a6">No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data.</p>
+        <p data-i18n="faq.a6">No. WattsonBot never sees or stores your Tesla password — only the refresh token, which the bot uses to read vehicle data and nothing else.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q7">How do I get a Tesla refresh token?</summary>
@@ -1689,7 +1689,7 @@
       "how.s3.title": "Subscribe",
       "how.s3.body": "Pay in a few clicks. Instant activation, no waiting.",
       "how.s4.title": "Connect your Tesla",
-      "how.s4.body": "Get your Tesla refresh token (about 2 minutes) and send it to the bot. Read-only, revocable at any time.",
+      "how.s4.body": "Get your Tesla refresh token (about 2 minutes) and send it to the bot. The bot only reads data; changing your Tesla password revokes access.",
       "how.s4.link": "Not sure how? See the 2-minute guide",
       "price.eyebrow": "Pricing",
       "price.title": "Simple. Honest.<br/>One plan.",
@@ -1720,7 +1720,7 @@
       "faq.q1": "What is the best Telegram bot for Tesla monitoring?",
       "faq.a1": "WattsonBot is a secure Telegram bot for Tesla owners that delivers real-time alerts for charging status, battery health, and tire pressure (TPMS) — no extra app to install, no dashboard to check.",
       "faq.q2": "Is it safe to connect my Tesla to WattsonBot?",
-      "faq.a2": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The token only lets the bot read vehicle data — it cannot control or drive the car — and it can be revoked at any time from your Tesla account.",
+      "faq.a2": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The bot only reads vehicle data and never sends commands to the car — it can't unlock, start or change charging. The token is stored encrypted, and changing your Tesla password revokes it at any time.",
       "faq.q3": "What alerts does WattsonBot send?",
       "faq.a3": "Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, drive start/end summaries with location and energy used, and warnings the car itself shows on its screen. Beyond alerts: a live Mini App dashboard, battery health tracking, a /route trip planner with chargers and a /calc charge-time calculator.",
       "faq.q4": "Do I need to install an app to use WattsonBot?",
@@ -1728,7 +1728,7 @@
       "faq.q5": "How much does WattsonBot cost?",
       "faq.a5": "WattsonBot is $5/month, covering one Tesla with unlimited alerts, stats, and history on demand. You can cancel anytime from Telegram with /billing.",
       "faq.q6": "Is my Tesla password stored by WattsonBot?",
-      "faq.a6": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which grants read-only access to vehicle data.",
+      "faq.a6": "No. WattsonBot never sees or stores your Tesla password — only the refresh token, which the bot uses to read vehicle data and nothing else.",
       "faq.q7": "How do I get a Tesla refresh token?",
       "faq.a7": "Install <a href=\"https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613\">Auth App for Tesla</a> (iPhone/Mac) or <a href=\"https://github.com/adriankumpf/tesla_auth/releases/latest\">Tesla Auth</a> (Windows/Linux/Mac), sign in with your Tesla account, and copy the Refresh Token it shows. See the <a href=\"docs.html#token-faq\">full step-by-step guide</a> — it takes about two minutes.",
       "faq.q8": "Do I need a third-party app to connect my Tesla?",
@@ -1849,7 +1849,7 @@
       "how.s3.title": "Оформите подписку",
       "how.s3.body": "Оплата за несколько кликов. Мгновенная активация.",
       "how.s4.title": "Подключите Tesla",
-      "how.s4.body": "Получите Tesla refresh-токен (около 2 минут) и отправьте его боту. Только чтение, отзывается в любой момент.",
+      "how.s4.body": "Получите Tesla refresh-токен (около 2 минут) и отправьте его боту. Бот только читает данные; смена пароля Tesla отзывает доступ.",
       "how.s4.link": "Не знаете как? Смотрите инструкцию (2 минуты)",
       "price.eyebrow": "Тарифы",
       "price.title": "Просто. Честно.<br/>Один план.",
@@ -1880,7 +1880,7 @@
       "faq.q1": "Какой телеграм-бот лучше всего подходит для мониторинга Tesla?",
       "faq.a1": "WattsonBot — безопасный Telegram-бот для владельцев Tesla с уведомлениями о зарядке, здоровье батареи и давлении в шинах (TPMS) в реальном времени. Не нужно ставить приложение или заходить в отдельный дашборд.",
       "faq.q2": "Безопасно ли подключать Tesla к WattsonBot?",
-      "faq.a2": "Да. WattsonBot подключается через Tesla refresh token, а не пароль от аккаунта. Токен позволяет только читать данные автомобиля — управлять машиной нельзя, а доступ можно отозвать в любой момент в аккаунте Tesla.",
+      "faq.a2": "Да. WattsonBot подключается через Tesla refresh token, а не пароль от аккаунта. Бот только читает данные и никогда не отправляет машине команд — не открывает, не заводит и не меняет зарядку. Токен хранится в зашифрованном виде, а смена пароля Tesla в любой момент отзывает доступ.",
       "faq.q3": "Какие уведомления присылает WattsonBot?",
       "faq.a3": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, планировщик маршрута /route с зарядками и калькулятор зарядки /calc.",
       "faq.q4": "Нужно ли устанавливать приложение для WattsonBot?",
@@ -1888,7 +1888,7 @@
       "faq.q5": "Сколько стоит WattsonBot?",
       "faq.a5": "WattsonBot стоит $5/месяц за один автомобиль с неограниченными уведомлениями, статистикой и историей по запросу. Отменить подписку можно в любой момент командой /billing в Telegram.",
       "faq.q6": "Хранит ли WattsonBot мой пароль от Tesla?",
-      "faq.a6": "Нет. WattsonBot никогда не видит и не хранит пароль от Tesla — только refresh token, который даёт доступ на чтение данных автомобиля.",
+      "faq.a6": "Нет. WattsonBot никогда не видит и не хранит пароль от Tesla — только refresh token, с которым бот читает данные автомобиля и ничего больше.",
       "faq.q7": "Как получить Tesla refresh token?",
       "faq.a7": "Установите <a href=\"https://apps.apple.com/us/app/auth-app-for-tesla/id1552058613\">Auth App for Tesla</a> (iPhone/Mac) или <a href=\"https://github.com/adriankumpf/tesla_auth/releases/latest\">Tesla Auth</a> (Windows/Linux/Mac), войдите в аккаунт Tesla и скопируйте показанный Refresh Token. Полная пошаговая инструкция — <a href=\"ru/docs.html#token-faq\">здесь</a>, займёт около двух минут.",
       "faq.q8": "Нужно ли стороннее приложение для подключения Tesla?",
