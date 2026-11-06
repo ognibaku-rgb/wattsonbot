@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';">
 
 <title>WattsonBot — Телеграм-бот для мониторинга Tesla</title>
-<meta name="description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи, планировщик маршрута и отчёты о поездках. Подключение по токену, без пароля. $5/мес — запуск за 5 минут.">
+<meta name="description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи и отчёты о поездках. Подключение по токену, без пароля. $5/мес — запуск за 5 минут.">
 <meta name="author" content="WattsonBot">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wattsonbot.org/ru/">
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://wattsonbot.org/ru/">
 <meta property="og:site_name" content="WattsonBot">
 <meta property="og:title" content="WattsonBot — Телеграм-бот для мониторинга Tesla">
-<meta property="og:description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи, планировщик маршрута и отчёты. $5/мес, запуск за 5 минут.">
+<meta property="og:description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи и отчёты. $5/мес, запуск за 5 минут.">
 <meta property="og:image" content="https://wattsonbot.org/og-image.jpg">
 <meta property="og:image:width" content="1424">
 <meta property="og:image:height" content="752">
@@ -33,7 +33,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WattsonBot — Телеграм-бот для мониторинга Tesla">
-<meta name="twitter:description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи и планировщик маршрута. $5/мес.">
+<meta name="twitter:description" content="Уведомления Tesla в Telegram, живой дашборд Mini App, здоровье батареи и отчёты. $5/мес.">
 <meta name="twitter:image" content="https://wattsonbot.org/og-image.jpg">
 <meta name="twitter:image:alt" content="WattsonBot — Tesla monitoring in Telegram">
 
@@ -44,7 +44,7 @@
   "@type": "SoftwareApplication",
   "name": "WattsonBot",
   "alternateName": "@WattsonEVBot",
-  "description": "Мониторинг Tesla в реальном времени прямо в Telegram. Мгновенные уведомления о зарядке, уровне заряда, давлении в шинах и поездках, а также живой дашборд Mini App, здоровье батареи, планировщик маршрута и отчёты о поездках.",
+  "description": "Мониторинг Tesla в реальном времени прямо в Telegram. Мгновенные уведомления о зарядке, уровне заряда, давлении в шинах и поездках, а также живой дашборд Mini App, здоровье батареи и отчёты о поездках.",
   "url": "https://wattsonbot.org/ru/",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "iOS, Android, Web, macOS, Windows",
@@ -69,7 +69,7 @@
     "Команды Telegram с гибкой настройкой",
     "Живой дашборд Mini App (Сейчас, Поездки, Зарядки, Тренды)",
     "Здоровье батареи и динамика износа",
-    "Планировщик маршрута с зарядками и калькулятор зарядки",
+    "Калькулятор зарядки",
     "Отчёты о поездках и за 30 дней",
     "Сообщения от машины в Telegram"
   ]
@@ -101,7 +101,7 @@
       "name": "Какие уведомления присылает WattsonBot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, планировщик маршрута /route с зарядками и калькулятор зарядки /calc."
+        "text": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, калькулятор зарядки /calc."
       }
     },
     {
@@ -1277,7 +1277,7 @@
     <div style="margin-top:100px;text-align:center;">
       <div class="section-eyebrow" data-i18n="new.eyebrow">Новое</div>
       <h2 class="headline center" data-i18n="new.title">Больше, чем уведомления.</h2>
-      <p class="section-sub center" data-i18n="new.sub">Mini App, здоровье батареи, планирование маршрута и отчёты — всё в том же чате.</p>
+      <p class="section-sub center" data-i18n="new.sub">Mini App, здоровье батареи и отчёты — всё в том же чате.</p>
     </div>
     <div class="feat-grid">
       <div class="feat">
@@ -1296,28 +1296,21 @@
       </div>
       <div class="feat">
         <div>
-          <div class="feat-num">03 / ROUTE PLANNER</div>
-          <h3 class="feat-title" data-i18n="new.route.title">Планировщик маршрута</h3>
-        </div>
-        <p class="feat-body" data-i18n="new.route.body">/route прогнозирует заряд к прибытию и подбирает зарядки по пути — с учётом вашего типа разъёма.</p>
-      </div>
-      <div class="feat">
-        <div>
-          <div class="feat-num">04 / CHARGE CALC</div>
+          <div class="feat-num">03 / CHARGE CALC</div>
           <h3 class="feat-title" data-i18n="new.calc.title">Сколько заряжаться?</h3>
         </div>
         <p class="feat-body" data-i18n="new.calc.body">/calc 32 80 покажет время и стоимость зарядки с 32% до 80% — по вашей собственной истории зарядок.</p>
       </div>
       <div class="feat">
         <div>
-          <div class="feat-num">05 / REPORTS</div>
+          <div class="feat-num">04 / REPORTS</div>
           <h3 class="feat-title" data-i18n="new.report.title">Отчёты о поездках</h3>
         </div>
         <p class="feat-body" data-i18n="new.report.body">Отчёт по любой поездке и сводка за 30 дней со сравнением по дням. Открывается одной кнопкой из карточки поездки.</p>
       </div>
       <div class="feat">
         <div>
-          <div class="feat-num">06 / CAR MESSAGES</div>
+          <div class="feat-num">05 / CAR MESSAGES</div>
           <h3 class="feat-title" data-i18n="new.alerts.title">Сообщения от машины</h3>
         </div>
         <p class="feat-body" data-i18n="new.alerts.body">Предупреждения, которые машина показывает на экране, приходят и в Telegram — не нужно открывать приложение Tesla.</p>
@@ -1462,7 +1455,7 @@
           <li data-i18n="price.li5">Статистика и история по запросу</li>
           <li data-i18n="price.li6">Команды Telegram с гибкой настройкой</li>
           <li data-i18n="price.li7">Дашборд Mini App и отчёты о поездках</li>
-          <li data-i18n="price.li8">Здоровье батареи и планировщик маршрута</li>
+          <li data-i18n="price.li8">Здоровье батареи</li>
         </ul>
         <a href="https://t.me/WattsonEVBot?start=lp_home_ru" class="btn btn-primary" style="background:#fff; color:#000; width:100%; justify-content:center;" data-i18n="price.cta" data-cta="pricing">Начать</a>
       </div>
@@ -1488,7 +1481,7 @@
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q3">Какие уведомления присылает WattsonBot?</summary>
-        <p data-i18n="faq.a3">Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, планировщик маршрута /route с зарядками и калькулятор зарядки /calc.</p>
+        <p data-i18n="faq.a3">Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, калькулятор зарядки /calc.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="faq.q4">Нужно ли устанавливать приложение для WattsonBot?</summary>
@@ -1624,13 +1617,11 @@
       "mini.note": "Illustrative screens with sample data.",
       "new.eyebrow": "New",
       "new.title": "More than alerts.",
-      "new.sub": "Mini App, battery health, route planning and reports — all inside the same chat.",
+      "new.sub": "Mini App, battery health and reports — all inside the same chat.",
       "new.mini.title": "Live dashboard in Telegram",
       "new.mini.body": "Trips, charges, trends and a live “Now” tab in one Mini App. Switch between Today, Week and Month.",
       "new.soh.title": "Battery health, tracked",
       "new.soh.body": "Usable capacity and state of health against factory spec, with a monthly trend in /stats and the Mini App.",
-      "new.route.title": "Plan the trip, find the chargers",
-      "new.route.body": "/route forecasts your arrival charge and picks chargers along the way, filtered by your connector type.",
       "new.calc.title": "How long to charge?",
       "new.calc.body": "/calc 32 80 tells you the time and cost to go from 32% to 80%, based on your own charging history.",
       "new.report.title": "Trip and 30-day reports",
@@ -1697,7 +1688,7 @@
       "price.li5": "Stats &amp; history on demand",
       "price.li6": "Configurable Telegram commands",
       "price.li7": "Live Mini App dashboard &amp; trip reports",
-      "price.li8": "Battery health &amp; route planner",
+      "price.li8": "Battery health",
       "price.cta": "Get started",
       "faq.eyebrow": "FAQ",
       "faq.title": "Questions,<br/>answered.",
@@ -1706,7 +1697,7 @@
       "faq.q2": "Is it safe to connect my Tesla to WattsonBot?",
       "faq.a2": "Yes. WattsonBot connects using a Tesla refresh token, not your account password. The bot only reads vehicle data and never sends commands to the car — it can't unlock, start or change charging. The token is stored encrypted, and changing your Tesla password revokes it at any time.",
       "faq.q3": "What alerts does WattsonBot send?",
-      "faq.a3": "Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, drive start/end summaries with location and energy used, and warnings the car itself shows on its screen. Beyond alerts: a live Mini App dashboard, battery health tracking, a /route trip planner with chargers and a /calc charge-time calculator.",
+      "faq.a3": "Real-time notifications for charging start/stop/target reached, low-battery and range warnings, tire pressure (TPMS) alerts, drive start/end summaries with location and energy used, and warnings the car itself shows on its screen. Beyond alerts: a live Mini App dashboard, battery health tracking, a /calc charge-time calculator.",
       "faq.q4": "Do I need to install an app to use WattsonBot?",
       "faq.a4": "No. Everything runs inside Telegram — open the chat with @WattsonEVBot, link your Tesla with a refresh token, and alerts start arriving in the same chat.",
       "faq.q5": "How much does WattsonBot cost?",
@@ -1784,13 +1775,11 @@
       "mini.note": "Иллюстрации с примерами данных.",
       "new.eyebrow": "Новое",
       "new.title": "Больше, чем уведомления.",
-      "new.sub": "Mini App, здоровье батареи, планирование маршрута и отчёты — всё в том же чате.",
+      "new.sub": "Mini App, здоровье батареи и отчёты — всё в том же чате.",
       "new.mini.title": "Дашборд прямо в Telegram",
       "new.mini.body": "Поездки, зарядки, тренды и живая вкладка «Сейчас» в одном Mini App. Переключатель: сегодня, неделя, месяц.",
       "new.soh.title": "Здоровье батареи под контролем",
       "new.soh.body": "Реальная ёмкость и износ относительно заводской, помесячный тренд — в /stats и в Mini App.",
-      "new.route.title": "Планировщик маршрута",
-      "new.route.body": "/route прогнозирует заряд к прибытию и подбирает зарядки по пути — с учётом вашего типа разъёма.",
       "new.calc.title": "Сколько заряжаться?",
       "new.calc.body": "/calc 32 80 покажет время и стоимость зарядки с 32% до 80% — по вашей собственной истории зарядок.",
       "new.report.title": "Отчёты о поездках",
@@ -1857,7 +1846,7 @@
       "price.li5": "Статистика и история по запросу",
       "price.li6": "Команды Telegram с гибкой настройкой",
       "price.li7": "Дашборд Mini App и отчёты о поездках",
-      "price.li8": "Здоровье батареи и планировщик маршрута",
+      "price.li8": "Здоровье батареи",
       "price.cta": "Начать",
       "faq.eyebrow": "Вопросы и ответы",
       "faq.title": "Отвечаем<br/>на вопросы.",
@@ -1866,7 +1855,7 @@
       "faq.q2": "Безопасно ли подключать Tesla к WattsonBot?",
       "faq.a2": "Да. WattsonBot подключается через Tesla refresh token, а не пароль от аккаунта. Бот только читает данные и никогда не отправляет машине команд — не открывает, не заводит и не меняет зарядку. Токен хранится в зашифрованном виде, а смена пароля Tesla в любой момент отзывает доступ.",
       "faq.q3": "Какие уведомления присылает WattsonBot?",
-      "faq.a3": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, планировщик маршрута /route с зарядками и калькулятор зарядки /calc.",
+      "faq.a3": "Уведомления в реальном времени о начале/окончании зарядки и достижении цели, предупреждения о низком заряде и запасе хода, о давлении в шинах (TPMS), сводки о поездках с геолокацией и расходом энергии, а также предупреждения, которые машина показывает на своём экране. Кроме уведомлений: живой дашборд Mini App, здоровье батареи, калькулятор зарядки /calc.",
       "faq.q4": "Нужно ли устанавливать приложение для WattsonBot?",
       "faq.a4": "Нет. Всё работает внутри Telegram — откройте чат с @WattsonEVBot, подключите Tesla через refresh token, и уведомления начнут приходить прямо в этот чат.",
       "faq.q5": "Сколько стоит WattsonBot?",
