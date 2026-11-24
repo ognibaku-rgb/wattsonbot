@@ -415,6 +415,19 @@
 <!-- CONTENT -->
 <div class="doc-body">
 
+  <!-- SHORT ANSWER -->
+  <div class="doc-section" id="answer">
+    <h2>Which notifications will I get?</h2>
+    <p class="doc-lead">Four charging messages in Telegram: <strong>charging started</strong> (battery level, charge limit, power, time to finish), <strong>charging complete</strong> (energy added, duration, cost), <strong>charging interrupted</strong> if the limit was not reached, and a <strong>low-battery</strong> warning. They are triggered by the car's charging state, so they arrive on their own, within about half a minute of the event. Example (illustrative numbers):</p>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">🔌 Charging started!
+Battery: 42% → 80% · 11 kW · ~1 h 20 min</div>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">✅ Charging complete!
+Battery: 80%
+⚡ Added: 28.4 kWh
+⏱ Duration: 1 h 18 min
+💰 Cost: 4.30 EUR</div>
+  </div>
+
   <!-- THE PROBLEM -->
   <div class="doc-section" id="tradeoff">
     <div class="section-eyebrow">01 / The habit</div>
