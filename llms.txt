@@ -2,10 +2,10 @@
 
 > Real-time Tesla vehicle monitoring delivered to Telegram. Instant alerts for charging, battery level, tire pressure and drive events — no extra app to install, no dashboard to check.
 
-WattsonBot connects to a Tesla vehicle using a read-only refresh token (never the account password) and sends notifications straight to a Telegram chat with @WattsonEVBot.
+WattsonBot connects to a Tesla vehicle using a Tesla refresh token (never the account password) and sends notifications straight to a Telegram chat with @WattsonEVBot.
 
 ## Pricing
-$5/month, one plan, covers one Tesla with unlimited alerts, stats, and history on demand. Cancel anytime from Telegram with /billing.
+$5/month, one plan, covers one Tesla with unlimited alerts, stats, and history on demand. Starts with a 7-day free trial, no card needed. No auto-renewal: each month is a separate payment in Telegram (Stars or crypto); /billing shows your status.
 
 ## Features
 - Real-time charging alerts (start, stop, target reached)
@@ -16,7 +16,7 @@ $5/month, one plan, covers one Tesla with unlimited alerts, stats, and history o
 - Configurable per-channel notification settings
 
 ## Security
-Uses a Tesla refresh token, not the account password. The token grants read-only access to vehicle data — it cannot control or drive the car — and can be revoked at any time from the Tesla account.
+Uses a Tesla refresh token, not the account password. The token itself has the same access as the Tesla app, so share it only with a service you trust. WattsonBot only reads vehicle data (location, battery, charging state, tyre pressure) and never sends commands to the car. The token can be revoked at any time by changing the Tesla password.
 
 ## Links
 - Website: https://wattsonbot.org/
