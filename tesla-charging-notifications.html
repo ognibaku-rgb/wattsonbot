@@ -403,7 +403,8 @@
 <!-- HERO -->
 <div class="page-hero">
   <div class="eyebrow">Charging Notifications</div>
-  <h1>Know it's charging.<br/>Without opening the app.</h1>
+  <h1>Tesla charging notifications in Telegram</h1>
+  <p class="hero-kicker">Know it's charging. Without opening the app.</p>
   <p>A Telegram message the moment your Tesla starts charging, hits your target, or gets unplugged early — right in the chat you already have open.</p>
   <div class="cta-row">
     <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts" class="btn btn-primary" data-cta="hero">Start in Telegram</a>
@@ -413,6 +414,19 @@
 
 <!-- CONTENT -->
 <div class="doc-body">
+
+  <!-- SHORT ANSWER -->
+  <div class="doc-section" id="answer">
+    <h2>Which notifications will I get?</h2>
+    <p class="doc-lead">Four charging messages in Telegram: <strong>charging started</strong> (battery level, charge limit, power, time to finish), <strong>charging complete</strong> (energy added, duration, cost), <strong>charging interrupted</strong> if the limit was not reached, and a <strong>low-battery</strong> warning. They are triggered by the car's charging state, so they arrive on their own, within about half a minute of the event. Example (illustrative numbers):</p>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">🔌 Charging started!
+Battery: 42% → 80% · 11 kW · ~1 h 20 min</div>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">✅ Charging complete!
+Battery: 80%
+⚡ Added: 28.4 kWh
+⏱ Duration: 1 h 18 min
+💰 Cost: 4.30 EUR</div>
+  </div>
 
   <!-- THE PROBLEM -->
   <div class="doc-section" id="tradeoff">
@@ -592,8 +606,8 @@
       <div>
         <h4>Product</h4>
         <div>
-          <a href="index.html#features">Features</a>
-          <a href="index.html#pricing">Pricing</a>
+          <a href="/#features">Features</a>
+          <a href="/#pricing">Pricing</a>
           <a href="docs.html">Documentation</a>
           <a href="teslamate-alternative.html">TeslaMate Alternative</a>
           <a href="tesla-app-alternative.html">Tesla App Alternative</a>

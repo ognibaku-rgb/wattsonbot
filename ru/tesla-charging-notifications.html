@@ -403,7 +403,8 @@
 <!-- HERO -->
 <div class="page-hero">
   <div class="eyebrow">Уведомления о зарядке</div>
-  <h1>Зарядка идёт.<br/>Без захода в приложение.</h1>
+  <h1>Уведомления о зарядке Tesla в Telegram</h1>
+  <p class="hero-kicker">Зарядка идёт. Без захода в приложение.</p>
   <p>Сообщение в Telegram в момент, когда Tesla начинает заряжаться, достигает цели или отключается раньше времени — прямо в чат, который у вас и так открыт.</p>
   <div class="cta-row">
     <a href="https://t.me/WattsonEVBot?start=seo_charge_alerts_ru" class="btn btn-primary" data-cta="hero">Начать в Telegram</a>
@@ -413,6 +414,19 @@
 
 <!-- CONTENT -->
 <div class="doc-body">
+
+  <!-- SHORT ANSWER -->
+  <div class="doc-section" id="answer">
+    <h2>Какие уведомления я получу?</h2>
+    <p class="doc-lead">Четыре сообщения о зарядке в Telegram: <strong>зарядка началась</strong> (уровень, лимит, мощность, время до конца), <strong>зарядка завершена</strong> (добавленная энергия, длительность, стоимость), <strong>зарядка прервана</strong>, если лимит не достигнут, и предупреждение о <strong>низком заряде</strong>. Их запускает состояние зарядки в самой машине, поэтому они приходят сами, примерно в пределах получаминуты после события. Пример (цифры условные):</p>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">🔌 Зарядка началась!
+Заряд: 42% → 80% · 11 кВт · ~1 ч 20 мин</div>
+    <div style="background:var(--surface,rgba(127,127,127,.08));border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;white-space:pre-line;margin:16px 0 0;">✅ Зарядка завершена!
+Заряд: 80%
+⚡ Добавлено: 28.4 кВт·ч
+⏱ Длительность: 1 ч 18 мин
+💰 Стоимость: 4.30 EUR</div>
+  </div>
 
   <!-- THE PROBLEM -->
   <div class="doc-section" id="tradeoff">
@@ -592,8 +606,8 @@
       <div>
         <h4>Продукт</h4>
         <div>
-          <a href="index.html#features">Возможности</a>
-          <a href="index.html#pricing">Тарифы</a>
+          <a href="/ru/#features">Возможности</a>
+          <a href="/ru/#pricing">Тарифы</a>
           <a href="docs.html">Документация</a>
           <a href="teslamate-alternative.html">Альтернатива TeslaMate</a>
           <a href="tesla-app-alternative.html">Альтернатива приложению Tesla</a>
